@@ -50,7 +50,8 @@ For **features**, check that the issue states the problem and who needs it, not 
 
 ## Routing
 
-- **Wrong repo.** Suggest the right repo and draft the move note. Out-of-scope repos (`oda-component-ctk`, `model-as-a-service-crds`) are never transfer targets.
+- **Wrong repo.** Suggest the right repo. Out-of-scope repos (`oda-component-ctk`, `model-as-a-service-crds`) are never targets.
+- **Operator-specific work belongs in that operator's repo.** Under ADR-0022, each split-out operator repo (e.g. `TMFOP006-Event-Management`) owns that operator's work, including its BDD features. For an old `oda-canvas` issue about such an operator, **close it with a pointer** to the operator repo ("We will include … as part of TMFOP006-Event-Management"). **Transfer** only when the target repo is active and its owner wants the issue. (learned 2026-09-28 from oda-canvas backlog sweep #105–#220)
 - **Architecture or standards change.** If no ADR covers it, suggest proposing an ADR in `oda-ca-docs/Decision-Log`. The Architecture repo will replace this later.
 - **Security report in public.** Follow `sensitive-situations.md` immediately.
 
@@ -62,16 +63,21 @@ If the feature fits, point to the delivery path: use case, then BDD feature, the
 
 ## Stale and backlog issues
 
+**Close rather than re-scope.** When an old issue's premise is outdated, close it with a pointer to the current state. Don't retitle it into a new task: re-scoping old issues just rebuilds the backlog. A genuinely new gap can get a fresh, well-scoped issue if the maintainer wants one. (learned 2026-09-28 from oda-canvas backlog sweep #105–#220)
+
 For each old issue, decide one of the following:
 - **Done or superseded.** Find the PR or commit, and draft the closing comment with the link.
-- **Still valid.** Draft a short refresh: confirm it's still wanted, and suggest a label or `help wanted`.
+- **Outdated premise.** Close it, pointing to how things work now.
+- **Belongs to an operator repo.** Close it, with a pointer to that repo (see Routing).
+- **Still valid, as written.** Draft a short refresh: confirm it's still wanted, and suggest `help wanted`.
 - **Needs info.** Draft a needs-info comment. If there's no reply after the stale threshold, close with an invitation to reopen.
 - **Out of scope.** Close politely, with the reason and an alternative.
 
-External issues that have never had a maintainer reply come first, and deserve an apology for the delay. Keep it one short sentence, without grovelling.
+External issues that have never had a maintainer reply come first. **Don't open with an apology** for the delay; answer directly and thank the reporter. (learned 2026-09-28 from oda-canvas backlog sweep #105–#220)
 
 ## Change log
 
+- 2026-09-28 — changed — no apology openers; close rather than re-scope outdated issues; operator-specific work → close with a pointer to the operator repo (transfer only to active repos) — Lester's edits to sweep batch 1, confirmed as rules
 - 2026-09-28 — added — use `find_related.py` first; consolidate groups of near-identical issues — Phase 3
 - 2026-09-28 — added — read the whole thread, and linked items, before triaging; weight maintainer comments above the title — Lester's feedback on the #613 review
 - 2026-09-28 — added — seed from issue templates, `research/review-norms.md` §3–4 and `research/governance.md`

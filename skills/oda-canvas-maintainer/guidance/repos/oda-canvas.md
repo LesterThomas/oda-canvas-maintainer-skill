@@ -73,6 +73,10 @@ This is the most common source of blocking findings.
 - Consistency matters more than which variant is used (#567).
 - New capabilities should be reachable from the README and design docs. If they aren't, that's usually a follow-up (#598).
 
+## Split-out operators
+
+Work specific to an operator that now has its own repo (ADR-0022), for example events → `TMFOP006-Event-Management`, belongs in that repo, including its BDD features. Old `oda-canvas` issues about it are closed with a pointer, not re-scoped here. (learned 2026-09-28 from oda-canvas backlog sweep #105–#220)
+
 ## Scope etiquette
 
 - Lint failures in files the PR didn't change are out of scope for this PR.
@@ -81,5 +85,6 @@ This is the most common source of blocking findings.
 
 ## Change log
 
+- 2026-09-28 — added — split-out operators own their work and BDD features; close old oda-canvas issues with a pointer — Lester, sweep batch 1
 - 2026-09-28 — added — `apiType` means a semantic-layer protocol, not a transport; removed `sse` from the examples — Lester's #612 comment, approved in conversation
 - 2026-09-28 — added — seed from `AGENTS.md`, the `oda-canvas` skills and workflows, and `research/review-norms.md` §2

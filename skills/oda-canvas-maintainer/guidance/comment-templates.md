@@ -52,7 +52,7 @@ The voice rules are in `comment-style.md`. `<…>` marks something to fill in.
 
 ## Stale: still needed?
 
-> Sorry this has sat for so long, @<author>. Is this still an issue with the current Canvas release (<version>)? If we don't hear back in the next few weeks we'll close it, but it can always be reopened.
+> @<author>, is this still an issue with the current Canvas release (<version>)? If we don't hear back in the next few weeks we'll close it, but it can always be reopened.
 
 ## Close as stale / superseded
 
@@ -72,4 +72,5 @@ See `sensitive-situations.md`. Use only that wording.
 
 ## Change log
 
+- 2026-09-28 — changed — removed the apology opener from the stale template — the no-apology rule in `comment-style.md`
 - 2026-09-28 — added — seed templates in Lester's style

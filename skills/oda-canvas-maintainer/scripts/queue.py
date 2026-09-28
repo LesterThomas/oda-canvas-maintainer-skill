@@ -166,7 +166,7 @@ def next_step(it) -> str:
         if it.get("merged_prs_referencing"):
             return "Close as fixed? Check " + ", ".join(f"#{m['number']}" for m in it["merged_prs_referencing"])
         if it["external"] and not it["maintainer_responded"]:
-            return "Reply (apologise for the delay), then keep / needs-info / close"
+            return "Answer, then close (default) / needs-info / keep"
         return "Keep, refresh or close"
     return "None needed now"
 
