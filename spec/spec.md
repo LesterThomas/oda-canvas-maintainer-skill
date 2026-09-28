@@ -264,7 +264,7 @@ Draft comments follow established open source maintainer practice (sources in §
 - **Security vulnerability reported in public.** Draft a short, non-technical reply asking the reporter to use the private channel in CONTRIBUTING.md, `components@tmforum.org`. GitHub private vulnerability reporting is **disabled** on `oda-canvas` (checked 2026-09-28). The skill may suggest once to Lester that an admin enables it. Advise the maintainer about hiding or minimising the content. Never discuss exploit details in the draft.
 - **Code of Conduct concerns.** Flag them to the maintainer. Point to `code-of-conduct.md` and its enforcement contacts. Do not draft a public reprimand.
 - **Licensing / IP.** The project is Apache 2.0. Flag new dependencies with incompatible or unclear licences, and code that appears copied from elsewhere.
-- **Standards decisions.** Anything that changes the ODA Component specification or Canvas behaviour defined by TM Forum standards needs ratification. Flag it rather than recommending approval.
+- **Standards and architecture decisions.** Anything that changes the ODA Component specification, or Canvas architecture not covered by an existing ADR, needs ratification. Recommend *Comment*, and draft a suggestion to propose an ADR in `oda-ca-docs/Decision-Log`, or in the future Architecture repo. Don't recommend approval.
 
 ### 5.5 Honest about limits
 
@@ -278,9 +278,11 @@ A PR is approved when it meets both criteria. Nothing else is required.
    - it keeps the Canvas technology-independent and standards-based;
    - it works through the operator pattern;
    - it fits the Canvas design and use-case library;
-   - it moves the Reference Implementation towards what TM Forum standards define, not away from it.
+   - it moves the Reference Implementation towards what TM Forum standards define, not away from it;
+   - it is consistent with the **Architecture Decision Records** (ADRs) in `oda-ca-docs/Decision-Log`, which will later move to a dedicated Architecture repo;
+   - it advances the **AI-Native Canvas**, which is itself an ODA objective. AI-Native work (MCP, A2A and SSE apiTypes, agent components, AI gateway, MaaS, evaluation) is aligned by default and reviewed on quality.
    
-   Changes to the standard itself need ratification first.
+   An architecture or standards change that no ADR covers is routed to a **new ADR**: the skill drafts the suggestion to propose one. It is not approved on the strength of the code alone. See `research/oda-objectives.md` for the alignment tests and the ADR snapshot.
 2. **Quality.** The change is good enough to merge:
    - correct;
    - tested where behaviour changes;
@@ -530,7 +532,8 @@ The skill looks for `~/.config/oda-canvas-maintainer/config.yaml`, falling back 
 - `co_maintainers` — the other maintainers' logins, used to detect items another maintainer is already handling. The default, derived from who approved and merged the last 100 PRs, is `brian-burton`, `ferenc-hechler`, `adarshkumar4` and `anshulkumar-tmf`;
 - `stale_days` and `no_response_days`;
 - `drafts_dir`;
-- `guidance_dir` — defaults to the skill's own `guidance/` folder (§7.4).
+- `guidance_dir` — defaults to the skill's own `guidance/` folder (§7.4);
+- `adr_source` — where to read the ADR index. The default is `tmforum-oda/oda-ca-docs:Decision-Log/README.md`, and it can be changed when the Architecture repo arrives. The index is fetched live at review time.
 
 Label mapping lives in `guidance/labels-and-metadata.md`, not in config, so that feedback can refine it.
 
@@ -645,8 +648,10 @@ All sources were **verified on 2026-09-28** (task 1.4). Summaries and paraphrase
 6. **Private vulnerability reporting** is disabled. `components@tmforum.org` is the only private channel.
 8. **Response-time targets.** The data supports the 7-day and 60-day defaults (median first PR response is 23 h, but the 75th percentile is about 7 days).
 
-**Still open.** These don't block Phase 2:
+**Answered by Lester (2026-09-28, round 2):**
 
-7. **Ratification route.** For standards-changing feature requests, where should the draft point? The default is a generic statement, which can be refined through feedback.
-9. **`co_maintainers`.** Is the derived list (brian-burton, ferenc-hechler, adarshkumar4, anshulkumar-tmf) right?
-10. **AI-Native changes.** Are MCP, A2A and SSE `apiType`s, agent components and MaaS aligned by default as a ratified epic, or should CRD enum additions still be flagged as standards changes? See `research/oda-objectives.md`; open PR #613 is a live example.
+7. **Ratification route.** Propose an **Architecture Decision Record**. ADRs live in `oda-ca-docs/Decision-Log` today and will move to a dedicated Architecture repo later (config `adr_source`). Existing ADRs are also an alignment source.
+9. **`co_maintainers`.** Confirmed: `brian-burton`, `ferenc-hechler`, `adarshkumar4`, `anshulkumar-tmf`.
+10. **AI-Native changes.** An AI-Native Canvas is an ODA goal, so this work is aligned by default and reviewed on quality (§5.6).
+
+No open questions remain.

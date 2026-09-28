@@ -77,7 +77,36 @@ A change **aligns** when it does most of these, and none of the red flags below 
 | #513 Resource Inventory Helm | Approved, asking to remove MongoDB | Right layer: it translates the K8s API and doesn't store data |
 | #448 Multi-namespace components | Judged in scope | "It should be part of the Canvas reference implementation" |
 
-## Open points to confirm with Lester
+## Decisions from Lester (2026-09-28)
 
-1. Should AI-Native work (MCP `apiType`s, A2A/SSE, agent components, MaaS) be treated as **aligned by default**, as a ratified design epic, or still flagged as a standards change when it adds CRD enum values? Open PR #613 re-adds `a2a` and `sse` apiTypes.
-2. Where should ratification-needed items point? Spec Q7 is still open. Is it the ODA Components & Canvas project calls, a Jira TAC item, or something else?
+1. **Delivering an AI-Native Canvas is itself an ODA objective.** AI-Native work is **aligned by default**: MCP, A2A and SSE `apiType`s, agent components, AI gateway, Model-as-a-Service and evaluation. It is not flagged as a standards change just for adding capability, such as CRD enum values. The normal quality checks still apply, including backward compatibility (N-2), webhook conversion and BDD evidence.
+   - Example: PR #613 re-adds the `a2a` and `sse` apiTypes. It is aligned (see ADR-0019 below), and it is reviewed on quality.
+2. **Architecture decisions live in Architecture Decision Records (ADRs).** Today they are in the [`oda-ca-docs/Decision-Log`](https://github.com/tmforum-oda/oda-ca-docs/tree/master/Decision-Log). A dedicated Architecture repository will replace it later. This is both:
+   - **an alignment source.** A PR that implements an accepted or in-progress ADR is aligned. A PR that contradicts an ADR is a red flag;
+   - **the ratification route.** A change that alters architecture or the standard and isn't covered by an ADR should be proposed as a new ADR (a PR to the Decision-Log) before or alongside implementation. It shouldn't just be merged.
+
+### ADR index snapshot (2026-09-28)
+
+There are 22 ADRs. The ones most relevant to reviews:
+
+| ADR | Topic | Status |
+| --- | --- | --- |
+| 0003 | Reference API gateway | Approved |
+| 0009 | Monorepo Helm and container versioning | Pending board |
+| 0010 | AI4Canvas operator scope | Proposed |
+| 0011 | Uniform Canvas-to-Component information transfer | Proposed |
+| 0012 | Handling of ExposedAPIs by different operators | Proposed |
+| 0013 | No certification for Canvas implementations | Pending board |
+| 0014 | Multiple component namespaces | Pending board |
+| 0015 | AI Gateway for LLM access | In progress |
+| 0016 | MCP server for TM Forum Open APIs | In progress |
+| 0017 | Strategy for AI agents | In progress |
+| 0018 | AI Model operator for agentic components | In progress |
+| 0019 | Adopt A2A for agent skill exposure | In progress |
+| 0020 | ML model integration via MLOps | In progress |
+| 0021 | Optimise the ODA Canvas repo for AI coding agents | In progress |
+| 0022 | Modular and independent operators | In progress |
+
+Many ADRs are *In progress* or *Proposed*. For review purposes, treat those as the current agreed direction, not as settled law. When a PR conflicts with a *Proposed* ADR, raise it as a `question:`, not a blocker.
+
+**Correction to the objectives above.** ADR-0013 records "no certification for Canvas implementations". That qualifies objective 2: the Reference Implementation is used to *certify Components*, not to certify other Canvases. The skill fetches the live ADR index at review time, because it changes.

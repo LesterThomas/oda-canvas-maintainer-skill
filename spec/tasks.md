@@ -15,13 +15,13 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
 ## Phase 0 — Foundations
 
 - [x] **0.1** Set up git and the remote at `github.com/LesterThomas/oda-canvas-maintainer-skill`: `git init`, a `.gitignore`, and a first commit of `spec/`. **Done 2026-09-28:** public repo, with `main` tracking `origin`.
-- [~] **0.2** Record the answers to the spec §12 open questions. **Partly done 2026-09-28:**
+- [x] **0.2** Record the answers to the spec §12 open questions. **Done 2026-09-28.** All questions are answered. Round 1:
   - Q1: scope exclusions decided;
   - Q2: one approval, about 5 maintainers, personal use for now;
   - Q4: no special handling for AI PRs; the criteria are ODA alignment and quality;
   - Q5: marketplace creator skill later.
   
-  Q3, Q6, Q7 and Q8 have defaults and are resolved by task 1.2 or by feedback. They don't block Phase 2.
+  Round 2 answered Q7 (the ADR route) and Q9/Q10 (co-maintainers, AI-Native aligned), and research answered Q3, Q6 and Q8.
 - [ ] **0.3** Confirm the tooling on this machine (Windows): `gh` authenticated as `LesterThomas` with access to `tmforum-oda` (confirmed 2026-09-28), and Python 3.10+. Record the minimum `gh` version needed for `gh pr checks --json` and `gh search`.
 
 ## Phase 1 — Research (ground the seed guidance in real project behaviour)
@@ -32,7 +32,7 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - `oda-canvas` carries most of the load, with 66 open issues and 8 open PRs, so the queue (§4.1) and stale housekeeping (§4.5) matter from day one.
   - **Maintainer scope decisions:** `oda-component-ctk` is excluded (replaced by other work), and `model-as-a-service-crds` is excluded (merging into `TMFCOP009`).
 - [x] **1.2** Collect governance facts for the Tier 1 and Tier 2 repos. **Done 2026-09-28 → [`research/governance.md`](../research/governance.md).**
-  - Proposed `co_maintainers`, from the last 100 approvals and merges: `brian-burton`, `ferenc-hechler`, `adarshkumar4`, `anshulkumar-tmf`. *Awaiting Lester's confirmation (spec §12 Q9).*
+  - Proposed `co_maintainers`, from the last 100 approvals and merges: `brian-burton`, `ferenc-hechler`, `adarshkumar4`, `anshulkumar-tmf`. **Confirmed by Lester 2026-09-28.**
   - One approval is a convention, not enforced. There is no branch protection, 26 of the last 100 PRs merged with no approval, and 48 were self-merged.
   - The issue templates apply labels that don't exist: `bug`, `docs`, `chore` and `style`.
   - Milestones are unused, Discussions are off, and private vulnerability reporting is **off**, so security goes to `components@tmforum.org`.
@@ -53,7 +53,12 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
 - [x] **1.5** Distil the ODA and ODA Canvas objectives into alignment tests. **Done 2026-09-28 → [`research/oda-objectives.md`](../research/oda-objectives.md).**
   - It sets out 7 stated objectives, 9 alignment tests and 5 red flags.
   - It includes a calibration table of 6 real decisions (#602, #603, #573, #581, #513, #448).
-  - Open point for Lester: whether AI-Native CRD enum additions (e.g. PR #613, A2A/SSE apiTypes) count as aligned by default (spec §12 Q10).
+  - **Resolved with Lester 2026-09-28:**
+    - an AI-Native Canvas is an ODA goal, so that work is aligned by default;
+    - the ratification route is a new **ADR** in `oda-ca-docs/Decision-Log`, which will later move to an Architecture repo;
+    - ADRs are also an alignment source, so the skill fetches the ADR index live.
+    
+    ADR-0013 corrects one assumption: the Reference Implementation certifies Components, not other Canvases.
 - [x] **1.6** Review the neighbouring skills and marketplace fit. **Done 2026-09-28 → [`research/neighbouring-skills.md`](../research/neighbouring-skills.md).**
   - The skill reviews *against* `helm-chart-development`, `write-bdd-feature` and `create-oda-operator`, and links to them without copying them.
   - It hands CI debugging to `github-actions-debugging`.
@@ -85,7 +90,7 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - offer a local commit at the end of the session and never push without asking.
 - [ ] **2.5** Write `guidance/README.md`: the file index, the file format (frontmatter, Guidance, Change log), the provenance tag format, and the precedence rules (§7.5).
 - [ ] **2.6** Write the seed guidance files from Phase 1:
-  - `approval-criteria.md` (from 1.5 and 1.3);
+  - `approval-criteria.md` (from 1.5 and 1.3), including the AI-Native-by-default rule, how to check a PR against the ADRs (fetched live via `adr_source`), and the draft an ADR is needed wording;
   - `pr-review.md` (spec §7.2 seed);
   - `issue-triage.md`, including the Canvas needs-info checklist (chart version, Kubernetes version, component spec version, operator, logs) and the ratification route default;
   - `comment-style.md`, covering best practice from 1.4, Conventional Comments, `oda-canvas` writing style and the maintainer's phrasing from 1.3;
