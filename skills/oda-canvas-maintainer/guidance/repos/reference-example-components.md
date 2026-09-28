@@ -28,9 +28,10 @@ These components are what the ODA Canvas BDD tests and demos install. A broken c
 
 ## Open issues to be aware of
 
-- **#70: the repository has no LICENSE file.** GitHub detects no licence. This is a governance question for the maintainers and TM Forum, not something to resolve in a review (see `sensitive-situations.md` → Licensing).
+- **#70: the repository has no LICENSE file.** Policy: reference-example-components are **Apache-2.0**. The fix is to add the standard Apache-2.0 `LICENSE` at the repo root, and a PR doing that is a normal PR to approve. Reply to #70 confirming the licence. (learned 2026-09-28 in conversation)
 - **#63:** a broken Swagger URL for TMF672 v5.0.0. External issues about API spec URLs often belong upstream with the Open API team. Check before accepting a fix here.
 
 ## Change log
 
+- 2026-09-28 — changed — the repo is Apache-2.0; #70 is resolved by adding the Apache-2.0 LICENSE — Lester, in conversation
 - 2026-09-28 — added — seed from the repo layout, `release.yml`, `Chart.yaml` conventions, recent PRs (#62–#74) and open issues

@@ -30,8 +30,10 @@ Examples are harassment, personal attacks and discriminatory language.
 
 ## Licensing and IP
 
-- **Licences differ across the org.** `oda-canvas` and `TMFOP006` are Apache-2.0. `TMFCOP009` and `TMFOP012` carry a TM Forum RAND notice. `reference-example-components` has no LICENSE file (issue #70).
-- **A PR or issue that changes or adds a licence is an escalation, not a review item.** Examples are TMFCOP009 PR #1 (Apache-2.0 → RAND) and ref-components #70. Put "Escalate (licensing)" as the recommended action and summarise the facts. Draft at most a holding reply ("thanks, this needs a decision from TM Forum and the maintainers"). Never recommend approving it on code grounds.
+- **Licence policy:** `oda-canvas`, every `TMFOPnnn-*` operator repo and `reference-example-components` should be **Apache-2.0**. *Why:* the Reference Implementation and its operators and example components are open-source assets that others re-use and extend. (learned 2026-09-28 in conversation)
+  - **Deviations as of 2026-09-28:** `TMFOP012` carries a TM Forum RAND notice, which should be Apache-2.0. `reference-example-components` has no LICENSE file (#70); it should get an Apache-2.0 LICENSE. `TMFCOP009` also carries RAND, and its PR #1 proposes Apache-2.0 → RAND. Whether `TMFCOPnnn` repos fall under the policy is to be confirmed.
+- **Licence changes that move *towards* the policy** (adding or restoring an Apache-2.0 LICENSE in a repo the policy covers) are normal PRs. Recommend Approve, provided the LICENSE is the unmodified Apache-2.0 text.
+- **Licence changes that move *away* from the policy** (e.g. Apache-2.0 → RAND in a `TMFOP` repo), and licence changes in repos the policy doesn't cover, are **escalations**. Put "Escalate (licensing)" as the recommended action and summarise the facts. Draft at most a holding reply. Never recommend approving them on code grounds.
 - **Code moving between repos with different licences** (for example from a RAND repo into Apache-2.0 `oda-canvas`, or the reverse) is blocking until the maintainers confirm it is allowed.
 - **New dependencies:** flag a dependency with a copyleft (GPL/AGPL) or unclear licence.
 - **Copied code:** flag code that looks copied from elsewhere, for example a different licence header, or large blocks with a foreign style.
@@ -52,5 +54,6 @@ How to handle it:
 
 ## Change log
 
+- 2026-09-28 — changed — licence policy: Apache-2.0 for oda-canvas, TMFOPnnn repos and reference-example-components; changes towards the policy are normal PRs, changes away from it escalate — Lester, in conversation
 - 2026-09-28 — added — licence facts per repo; licence-change PRs and cross-licence code are escalations — Phase 3 repo survey
 - 2026-09-28 — added — seed from spec §5.2 and §5.4, `research/governance.md` and `research/sources.md`

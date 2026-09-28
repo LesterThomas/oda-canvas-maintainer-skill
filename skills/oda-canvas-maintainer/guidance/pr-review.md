@@ -33,7 +33,7 @@ last_updated: 2026-09-28
 5. **Assess alignment, then quality** (see `approval-criteria.md`). Classify every finding as blocking or non-blocking.
 6. **Decide the verdict:**
    - **Approve:** aligned, no blocking findings, required CI green. Pending or long-running BDD runs are acceptable only if test evidence is attached.
-   - **Request changes:** at least one blocking finding the author must fix.
+   - **Request changes:** at least one blocking finding the author must fix that needs judgement or real work. A lone *mechanical* fix, such as a version bump, is Approve with the fix requested (see `approval-criteria.md`).
    - **Comment:** alignment is uncertain, an ADR is needed, or questions must be answered before a verdict.
    
    Never recommend Approve while required CI fails, or while blocking findings remain. If the maintainer wants to override, state what they are overriding.
@@ -70,5 +70,6 @@ Every finding cites evidence: `path:line`, a CI job name, or a quoted line. If t
 
 ## Change log
 
+- 2026-09-28 — changed — verdict: a lone mechanical fix means Approve with the fix requested, not Request changes — Lester, #613
 - 2026-09-28 — added — read all comments on the PR and associated issues; weight maintainer comments above titles and descriptions — Lester: the #613 review flagged the deliberate removal of `sse` because #612's discussion wasn't read
 - 2026-09-28 — added — seed from spec §7.2 and `research/review-norms.md`

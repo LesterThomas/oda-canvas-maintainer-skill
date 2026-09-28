@@ -23,13 +23,13 @@ These repos hold Canvas operators developed outside `oda-canvas`, following ADR-
 - **Demo code vs product code.** Several repos target DTW demos (e.g. TMFOP012's demo agent). Demo assets are fine, but they should be clearly separated (for example in `demo-app/`) and not required by the operator.
 - **Vendor specifics.** Operators wrapping a vendor product (e.g. Databricks in TMFOP012) are fine as *one implementation* of a capability. The CRD and Component declarations should stay vendor-neutral where the design has a pluggable slot.
 
-## Licences differ across these repos
+## Licences
 
-- `TMFOP006` is Apache-2.0.
-- `TMFCOP009` and `TMFOP012` carry a **TM Forum RAND** notice, and TMFCOP009 PR #1 proposes replacing Apache-2.0 with RAND.
+- `TMFOP006` is Apache-2.0, which is in line with the policy.
+- **Policy: `TMFOPnnn` repos are Apache-2.0** (see `sensitive-situations.md`). `TMFOP012` currently carries a TM Forum RAND notice, so it is out of line and should get the Apache-2.0 LICENSE. `TMFCOP009` also carries RAND, and its PR #1 proposes Apache-2.0 → RAND. Whether `TMFCOPnnn` repos are covered is to be confirmed, so escalate that PR. (learned 2026-09-28 in conversation)
 - `oda-canvas` is Apache-2.0.
 
-Licence changes, and code moving between repos with different licences, are escalations, not review items (see `sensitive-situations.md` → Licensing).
+A PR that moves a repo *towards* Apache-2.0 is a normal PR. Moves *away* from it, and code copied between repos with different licences, are escalations (see `sensitive-situations.md` → Licensing).
 
 ## Repo notes
 
@@ -39,4 +39,5 @@ Licence changes, and code moving between repos with different licences, are esca
 
 ## Change log
 
+- 2026-09-28 — changed — TMFOPnnn repos should be Apache-2.0; TMFOP012 flagged as out of line — Lester, in conversation
 - 2026-09-28 — added — seed from repo surveys (layout, licences, PRs) and ADR-0022

@@ -81,6 +81,9 @@ Typical weaknesses of AI-generated code are ordinary quality problems. Look for 
 
 When a PR is valuable, aligned and free of blocking problems, **recommend Approve and draft follow-up issues for the remaining points**. Don't hold the PR for them. *Why:* this is how Lester reviews (#603: approved while raising #609–611; #598; #602). It keeps contributors moving, which matters because response time is the strongest community-health signal. It also still gets the work tracked.
 
+**Approve with a small mechanical fix requested.** If the only blocking finding is a small, mechanical fix with an obvious correct answer, recommend **Approve** and ask for the fix in the comment. Examples are a chart version bump or changelog line, clearing a prerelease suffix, or bumping a matching dependency version. Don't recommend *Request changes*. This applies to external contributors and co-maintainers alike. *Why:* the change itself is already judged good, and a *Request changes* for a one-line bump adds a full review round for no gain. The contributor can be trusted to make the fix before merging. (learned 2026-09-28 from oda-canvas#613)
+- This doesn't extend to fixes that need judgement or could go wrong: logic changes, missing tests, design questions. Those still get *Request changes*.
+
 Deadlines are a legitimate factor. "It would be good to merge before the DTW demo" is a reason to approve now and follow up later, provided nothing blocking remains.
 
 ## Calibration: real decisions
@@ -96,5 +99,6 @@ Deadlines are a legitimate factor. "It would be good to merge before the DTW dem
 
 ## Change log
 
+- 2026-09-28 — added — Approve (not Request changes) when the only blocker is a small mechanical fix, for all contributors — Lester approved #613 despite the draft's Request changes, and confirmed it as a rule
 - 2026-09-28 — changed — removed `sse` from the AI-Native examples, because `apiType` names protocols, not transports (see `repos/oda-canvas.md`) — Lester's #612 decision, approved in conversation
 - 2026-09-28 — added — seed from `research/oda-objectives.md` and `research/review-norms.md`; AI-Native aligned by default and the ADR route confirmed by Lester
