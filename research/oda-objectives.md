@@ -79,8 +79,8 @@ A change **aligns** when it does most of these, and none of the red flags below 
 
 ## Decisions from Lester (2026-09-28)
 
-1. **Delivering an AI-Native Canvas is itself an ODA objective.** AI-Native work is **aligned by default**: MCP, A2A and SSE `apiType`s, agent components, AI gateway, Model-as-a-Service and evaluation. It is not flagged as a standards change just for adding capability, such as CRD enum values. The normal quality checks still apply, including backward compatibility (N-2), webhook conversion and BDD evidence.
-   - Example: PR #613 re-adds the `a2a` and `sse` apiTypes. It is aligned (see ADR-0019 below), and it is reviewed on quality.
+1. **Delivering an AI-Native Canvas is itself an ODA objective.** AI-Native work is **aligned by default**: MCP and A2A `apiType`s, agent components, AI gateway, Model-as-a-Service and evaluation. It is not flagged as a standards change just for adding capability, such as CRD enum values. The normal quality checks still apply, including backward compatibility (N-2), webhook conversion and BDD evidence.
+   - Example: PR #613 re-adds the `a2a` apiType. It is aligned (see ADR-0019 below), and it is reviewed on quality. `sse` was deliberately *not* re-added: on #612, Lester ruled that `apiType` names semantic-layer protocols, not transports.
 2. **Architecture decisions live in Architecture Decision Records (ADRs).** Today they are in the [`oda-ca-docs/Decision-Log`](https://github.com/tmforum-oda/oda-ca-docs/tree/master/Decision-Log). A dedicated Architecture repository will replace it later. This is both:
    - **an alignment source.** A PR that implements an accepted or in-progress ADR is aligned. A PR that contradicts an ADR is a red flag;
    - **the ratification route.** A change that alters architecture or the standard and isn't covered by an ADR should be proposed as a new ADR (a PR to the Decision-Log) before or alongside implementation. It shouldn't just be merged.

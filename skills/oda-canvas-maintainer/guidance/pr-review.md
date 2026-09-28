@@ -9,11 +9,19 @@ last_updated: 2026-09-28
 ## Workflow
 
 1. **Understand the intent before judging the code.**
-   - Read the PR description, the linked issues and any ADR it cites.
+   - Read the PR description and any ADR it cites.
+   - **Read every comment on the PR, and every comment on each associated issue**: closing issues, and issues referenced in the PR body or title. `gather_item.py` returns them in `linked_issue_threads`.
+     *Why:* decisions are often made in the issue discussion after the title and description were written. A review based only on the title or description can flag a deliberate decision as a defect. (learned 2026-09-28 from oda-canvas#613)
    - Summarise in one sentence what the PR is *for*.
    
    *Why:* alignment (criterion 1) can't be judged without knowing the purpose, and a clear summary helps the maintainer decide fast.
-2. **Check what already exists.** Read:
+2. **Give maintainers' comments extra weight.** A comment from a maintainer (the maintainer themselves or a `co_maintainers` member) on the PR or an associated issue counts as the project's position.
+   - When such a comment conflicts with the PR or issue title or description, trust the comment, and treat the later maintainer comment as the current decision.
+   - Assess the PR against that decision, not against the stale wording.
+   - A title or description that no longer matches the decision is at most a **non-blocking** suggestion to update it.
+   
+   *Why:* maintainers set scope and direction for the project, so their recorded decisions outrank a contributor's original framing. (learned 2026-09-28 from oda-canvas#613)
+3. **Check what already exists.** Read:
    - CI status;
    - co-maintainer reviews;
    - Copilot review comments;
@@ -21,15 +29,15 @@ last_updated: 2026-09-28
    - attached test reports.
    
    Don't repeat points already made. Say which Copilot comments are worth acting on and which are noise.
-3. **Run the deterministic checks.** Run the repo's script if it has one (`canvas_pr_checks.py` for `oda-canvas`), then read the diff.
-4. **Assess alignment, then quality** (see `approval-criteria.md`). Classify every finding as blocking or non-blocking.
-5. **Decide the verdict:**
+4. **Run the deterministic checks.** Run the repo's script if it has one (`canvas_pr_checks.py` for `oda-canvas`), then read the diff.
+5. **Assess alignment, then quality** (see `approval-criteria.md`). Classify every finding as blocking or non-blocking.
+6. **Decide the verdict:**
    - **Approve:** aligned, no blocking findings, required CI green. Pending or long-running BDD runs are acceptable only if test evidence is attached.
    - **Request changes:** at least one blocking finding the author must fix.
    - **Comment:** alignment is uncertain, an ADR is needed, or questions must be answered before a verdict.
    
    Never recommend Approve while required CI fails, or while blocking findings remain. If the maintainer wants to override, state what they are overriding.
-6. **Draft the outputs:**
+7. **Draft the outputs:**
    - the summary comment;
    - inline comments;
    - follow-up issues for non-blocking points worth tracking;
@@ -62,4 +70,5 @@ Every finding cites evidence: `path:line`, a CI job name, or a quoted line. If t
 
 ## Change log
 
+- 2026-09-28 — added — read all comments on the PR and associated issues; weight maintainer comments above titles and descriptions — Lester: the #613 review flagged the deliberate removal of `sse` because #612's discussion wasn't read
 - 2026-09-28 — added — seed from spec §7.2 and `research/review-norms.md`

@@ -18,7 +18,7 @@ This is the background for judging alignment.
 - This repo is the **Reference Implementation**, used to certify *Components*. There is no certification of other Canvas implementations (ADR-0013).
 - Behaviour is defined implementation-agnostically, first in the use-case library and then in BDD features.
 - Capabilities arrive as **modular, independent Software Operators** following the Kubernetes Operator Pattern (ADR-0022). Each operator is re-usable, extendable and replaceable.
-- **Delivering an AI-Native Canvas is itself an ODA objective.** This covers MCP, A2A and SSE interfaces, agents as components, the AI gateway, Model-as-a-Service and evaluation.
+- **Delivering an AI-Native Canvas is itself an ODA objective.** This covers MCP and A2A interfaces, agents as components, the AI gateway, Model-as-a-Service and evaluation.
 
 ### Signals that a change aligns
 
@@ -36,7 +36,7 @@ Look for most of these. Name the ones you rely on in the brief.
 
 ### AI-Native work
 
-AI-Native work is **aligned by default**. Examples are new `apiType` values (`mcp`, `a2a`, `sse`), agent components, the AI gateway, MaaS operators and evaluation tooling. Review it on quality. Adding an enum value or CRD capability for AI-Native support is **not** a standards change needing ratification, but it still needs N-2 compatibility and webhook handling. *Why:* Lester confirmed an AI-Native Canvas is an ODA goal, and ADRs 0015–0020 set the direction.
+AI-Native work is **aligned by default**. Examples are new `apiType` values for semantic-layer protocols (`mcp`, `a2a`), agent components, the AI gateway, MaaS operators and evaluation tooling. Review it on quality. Adding an enum value or CRD capability for AI-Native support is **not** a standards change needing ratification, but it still needs N-2 compatibility and webhook handling. *Why:* Lester confirmed an AI-Native Canvas is an ODA goal, and ADRs 0015–0020 set the direction.
 
 ### Red flags
 
@@ -96,4 +96,5 @@ Deadlines are a legitimate factor. "It would be good to merge before the DTW dem
 
 ## Change log
 
+- 2026-09-28 — changed — removed `sse` from the AI-Native examples, because `apiType` names protocols, not transports (see `repos/oda-canvas.md`) — Lester's #612 decision, approved in conversation
 - 2026-09-28 — added — seed from `research/oda-objectives.md` and `research/review-norms.md`; AI-Native aligned by default and the ADR route confirmed by Lester

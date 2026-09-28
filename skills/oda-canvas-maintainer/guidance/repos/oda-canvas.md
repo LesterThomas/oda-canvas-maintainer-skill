@@ -52,7 +52,8 @@ This is the most common source of blocking findings.
 - **CRD descriptions document defaults and interpretation.** For example, a missing `segment` means `coreFunction` (#573).
 - **Segment consistency.** Changes to `coreFunction` handling usually also apply to `managementFunction` and `securityFunction` (#581, #573).
 - **Sub-resource names** (`ExposedAPI`, `DependentAPI`) are expected to match their definition in the Component. Downstream code relies on this (#573).
-- New `apiType` enum values for AI-Native work (`mcp`, `a2a`, `sse`, …) are aligned by default (see `approval-criteria.md`). Check that they are handled by the relevant API operators and the webhook.
+- New `apiType` enum values for AI-Native work (for example `mcp` and `a2a`) are aligned by default (see `approval-criteria.md`). Check that they are handled by the relevant API operators and the webhook.
+- **`apiType` values name semantic-layer application protocols** (`openapi`, `mcp`, `a2a`, `prometheus`/`openmetrics`), **not transports** such as SSE or WebSockets. If a PR or issue proposes a transport as an `apiType` in order to support a protocol, suggest supporting that protocol as the type instead. *Why:* the `apiType` tells operators what the interface *is*, so they can configure gateways, timeouts and tooling for it. A transport says how bytes move, not what the API means. (learned 2026-09-28 from oda-canvas#612)
 
 ## Operators
 
@@ -80,4 +81,5 @@ This is the most common source of blocking findings.
 
 ## Change log
 
+- 2026-09-28 — added — `apiType` means a semantic-layer protocol, not a transport; removed `sse` from the examples — Lester's #612 comment, approved in conversation
 - 2026-09-28 — added — seed from `AGENTS.md`, the `oda-canvas` skills and workflows, and `research/review-norms.md` §2

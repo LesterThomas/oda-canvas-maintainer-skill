@@ -85,7 +85,7 @@ Pick the mode from the request. If a request spans modes ("review the three olde
 
 ### Issue triage
 
-1. `python skills/oda-canvas-maintainer/scripts/gather_item.py <repo> <n> --maintainer <login> --co-maintainers <a,b,…>`
+1. `python skills/oda-canvas-maintainer/scripts/gather_item.py <repo> <n> --maintainer <login> --co-maintainers <a,b,…>`. Read the whole thread, including `linked_issue_threads`, before judging.
 2. Load `guidance/issue-triage.md`, `comment-style.md`, `comment-templates.md` and `labels-and-metadata.md`. Load `approval-criteria.md` if the issue is about scope or a feature.
 3. Search for duplicates and related items, open and closed, across the in-scope repos: `gh search issues "<key terms>" --repo <repo> --json number,title,state,url --limit 10`. Use the error strings and component names from the issue.
 4. For architecture or feature questions, fetch the ADR index (see **ADRs** below) and check for a relevant ADR.
@@ -96,7 +96,7 @@ Pick the mode from the request. If a request spans modes ("review the three olde
 1. Run `gather_item.py` as above. For `tmforum-oda/oda-canvas`, also run `python skills/oda-canvas-maintainer/scripts/canvas_pr_checks.py <repo> <n>`.
 2. Load `approval-criteria.md`, `pr-review.md`, `comment-style.md`, `labels-and-metadata.md` and `repos/<repo>.md` if it exists. If there is no repo file, say "no repo guidance; generic checks only" in the brief, and offer to start one after the review.
 3. Follow the workflow in `guidance/pr-review.md`:
-   - understand the intent;
+   - understand the intent: read **all** comments on the PR and on every associated issue (`linked_issue_threads` in the bundle), and give maintainers' comments (`maintainer_comments_in_linked_threads`, `is_maintainer`) precedence over titles and descriptions;
    - read what exists already (CI, co-maintainer and Copilot reviews, threads, attachments);
    - check the script findings;
    - read the diff;

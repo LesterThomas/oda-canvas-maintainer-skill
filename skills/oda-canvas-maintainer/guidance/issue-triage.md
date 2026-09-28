@@ -6,6 +6,13 @@ last_updated: 2026-09-28
 
 # Issue triage
 
+## Read the whole thread first
+
+- **Read every comment on the issue, and on any linked PRs or issues**, before classifying or drafting. `gather_item.py` returns them. Also read the comments on PRs and issues listed in `linkedItems` when they are relevant.
+- **Give maintainers' comments extra weight.** Treat a maintainer's (or co-maintainer's) comment as the project's position. The latest one is the current decision, and it outranks the issue title or original description.
+
+*Why:* scope decisions are made in the discussion. Triaging from the title alone contradicts decisions the maintainers have already taken. (learned 2026-09-28 from oda-canvas#613)
+
 ## Classify
 
 - **Types**, matching the `oda-canvas` issue templates:
@@ -64,4 +71,5 @@ External issues that have never had a maintainer reply come first, and deserve a
 
 ## Change log
 
+- 2026-09-28 — added — read the whole thread, and linked items, before triaging; weight maintainer comments above the title — Lester's feedback on the #613 review
 - 2026-09-28 — added — seed from issue templates, `research/review-norms.md` §3–4 and `research/governance.md`

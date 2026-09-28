@@ -70,6 +70,16 @@ query($owner:String!,$name:String!,$number:Int!){
   }}}
 """
 
+THREAD_QUERY = """
+query($owner:String!,$name:String!,$number:Int!){
+ repository(owner:$owner,name:$name){ issueOrPullRequest(number:$number){ __typename
+  ... on Issue{number title url state body author{login} comments(first:100){totalCount nodes{author{login} body createdAt url}}}
+  ... on PullRequest{number title url state body author{login} comments(first:100){totalCount nodes{author{login} body createdAt url}}}
+ } } }
+"""
+
+REF_RE = re.compile(r"(?:(?<![\w/])#(\d+)\b|github\.com/([\w.-]+)/([\w.-]+)/(?:issues|pull)/(\d+))")
+
 KIND_QUERY = """
 query($owner:String!,$name:String!,$number:Int!){
  repository(owner:$owner,name:$name){ issueOrPullRequest(number:$number){ __typename } } }
@@ -110,6 +120,42 @@ def truncate_diff(diff: str, max_total: int, max_file: int) -> tuple[str, dict]:
     return "".join(out), report
 
 
+def linked_threads(owner: str, name: str, number: int, texts: list[str], extra: list[int],
+                   maintainers: set[str], limit: int = 8) -> list[dict]:
+    """Full comment threads of associated issues/PRs: closing issues plus #refs and same-org links in the text."""
+    refs: list[tuple[str, str, int]] = [(owner, name, n) for n in extra]
+    for t in texts:
+        for m in REF_RE.finditer(t or ""):
+            if m.group(1):
+                refs.append((owner, name, int(m.group(1))))
+            elif m.group(2) == owner:
+                refs.append((m.group(2), m.group(3), int(m.group(4))))
+    seen, out = set(), []
+    for ref in refs:
+        if ref in seen or ref == (owner, name, number):
+            continue
+        seen.add(ref)
+        if len(out) >= limit:
+            out.append({"note": f"more references not fetched (limit {limit})"})
+            break
+        try:
+            node = graphql(THREAD_QUERY, owner=ref[0], name=ref[1], number=ref[2])["repository"]["issueOrPullRequest"]
+        except GhError:
+            continue
+        if not node:
+            continue
+        out.append({
+            "repo": f"{ref[0]}/{ref[1]}", "number": node["number"], "type": node["__typename"],
+            "title": node["title"], "url": node["url"], "state": node["state"],
+            "author": login(node), "body": node.get("body") or "",
+            "comments": [{"author": login(c), "is_maintainer": login(c) in maintainers,
+                          "createdAt": c["createdAt"], "body": c["body"], "url": c["url"]}
+                         for c in node["comments"]["nodes"]],
+            "comments_truncated": node["comments"]["totalCount"] > len(node["comments"]["nodes"]),
+        })
+    return out
+
+
 def prior_merged_prs(author: str, org: str) -> int | None:
     try:
         data = gh_json(["api", "-X", "GET", "search/issues",
@@ -145,7 +191,8 @@ def main() -> None:
         raise SystemExit(str(exc))
 
     author = login(node)
-    comments = [{"author": login(c), "createdAt": c["createdAt"], "body": c["body"], "url": c["url"]}
+    comments = [{"author": login(c), "is_maintainer": login(c) in maintainers, "createdAt": c["createdAt"],
+                 "body": c["body"], "url": c["url"]}
                 for c in node["comments"]["nodes"]]
     result = {
         "repo": f"{owner}/{name}", "number": number, "kind": "pr" if is_pr else "issue",
@@ -248,6 +295,15 @@ def main() -> None:
     else:
         result["waiting_on"] = f"unclear (last: @{last[1]})"
     result["last_human_activity"] = {"at": last[0], "by": last[1], "kind": last[2]} if last else None
+
+    # Associated issues/PRs with their full discussions (decisions often live there, not in the title).
+    extra = [i["number"] for i in result.get("closingIssues", [])]
+    extra += [i["number"] for i in result.get("linkedItems", []) if i.get("type") == "Issue"]
+    result["linked_issue_threads"] = linked_threads(owner, name, number, [node["title"], result["body"]],
+                                                    extra, maintainers)
+    result["maintainer_comments_in_linked_threads"] = [
+        {"item": t["number"], "author": c["author"], "createdAt": c["createdAt"], "body": c["body"]}
+        for t in result["linked_issue_threads"] if "comments" in t for c in t["comments"] if c["is_maintainer"]]
 
     texts = [result["body"]] + [e[3] or "" for e in events]
     result["attachments"] = sorted({u for t in texts for u in ATTACH_RE.findall(t)})

@@ -150,7 +150,16 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - It discounted the `crd-without-webhook` lead with evidence.
   - It drafted a regression-guard follow-up issue.
   
-  **Remaining:** Lester gives 2–3 pieces of feedback on the #613 brief, and we confirm they land in the right guidance files and are applied on a re-run.
+  **Correction from feedback (same day):** the `sse` "defect" was wrong. On #612, Lester had argued that SSE is a transport rather than a semantic-layer protocol, and the author then removed it. The skill never read #612's comments.
+
+  **Learning loop exercised, with signal 1 (explicit feedback):**
+  - New rules in `pr-review.md` and `issue-triage.md`: read all comments on the PR and associated issues, and give maintainer comments precedence over titles and descriptions.
+  - `gather_item.py` now fetches `linked_issue_threads`, flags `is_maintainer`, and adds `maintainer_comments_in_linked_threads`.
+  - The re-run applied the rule and dropped the false blocker. The verdict stays *Request changes*, now for the chart bump only.
+  - The superseded draft was renamed `*.learned.md`.
+  - An inferred rule (apiType values are semantic-layer protocols, not transports) was proposed rather than applied, per the loop design.
+  
+  **Remaining:** 1–2 more rounds of feedback, and one learn-from-posted-edit test with `draft_diff.py` once a review is posted.
 ## Phase 3 — Multi-repo coverage
 
 - [ ] **3.1** Write `scripts/queue.py`. It covers all configured repos and ranks items using the order in `guidance/queue-priorities.md`. It flags items another maintainer is handling, uses `gh search` or GraphQL to keep API calls low, and caches results for a short time.

@@ -280,7 +280,7 @@ A PR is approved when it meets both criteria. Nothing else is required.
    - it fits the Canvas design and use-case library;
    - it moves the Reference Implementation towards what TM Forum standards define, not away from it;
    - it is consistent with the **Architecture Decision Records** (ADRs) in `oda-ca-docs/Decision-Log`, which will later move to a dedicated Architecture repo;
-   - it advances the **AI-Native Canvas**, which is itself an ODA objective. AI-Native work (MCP, A2A and SSE apiTypes, agent components, AI gateway, MaaS, evaluation) is aligned by default and reviewed on quality.
+   - it advances the **AI-Native Canvas**, which is itself an ODA objective. AI-Native work (MCP and A2A apiTypes, agent components, AI gateway, MaaS, evaluation) is aligned by default and reviewed on quality.
    
    An architecture or standards change that no ADR covers is routed to a **new ADR**: the skill drafts the suggestion to propose one. It is not approved on the strength of the code alone. See `research/oda-objectives.md` for the alignment tests and the ADR snapshot.
 2. **Quality.** The change is good enough to merge:
