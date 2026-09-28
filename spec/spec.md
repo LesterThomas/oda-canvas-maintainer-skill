@@ -531,7 +531,7 @@ The skill looks for `~/.config/oda-canvas-maintainer/config.yaml`, falling back 
 - `maintainer_login` — used to work out "waiting on me";
 - `co_maintainers` — the other maintainers' logins, used to detect items another maintainer is already handling. The default, derived from who approved and merged the last 100 PRs, is `brian-burton`, `ferenc-hechler`, `adarshkumar4` and `anshulkumar-tmf`;
 - `stale_days` and `no_response_days`;
-- `drafts_dir`;
+- `drafts_dir` — default `~/.oda-canvas-maintainer/drafts`. This is outside any repo and survives plugin updates. Each draft has a sibling `.comment.md` file holding only the comment text, for `--body-file`;
 - `guidance_dir` — defaults to the skill's own `guidance/` folder (§7.4);
 - `adr_source` — where to read the ADR index. The default is `tmforum-oda/oda-ca-docs:Decision-Log/README.md`, and it can be changed when the Architecture repo arrives. The index is fetched live at review time.
 

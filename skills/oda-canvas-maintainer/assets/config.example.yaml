@@ -1,0 +1,46 @@
+# oda-canvas-maintainer configuration.
+# Copy to ~/.config/oda-canvas-maintainer/config.yaml to override. If that file
+# doesn't exist, the skill uses these defaults and says so.
+
+maintainer_login: LesterThomas
+
+# Other maintainers: used to see who is already handling an item.
+co_maintainers:
+  - brian-burton
+  - ferenc-hechler
+  - adarshkumar4
+  - anshulkumar-tmf
+
+# In-scope repositories (spec §3). Tier 3 repos are included, but ranked last in the queue.
+repos:
+  tier1:
+    - tmforum-oda/oda-canvas
+    - tmforum-oda/reference-example-components
+    - tmforum-oda/oda-helm-charts
+    - tmforum-oda/canvas-prerequisites
+  tier2:
+    - tmforum-oda/TMFOP006-Event-Management
+    - tmforum-oda/TMFCOP009-model-as-a-service-operator
+    - tmforum-oda/TMFOP012-data-products-lifecycle-management-operator
+  tier3:
+    - tmforum-oda/oda-ca-docs
+    - tmforum-oda/ai-canvas-architecture
+    - tmforum-oda/oda-agent-skills-marketplace
+    - tmforum-oda/ai-native-oda-canvas-workshop
+    - tmforum-oda/AI-Augmented-Software-Engineering
+    - tmforum-oda/ai-impact-on-architecture
+  excluded:            # never triaged, never suggested as transfer targets
+    - tmforum-oda/oda-component-ctk            # replaced by other work
+    - tmforum-oda/model-as-a-service-crds      # merging into TMFCOP009
+
+# Thresholds live in guidance/queue-priorities.md, so that feedback can tune them.
+
+# Where drafts are saved: outside any repo, and stable across plugin updates.
+drafts_dir: ~/.oda-canvas-maintainer/drafts
+
+# Guidance folder. Empty means the skill's own guidance/ folder (personal install via junction).
+# For a marketplace install, set this to a writable overlay, e.g. ~/.config/oda-canvas-maintainer/guidance
+guidance_dir: ""
+
+# Architecture Decision Records index: <owner/repo>:<path>. Change this when the Architecture repo exists.
+adr_source: tmforum-oda/oda-ca-docs:Decision-Log/README.md

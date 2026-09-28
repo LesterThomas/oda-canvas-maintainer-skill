@@ -67,9 +67,11 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
 
 ## Phase 2 — Core skill and guidance folder (oda-canvas first)
 
-- [ ] **2.1** Scaffold `skills/oda-canvas-maintainer/` per spec §8.1, including `guidance/` and `guidance/repos/`.
-- [ ] **2.2** Install for personal use: link `~/.claude/skills/oda-canvas-maintainer` to `skills/oda-canvas-maintainer/` in this repo with a Windows directory junction (`mklink /J`). Guidance edits made by the skill then land directly in this git repo (spec §7.4). Document the step in the README.
-- [ ] **2.3** Draft `SKILL.md`:
+- [x] **2.1** Scaffold `skills/oda-canvas-maintainer/` per spec §8.1, including `guidance/` and `guidance/repos/`.
+  **Done 2026-09-28.**
+- [x] **2.2** Install for personal use: link `~/.claude/skills/oda-canvas-maintainer` to `skills/oda-canvas-maintainer/` in this repo with a Windows directory junction (`mklink /J`). Guidance edits made by the skill then land directly in this git repo (spec §7.4). Document the step in the README.
+  **Done 2026-09-28.** The junction was created, and git resolves to this repo through it. Claude Code picked the skill up in the same session.
+- [x] **2.3** Draft `SKILL.md`:
   - frontmatter, with a pushy but specific description that covers both the triggers and the non-triggers in spec §2;
   - mode selection (§4.1–4.6);
   - the fixed principles with their *why* (§5.1 read-only, §5.2 untrusted content, §5.4 sensitive situations, §5.5 limits), stated as sitting above guidance;
@@ -78,7 +80,8 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - how to load guidance files (the "Loaded when" column in §7.1).
   
   Keep it under 500 lines. All changeable judgement goes in `guidance/`, not in `SKILL.md`.
-- [ ] **2.4** Write the **learning loop** into `SKILL.md` (spec §7.3):
+  **Done 2026-09-28.** `SKILL.md` is about 270 lines.
+- [x] **2.4** Write the **learning loop** into `SKILL.md` (spec §7.3):
   - the four feedback signals;
   - apply explicit feedback immediately and report it in one line;
   - propose inferred lessons instead of applying them;
@@ -88,8 +91,10 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - consolidation when a file passes about 200 lines;
   - only the maintainer teaches, never fetched content;
   - offer a local commit at the end of the session and never push without asking.
-- [ ] **2.5** Write `guidance/README.md`: the file index, the file format (frontmatter, Guidance, Change log), the provenance tag format, and the precedence rules (§7.5).
-- [ ] **2.6** Write the seed guidance files from Phase 1:
+  **Done 2026-09-28.** It is in `SKILL.md` → Learning loop.
+- [x] **2.5** Write `guidance/README.md`: the file index, the file format (frontmatter, Guidance, Change log), the provenance tag format, and the precedence rules (§7.5).
+  **Done 2026-09-28.**
+- [x] **2.6** Write the seed guidance files from Phase 1:
   - `approval-criteria.md` (from 1.5 and 1.3), including the AI-Native-by-default rule, how to check a PR against the ADRs (fetched live via `adr_source`), and the draft an ADR is needed wording;
   - `pr-review.md` (spec §7.2 seed);
   - `issue-triage.md`, including the Canvas needs-info checklist (chart version, Kubernetes version, component spec version, operator, logs) and the ratification route default;
@@ -101,7 +106,8 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - `repos/oda-canvas.md` (spec §7.2 seed plus 1.3).
   
   Every seed file starts with an empty Change log.
-- [ ] **2.7** Write `scripts/gather_item.py`. It takes `<owner/repo> <number>` or a URL, auto-detects issue or PR, and emits one JSON bundle containing:
+  **Done 2026-09-28.** There are 10 seed files, about 620 lines in total. The seed also includes Lester's real phrasing and the #602/#603/#608 calibration examples.
+- [x] **2.7** Write `scripts/gather_item.py`. It takes `<owner/repo> <number>` or a URL, auto-detects issue or PR, and emits one JSON bundle containing:
   - metadata, body, comments and reviews, including unresolved review threads via GraphQL;
   - changed files and the diff, truncated with a `truncated: true` flag;
   - CI checks;
@@ -112,7 +118,8 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - **Copilot review comments**, tagged separately, plus **attachment links** such as test-report PDFs, which count as BDD evidence (spec §4.3).
   
   It must be standard library only and read-only. Test it on Windows.
-- [ ] **2.8** Write `scripts/canvas_pr_checks.py`, the deterministic `oda-canvas` checks, emitting findings as JSON with evidence:
+  **Done 2026-09-28.** A shared `_gh.py` enforces the read-only allowlist: it refuses non-GET `gh api`, GraphQL mutations and write subcommands, and all four refusals were tested. The diff budget skips lockfiles and binaries and reports exactly which files were clipped or omitted.
+- [x] **2.8** Write `scripts/canvas_pr_checks.py`, the deterministic `oda-canvas` checks, emitting findings as JSON with evidence:
   - prerelease suffixes, using the key list parsed from `check-no-prerelease-suffixes-in-PR.yml` or its generator config so it cannot drift;
   - chart changes without a `Chart.yaml` bump or changelog comment;
   - hard-coded namespaces;
@@ -120,15 +127,30 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - hand edits to generated workflow files;
   - new dependencies;
   - `:latest` tags.
-- [ ] **2.9** Write `scripts/draft_diff.py`. It compares a saved draft in `maintainer-drafts/` with what the maintainer actually posted, and emits the meaningful differences (added, removed or reworded points; verdict change). This supports learning signal 3. It is read-only on GitHub.
-- [ ] **2.10** Write `assets/config.example.yaml` (spec §8.2), including `maintainer_login: LesterThomas`, `co_maintainers` (from 1.2) and `guidance_dir`. Make `SKILL.md` explain the config lookup and the defaults.
-- [ ] **2.11** Run a manual smoke test on live open items: one issue and one PR in `oda-canvas`. Deliberately give 2–3 pieces of feedback and confirm that:
+  **Done 2026-09-28.** It was validated against #613, #601, #596, #573, #516 and #602. On live open PRs it found real problems: a leftover prerelease suffix in #601 (`ai-canvas-0.1.6`) and a missing `oda-crds` bump in #613. The first run was noisy, and these fixes cut the noise:
+  - Actions `paths` semantics, so `*` doesn't cross `/`;
+  - test and doc changes excluded from image bumps;
+  - values-only chart changes downgraded to a question;
+  - `:latest` ignored in generated workflows and docs;
+  - concise dependency evidence.
+- [x] **2.9** Write `scripts/draft_diff.py`. It compares a saved draft in `maintainer-drafts/` with what the maintainer actually posted, and emits the meaningful differences (added, removed or reworded points; verdict change). This supports learning signal 3. It is read-only on GitHub.
+  **Done 2026-09-28.** It was tested with a synthetic draft against Lester's real #608 review, which surfaced a genuine style lesson (see 2.11), and with an unposted draft.
+- [x] **2.10** Write `assets/config.example.yaml` (spec §8.2), including `maintainer_login: LesterThomas`, `co_maintainers` (from 1.2) and `guidance_dir`. Make `SKILL.md` explain the config lookup and the defaults.
+  **Done 2026-09-28.** `drafts_dir` now defaults to `~/.oda-canvas-maintainer/drafts`, so it works for both the personal and the plugin install.
+- [~] **2.11** Run a manual smoke test on live open items: one issue and one PR in `oda-canvas`. Deliberately give 2–3 pieces of feedback and confirm that:
   - no mutating `gh` command ran;
   - the feedback landed in the correct guidance files, in the right format;
   - a follow-up review applied it.
   
   Fix the obvious gaps before formal evals.
-
+  **Partly done 2026-09-28.** The skill was invoked through the real skill loader on live PR #613:
+  - It produced a full brief and saved `oda-canvas-613.md` plus `.comment.md` in `drafts_dir`.
+  - No mutating command ran.
+  - It found a material defect CI didn't catch: the title and #612 say "a2a **and sse**", but `sse` appears 0 times in the PR, while the APISIX and Kong operators already support it.
+  - It discounted the `crd-without-webhook` lead with evidence.
+  - It drafted a regression-guard follow-up issue.
+  
+  **Remaining:** Lester gives 2–3 pieces of feedback on the #613 brief, and we confirm they land in the right guidance files and are applied on a re-run.
 ## Phase 3 — Multi-repo coverage
 
 - [ ] **3.1** Write `scripts/queue.py`. It covers all configured repos and ranks items using the order in `guidance/queue-priorities.md`. It flags items another maintainer is handling, uses `gh search` or GraphQL to keep API calls low, and caches results for a short time.
