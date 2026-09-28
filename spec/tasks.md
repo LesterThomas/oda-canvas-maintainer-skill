@@ -31,42 +31,39 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - Local clones were missing `TMFOP006`, `TMFCOP009`, `TMFOP012`, `model-as-a-service-crds`, `oda-helm-charts` and `canvas-prerequisites`.
   - `oda-canvas` carries most of the load, with 66 open issues and 8 open PRs, so the queue (§4.1) and stale housekeeping (§4.5) matter from day one.
   - **Maintainer scope decisions:** `oda-component-ctk` is excluded (replaced by other work), and `model-as-a-service-crds` is excluded (merging into `TMFCOP009`).
-- [ ] **1.2** Collect governance facts for the Tier 1 and Tier 2 repos:
-  - labels (`gh label list`), which seed `guidance/labels-and-metadata.md`;
-  - milestones;
-  - whether CONTRIBUTING, CODEOWNERS and a PR template exist;
-  - required status checks, inferred from recent PR check lists if the branch-protection API needs admin rights;
-  - whether private vulnerability reporting is enabled (spec Q6);
-  - whether Discussions are enabled;
-  - **the other ~4 maintainers' logins**, for `co_maintainers`, taken from recent approving reviewers on merged PRs and confirmed with the maintainer.
-- [ ] **1.3** Mine the unwritten review norms from about 30 recently merged or closed PRs and about 30 closed issues in `oda-canvas`. Weight the **maintainer's own reviews** most heavily, because the skill is personal. Capture:
-  - what gets asked for before approval;
-  - what gets approved despite imperfections, which calibrates "good enough";
-  - how prerelease-suffix, chart-bump and CRD changes were handled;
-  - typical time to first response;
-  - tone and phrasing to imitate.
-  
-  Output: `research/review-norms.md`. It is the main input to the seed guidance in Phase 2.
-- [ ] **1.4** Check the best-practice sources in spec §11 (first listed while offline) and fix any dead links. Record them in `references/sources.md`. Paraphrase only, with short attributed quotes.
-- [ ] **1.5** Distil **the objectives of the ODA and the ODA Canvas** into seed criteria for `guidance/approval-criteria.md`, using:
-  - the `oda-canvas` README;
-  - `Canvas-design.md`;
-  - `AI-Native-Canvas-design.md`;
-  - `SecurityPrinciples.md`;
-  - the use-case library;
-  - TM Forum's public ODA material.
-  
-  Include concrete examples of PRs that align and PRs that don't. This matters most because alignment is one of only two approval criteria (spec §5.6).
-- [ ] **1.6** Review the neighbouring skills so this one doesn't overlap or contradict them:
-  - `oda-canvas/skills/*`, especially `helm-chart-development`, `write-bdd-feature` and `github-actions-debugging`;
-  - the marketplace creator and consumer skills.
-  
-  Write down the hand-off rules. Match the marketplace's skill conventions now to ease the later move (spec §10).
+- [x] **1.2** Collect governance facts for the Tier 1 and Tier 2 repos. **Done 2026-09-28 → [`research/governance.md`](../research/governance.md).**
+  - Proposed `co_maintainers`, from the last 100 approvals and merges: `brian-burton`, `ferenc-hechler`, `adarshkumar4`, `anshulkumar-tmf`. *Awaiting Lester's confirmation (spec §12 Q9).*
+  - One approval is a convention, not enforced. There is no branch protection, 26 of the last 100 PRs merged with no approval, and 48 were self-merged.
+  - The issue templates apply labels that don't exist: `bug`, `docs`, `chore` and `style`.
+  - Milestones are unused, Discussions are off, and private vulnerability reporting is **off**, so security goes to `components@tmforum.org`.
+  - The Copilot PR reviewer is active.
+  - The satellite repos have no CONTRIBUTING or CI and use GitHub's default labels.
+- [x] **1.3** Mine the unwritten review norms from about 60 closed PRs, 100 inline comments, 40 closed issues and the full open backlog. **Done 2026-09-28 → [`research/review-norms.md`](../research/review-norms.md).** Key findings:
+  - **Lester's pattern:** approve valuable, good-enough PRs and move non-blocking points into **follow-up issues**. He praises specifically, and his substantive comments are about **architectural alignment**: CR portability, segment consistency, CRD semantics, downstream assumptions, and keeping the base Canvas lean.
+  - **The other maintainers' unwritten checklist:**
+    - clear prerelease suffixes;
+    - bump chart patch versions and keep versions in sync across charts;
+    - regenerate workflows, don't hand-edit them;
+    - no formatting churn;
+    - remove stray AI artefacts such as `PLAN-*.md`;
+    - follow the style guide.
+  - **The backlog is the real pain.** There are 67 open issues with a median age of 580 days, 11 external issues were never answered, and all 8 open PRs are unreviewed (some external ones since Feb 2025).
+  - Spec updated: follow-up issues and a Copilot section in the Brief, the backlog sweep in §4.5, external-first queue ordering, and Conventional Comments for inline comments only.
+- [x] **1.4** Check the best-practice sources. **Done 2026-09-28 → [`research/sources.md`](../research/sources.md).** All 10 sources were verified. One URL was corrected: the Kubernetes `review-guidelines` page is 404, and it is replaced by `docs/guide/expectations/`.
+- [x] **1.5** Distil the ODA and ODA Canvas objectives into alignment tests. **Done 2026-09-28 → [`research/oda-objectives.md`](../research/oda-objectives.md).**
+  - It sets out 7 stated objectives, 9 alignment tests and 5 red flags.
+  - It includes a calibration table of 6 real decisions (#602, #603, #573, #581, #513, #448).
+  - Open point for Lester: whether AI-Native CRD enum additions (e.g. PR #613, A2A/SSE apiTypes) count as aligned by default (spec §12 Q10).
+- [x] **1.6** Review the neighbouring skills and marketplace fit. **Done 2026-09-28 → [`research/neighbouring-skills.md`](../research/neighbouring-skills.md).**
+  - The skill reviews *against* `helm-chart-development`, `write-bdd-feature` and `create-oda-operator`, and links to them without copying them.
+  - It hands CI debugging to `github-actions-debugging`.
+  - It reads conventions from the target repo's current `main`, not local clones (Lester's `oda-canvas` clone was 5 commits behind).
+  - **Layout decision:** the skill lives at `skills/oda-canvas-maintainer/` so it drops into the marketplace unchanged, where `build_plugin.py` rewrites the paths.
 
 ## Phase 2 — Core skill and guidance folder (oda-canvas first)
 
-- [ ] **2.1** Scaffold `oda-canvas-maintainer/` per spec §8.1, including `guidance/` and `guidance/repos/`.
-- [ ] **2.2** Install for personal use: link `~/.claude/skills/oda-canvas-maintainer` to the repo folder with a Windows directory junction (`mklink /J`). Guidance edits made by the skill then land directly in this git repo (spec §7.4). Document the step in the README.
+- [ ] **2.1** Scaffold `skills/oda-canvas-maintainer/` per spec §8.1, including `guidance/` and `guidance/repos/`.
+- [ ] **2.2** Install for personal use: link `~/.claude/skills/oda-canvas-maintainer` to `skills/oda-canvas-maintainer/` in this repo with a Windows directory junction (`mklink /J`). Guidance edits made by the skill then land directly in this git repo (spec §7.4). Document the step in the README.
 - [ ] **2.3** Draft `SKILL.md`:
   - frontmatter, with a pushy but specific description that covers both the triggers and the non-triggers in spec §2;
   - mode selection (§4.1–4.6);
@@ -107,6 +104,7 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - the author's prior merged PR count in the org;
   - **which maintainers (`co_maintainers`) have already reviewed or commented**;
   - **the maintainer's own posted comments**, which the learning loop compares with saved drafts (§7.3 signal 3).
+  - **Copilot review comments**, tagged separately, plus **attachment links** such as test-report PDFs, which count as BDD evidence (spec §4.3).
   
   It must be standard library only and read-only. Test it on Windows.
 - [ ] **2.8** Write `scripts/canvas_pr_checks.py`, the deterministic `oda-canvas` checks, emitting findings as JSON with evidence:
@@ -134,6 +132,12 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
 - [ ] **3.4** Write `guidance/repos/reference-example-components.md`. Cover component YAML against the current spec version, chart bumps and the GitHub Pages Helm index.
 - [ ] **3.5** Write `guidance/repos/oda-helm-charts.md` and `guidance/repos/canvas-prerequisites.md`. Cover consistency with `oda-canvas/charts` and installation correctness.
 - [ ] **3.6** Write `guidance/repos/` files for the Tier 2 operators: `TMFOP006`, `TMFCOP009` and `TMFOP012`. Start from the `oda-canvas` operator and CRD rules. `TMFCOP009` also receives the MaaS CRDs being merged in.
+- [ ] **3.8** Implement the **backlog sweep** (spec §4.5). It works in batches of about 10 issues, with unanswered external issues first (#583, #534, #532, #315, #314, #281, #220, #210, #154, #106, #105 as of 2026-09-28). For each issue it:
+  - checks for a merged PR or commit that resolved it;
+  - classifies it as done, valid, needs info or out of scope;
+  - drafts the comments.
+  
+  The output is a batch table. This is likely the highest-value feature at launch (`research/review-norms.md` §3).
 - [ ] **3.7** For Tier 3 repos, rely on the generic fallback. The skill offers to start a repo guidance file after the first review there (spec §7.2).
 
 ## Phase 4 — Evaluation (skill-creator loop)

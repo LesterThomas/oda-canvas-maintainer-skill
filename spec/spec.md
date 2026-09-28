@@ -2,7 +2,7 @@
 
 Companion task list: [`tasks.md`](./tasks.md).
 
-**Status:** Draft v0.2 (2026-09-28). This version adds the living guidance folder and learning loop, and records the maintainer's answers to the governance, AI and distribution questions. The remaining questions in §12 don't block Phase 2.
+**Status:** Draft v0.3 (2026-09-28). This version incorporates the Phase 1 research in [`research/`](../research/): real review norms, governance facts, ODA objectives, verified sources and the marketplace layout. The remaining questions in §12 don't block Phase 2.
 
 ---
 
@@ -125,7 +125,7 @@ The skill works in one of six modes, selected from the user's request. Modes 4.1
 - List open issues and PRs across the configured repositories.
 - Rank them by maintainer urgency:
   1. security-sensitive items;
-  2. PRs with passing CI and no review from any maintainer yet. Because one approval merges a PR, this is where a single review has the most effect;
+  2. **external** PRs with no review from any maintainer yet, oldest first. Because one approval merges a PR, a single review has the most effect here. On 2026-09-28 all 8 open `oda-canvas` PRs were unreviewed, and some had waited since February 2025. PRs from co-maintainers rank lower, because self-merge by maintainers is normal practice;
   3. items with no maintainer response for more than N days (default 7);
   4. first-time contributors;
   5. PRs where the author has replied since the last review;
@@ -164,12 +164,15 @@ For a single PR:
   - changed file list;
   - CI check status;
   - existing reviews and unresolved threads;
-  - whether this is the author's first contribution.
+  - whether this is the author's first contribution;
+  - **Copilot's automated review comments.** `copilot-pull-request-reviewer` is active on `oda-canvas`. The skill does not duplicate these comments. It says which it agrees need acting on and which can be ignored;
+  - **BDD evidence.** CI `run_tests_job` results, or a test-report PDF attached to the PR. Maintainers attach local reports because the full suite is long, and a PR titled `[skip tests]` skips it in CI.
 - Assess the PR against the **two approval criteria** (§5.6), with the guidance files as the detailed checklist (§7). Where possible, run the deterministic checks as scripts (§8.3).
 - Produce:
   - a recommended **review verdict**: *Approve*, *Comment* or *Request changes*. The reasoning is stated against the two criteria;
   - a draft **summary review comment**;
   - draft **inline comments**, each anchored to `path:line`, labelled with Conventional Comments, and marked blocking or non-blocking;
+  - draft **follow-up issues** for worthwhile non-blocking points. This is the maintainer's established pattern (`research/review-norms.md` §1.1): approve a valuable, good-enough PR and raise separate issues for the rest, rather than holding the PR;
   - a list of **things the skill could not verify**. Examples: that it did not run the BDD suite, or could not deploy to a cluster.
 - Never recommend *Approve* while required CI checks are failing or pending, or while there are unanswered blocking concerns. If the maintainer wants to approve anyway, the skill says what they are overriding.
 
@@ -186,7 +189,16 @@ Draft bulk or templated responses for the maintainer to post:
 - "moved to repo X";
 - "needs ratification";
 - thank-you on merge;
-- first-time contributor welcome.
+- first-time contributor welcome;
+- closing an issue fixed by a merged PR ("Fixed in #nnn, thanks @…").
+
+**Backlog sweep.** `oda-canvas` has 67 open issues, with a median age of 580 days. 36 of them have no comments, and 11 external issues have never had a maintainer reply. The sweep works through the backlog in batches of about 10, oldest or unanswered first. For each issue it:
+
+- classifies it as **done or superseded** (it links the PR or commit that resolved it), **still valid**, **needs info**, or **out of scope**;
+- drafts the closing, refresh or needs-info comment;
+- produces a summary table so the maintainer can act on the whole batch quickly.
+
+External issues with no reply come first.
 
 The skill drafts each one individually so it references the specific item, rather than posting boilerplate.
 
@@ -237,7 +249,9 @@ Draft comments follow established open source maintainer practice (sources in §
 - **Welcome first and thank people.** Contributions are gifts of time. This matters most for first-time contributors, whose first experience largely decides whether they come back.
 - **Respond promptly, even when the answer is "not yet".** Time to first response is the strongest community-health signal (CHAOSS). An acknowledgement with a timeframe beats silence.
 - **Review the code, not the person.** Use "we"/"this change" and never "you did X wrong". Say *why* for each request.
-- **Separate blocking from non-blocking.** Use Conventional Comments labels: `praise:`, `suggestion:`, `issue:`, `question:`, `nitpick:`, `thought:`, `chore:`, with `(blocking)`/`(non-blocking)` decorations. Nits never block.
+- **Separate blocking from non-blocking.** On **inline** comments, use Conventional Comments labels: `praise:`, `suggestion:`, `issue:`, `question:`, `nitpick:`, `thought:`, `chore:`, with `(blocking)`/`(non-blocking)` decorations. Nits never block.
+
+  The **summary** comment is written in the maintainer's own natural voice, with no labels: first person, warm, specific and brief (`research/review-norms.md` §1).
 - **Approve when the change clearly improves overall code health**, even if it isn't perfect (Google engineering practices). Anything else can go in follow-up issues.
 - **Explain "no" with reasons and a path.** When declining, point to what would make it acceptable, or where the idea belongs, such as the standards process or another repo.
 - **Be explicit about next steps and ownership.** Every draft ends with who does what next.
@@ -247,7 +261,7 @@ Draft comments follow established open source maintainer practice (sources in §
 
 ### 5.4 Sensitive situations: escalate, don't draft publicly
 
-- **Security vulnerability reported in public.** Draft a short, non-technical reply asking the reporter to use the private channel in CONTRIBUTING.md (`components@tmforum.org`) or GitHub private vulnerability reporting, if enabled. Advise the maintainer about hiding or minimising the content. Never discuss exploit details in the draft.
+- **Security vulnerability reported in public.** Draft a short, non-technical reply asking the reporter to use the private channel in CONTRIBUTING.md, `components@tmforum.org`. GitHub private vulnerability reporting is **disabled** on `oda-canvas` (checked 2026-09-28). The skill may suggest once to Lester that an admin enables it. Advise the maintainer about hiding or minimising the content. Never discuss exploit details in the draft.
 - **Code of Conduct concerns.** Flag them to the maintainer. Point to `code-of-conduct.md` and its enforcement contacts. Do not draft a public reprimand.
 - **Licensing / IP.** The project is Apache 2.0. Flag new dependencies with incompatible or unclear licences, and code that appears copied from elsewhere.
 - **Standards decisions.** Anything that changes the ODA Component specification or Canvas behaviour defined by TM Forum standards needs ratification. Flag it rather than recommending approval.
@@ -314,6 +328,12 @@ Labels: … · Assignee: … · Milestone: … · Linked items: …
 
 ## Draft inline comments   (PRs only)
 - `path/to/file.py:42` — **issue (blocking):** …
+
+## Draft follow-up issues   (PRs only, when non-blocking points are worth tracking)
+- **<title>** — <body, linking back to the PR>
+
+## Copilot review   (PRs only, when present)
+<which of Copilot's comments are worth acting on, which can be ignored, and why>
 
 ## Commands you can run   (optional; nothing is executed by the skill)
 ```bash
@@ -464,8 +484,12 @@ The design principles in §5 (read-only, untrusted content, sensitive situations
 
 ### 8.1 Skill layout
 
+The skill lives at `skills/oda-canvas-maintainer/` in this repo. That matches the marketplace's `skills/<name>/` layout, so it can move without restructuring (`research/neighbouring-skills.md`). `SKILL.md` refers to bundled files as `skills/oda-canvas-maintainer/…`, which is the marketplace path convention that `build_plugin.py` rewrites. For personal use, the skill resolves those paths against its own base directory.
+
+When reviewing, project conventions such as the `oda-canvas/skills/*` guides, `AGENTS.md` and the writing style are read from the **target repo's current `main`** via `gh api`, not from local clones, which may be stale.
+
 ```
-oda-canvas-maintainer/
+skills/oda-canvas-maintainer/
 ├── SKILL.md                     # workflow, modes, fixed principles (§5), brief format, learning loop (<500 lines)
 ├── guidance/                    # LIVING — updated from maintainer feedback (§7)
 │   ├── README.md                # index, file format, precedence
@@ -503,7 +527,7 @@ The skill looks for `~/.config/oda-canvas-maintainer/config.yaml`, falling back 
 
 - `repos` — in-scope repositories;
 - `maintainer_login` — used to work out "waiting on me";
-- `co_maintainers` — the other maintainers' logins, used to detect items another maintainer is already handling;
+- `co_maintainers` — the other maintainers' logins, used to detect items another maintainer is already handling. The default, derived from who approved and merged the last 100 PRs, is `brian-burton`, `ferenc-hechler`, `adarshkumar4` and `anshulkumar-tmf`;
 - `stale_days` and `no_response_days`;
 - `drafts_dir`;
 - `guidance_dir` — defaults to the skill's own `guidance/` folder (§7.4).
@@ -591,12 +615,12 @@ That move requires:
 
 ## 11. Sources for best practice
 
-These sources are listed from prior knowledge. The URLs could not be fetched while drafting (network tools were unavailable). Task 1.4 re-checks each one, records it in `references/sources.md`, and seeds short paraphrased guidance into `guidance/comment-style.md` and `guidance/approval-criteria.md`.
+All sources were **verified on 2026-09-28** (task 1.4). Summaries and paraphrased principles are in [`research/sources.md`](../research/sources.md), which seeds `references/sources.md`, `guidance/comment-style.md` and `guidance/approval-criteria.md`.
 
 - GitHub, *Open Source Guides*: "Best Practices for Maintainers", "Building Welcoming Communities", "Leadership and Governance". <https://opensource.guide/best-practices/>
 - Google Engineering Practices: *The Standard of Code Review*; *How to write code review comments*; *Speed of code reviews*. <https://google.github.io/eng-practices/review/>
 - Conventional Comments. <https://conventionalcomments.org/>
-- Kubernetes community: *Reviewing guide*, *Issue triage guidelines*. <https://www.kubernetes.dev/docs/guide/>
+- Kubernetes community: *Community Expectations* (reviewers). <https://www.kubernetes.dev/docs/guide/expectations/>
 - CHAOSS community-health metrics: *Time to First Response*, *Change Request Closure Ratio*. <https://chaoss.community/>
 - OpenSSF Scorecard checks: *Code-Review*, *Branch-Protection*, *Pinned-Dependencies*, *Token-Permissions*. <https://github.com/ossf/scorecard>
 - Contributor Covenant 2.1 (the basis of the project's code of conduct). <https://www.contributor-covenant.org/>
@@ -612,9 +636,17 @@ These sources are listed from prior knowledge. The URLs could not be fetched whi
 4. **AI-generated contributions.** No special handling. Most PRs are assumed to be AI-generated, and the only approval criteria are ODA alignment and good-enough quality (§5.6).
 5. **Distribution.** Personal use from this repo now; later a creator skill in `oda-agent-skills-marketplace` (§10).
 
-**Still open.** These don't block Phase 2, because each has a sensible default that feedback can correct later:
+**Answered by research (2026-09-28, `research/governance.md`):**
 
-3. **Labels and milestones.** Is the real label set larger than the template labels? Are milestones used for releases? Task 1.2 answers this from GitHub.
-6. **Private vulnerability reporting.** Is it enabled on `oda-canvas`, or is `components@tmforum.org` the only channel? Task 1.2 checks this.
+3. **Labels and milestones.** `oda-canvas` has 13 labels.
+   - The issue templates apply `bug`, `docs`, `chore` and `style`, **none of which exist** as labels, so the skill maps them to real labels.
+   - Satellite repos use GitHub's default labels (`bug`, `enhancement`).
+   - Milestones are not used; the 3 that exist are 2023 relics.
+6. **Private vulnerability reporting** is disabled. `components@tmforum.org` is the only private channel.
+8. **Response-time targets.** The data supports the 7-day and 60-day defaults (median first PR response is 23 h, but the 75th percentile is about 7 days).
+
+**Still open.** These don't block Phase 2:
+
 7. **Ratification route.** For standards-changing feature requests, where should the draft point? The default is a generic statement, which can be refined through feedback.
-8. **Response-time targets.** The defaults are 7 days with no response and 60 days for stale. They can be adjusted through feedback into `guidance/queue-priorities.md`.
+9. **`co_maintainers`.** Is the derived list (brian-burton, ferenc-hechler, adarshkumar4, anshulkumar-tmf) right?
+10. **AI-Native changes.** Are MCP, A2A and SSE `apiType`s, agent components and MaaS aligned by default as a ratified epic, or should CRD enum additions still be flagged as standards changes? See `research/oda-objectives.md`; open PR #613 is a live example.
