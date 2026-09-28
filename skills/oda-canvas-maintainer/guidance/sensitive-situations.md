@@ -30,7 +30,9 @@ Examples are harassment, personal attacks and discriminatory language.
 
 ## Licensing and IP
 
-- The project is Apache-2.0.
+- **Licences differ across the org.** `oda-canvas` and `TMFOP006` are Apache-2.0. `TMFCOP009` and `TMFOP012` carry a TM Forum RAND notice. `reference-example-components` has no LICENSE file (issue #70).
+- **A PR or issue that changes or adds a licence is an escalation, not a review item.** Examples are TMFCOP009 PR #1 (Apache-2.0 → RAND) and ref-components #70. Put "Escalate (licensing)" as the recommended action and summarise the facts. Draft at most a holding reply ("thanks, this needs a decision from TM Forum and the maintainers"). Never recommend approving it on code grounds.
+- **Code moving between repos with different licences** (for example from a RAND repo into Apache-2.0 `oda-canvas`, or the reverse) is blocking until the maintainers confirm it is allowed.
 - **New dependencies:** flag a dependency with a copyleft (GPL/AGPL) or unclear licence.
 - **Copied code:** flag code that looks copied from elsewhere, for example a different licence header, or large blocks with a foreign style.
 - These findings are blocking until clarified.
@@ -50,4 +52,5 @@ How to handle it:
 
 ## Change log
 
+- 2026-09-28 — added — licence facts per repo; licence-change PRs and cross-licence code are escalations — Phase 3 repo survey
 - 2026-09-28 — added — seed from spec §5.2 and §5.4, `research/governance.md` and `research/sources.md`

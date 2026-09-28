@@ -159,23 +159,31 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - The superseded draft was renamed `*.learned.md`.
   - An inferred rule (apiType values are semantic-layer protocols, not transports) was proposed rather than applied, per the loop design.
   
-  **Remaining:** 1–2 more rounds of feedback, and one learn-from-posted-edit test with `draft_diff.py` once a review is posted.
+  **Signal 3 exercised (2026-09-28):** Lester posted the #613 review 3 minutes after the revised draft. `draft_diff.py --all` detected it: similarity 0.96, one sentence removed, and the **verdict changed** from Request changes to Approve. Two lessons were proposed (not applied), and the draft was renamed `*.learned.md`.
+  
+  **Remaining:** Lester's answer on those proposals.
 ## Phase 3 — Multi-repo coverage
 
-- [ ] **3.1** Write `scripts/queue.py`. It covers all configured repos and ranks items using the order in `guidance/queue-priorities.md`. It flags items another maintainer is handling, uses `gh search` or GraphQL to keep API calls low, and caches results for a short time.
-- [ ] **3.2** Write `scripts/find_related.py`. It searches for duplicates and related items across in-scope repos, open and closed. It returns candidates only; the model confirms which are real duplicates.
+- [x] **3.1** Write `scripts/queue.py`. It covers all configured repos and ranks items using the order in `guidance/queue-priorities.md`. It flags items another maintainer is handling, uses `gh search` or GraphQL to keep API calls low, and caches results for a short time.
+  **Done 2026-09-28.** It uses one paginated GraphQL query per repo, and has a `--sweep` mode, so it also covers 3.8's listing. A live run over tier 1 and tier 2 found 85 open items: 5 external PRs unreviewed, 15 external issues unanswered, 55 stale. The first run over-flagged 13 "security" items, because authentication and secrets are Canvas design vocabulary. The flag is now restricted to vulnerability-disclosure language in items under 90 days old.
+- [x] **3.2** Write `scripts/find_related.py`. It searches for duplicates and related items across in-scope repos, open and closed. It returns candidates only; the model confirms which are real duplicates.
+  **Done 2026-09-28.** GitHub search ANDs terms, so long queries return nothing. It uses pairs of distinctive title words, identifiers and error lines, scored across queries. Tested: #534 finds its near-duplicates #532/#533 (the ProjectONE trio), and #314 finds the closed #345 (container vulnerability scan).
 - [x] **3.3** ~~Repo guidance for `oda-component-ctk`~~ — **dropped 2026-09-28.** The repo is out of scope (spec §3).
-- [ ] **3.4** Write `guidance/repos/reference-example-components.md`. Cover component YAML against the current spec version, chart bumps and the GitHub Pages Helm index.
-- [ ] **3.5** Write `guidance/repos/oda-helm-charts.md` and `guidance/repos/canvas-prerequisites.md`. Cover consistency with `oda-canvas/charts` and installation correctness.
-- [ ] **3.6** Write `guidance/repos/` files for the Tier 2 operators: `TMFOP006`, `TMFCOP009` and `TMFOP012`. Start from the `oda-canvas` operator and CRD rules. `TMFCOP009` also receives the MaaS CRDs being merged in.
-- [ ] **3.8** Implement the **backlog sweep** (spec §4.5). It works in batches of about 10 issues, with unanswered external issues first (#583, #534, #532, #315, #314, #281, #220, #210, #154, #106, #105 as of 2026-09-28). For each issue it:
+- [x] **3.4** Write `guidance/repos/reference-example-components.md`. Cover component YAML against the current spec version, chart bumps and the GitHub Pages Helm index.
+  **Done 2026-09-28.** Default branch `master`; chart-releaser publishes on push, so chart bumps are blocking; the `# version:` changelog format; the no-LICENSE issue #70.
+- [x] **3.5** Write `guidance/repos/oda-helm-charts.md` and `guidance/repos/canvas-prerequisites.md`. Cover consistency with `oda-canvas/charts` and installation correctness.
+  **Done 2026-09-28.** `oda-helm-charts` is empty, so its file is interim rules plus a warning about drift between two copies of a chart. `canvas-prerequisites` is Brian's work in progress (#1, #2), and its file covers the prerequisite/Canvas boundary.
+- [x] **3.6** Write `guidance/repos/` files for the Tier 2 operators: `TMFOP006`, `TMFCOP009` and `TMFOP012`. Start from the `oda-canvas` operator and CRD rules. `TMFCOP009` also receives the MaaS CRDs being merged in.
+  **Done 2026-09-28.** One pattern file, `repos/canvas-operator-repos.md` (`applies_to: TMFOP*, TMFCOP*`), rather than one file per repo, since all three are young and share conventions. Finding: **licences differ**. TMFOP006 is Apache-2.0, TMFCOP009 and TMFOP012 are TM Forum RAND, and TMFCOP009 PR #1 proposes Apache → RAND. This was added to `sensitive-situations.md` as an escalation.
+- [x] **3.8** Implement the **backlog sweep** (spec §4.5). It works in batches of about 10 issues, with unanswered external issues first (#583, #534, #532, #315, #314, #281, #220, #210, #154, #106, #105 as of 2026-09-28). For each issue it:
   - checks for a merged PR or commit that resolved it;
   - classifies it as done, valid, needs info or out of scope;
   - drafts the comments.
   
   The output is a batch table. This is likely the highest-value feature at launch (`research/review-norms.md` §3).
-- [ ] **3.7** For Tier 3 repos, rely on the generic fallback. The skill offers to start a repo guidance file after the first review there (spec §7.2).
-
+  **Done 2026-09-28.** The sweep mode is in `SKILL.md` (`queue.py --sweep` → `gather_item` + `find_related` per issue → classify with evidence → drafts, a batch table and batch commands). **First real batch (#105, #106, #154, #210, #220):** 1 transfer to TMFOP006, 2 refresh-and-retitle with real gaps found (no BDD features for UC004/UC008; install guide doesn't mention `observability-stack`), 1 help-wanted, 1 close as answered. Saved as `sweep-oda-canvas-batch1.md`. Awaiting Lester's review.
+- [x] **3.7** For Tier 3 repos, rely on the generic fallback. The skill offers to start a repo guidance file after the first review there (spec §7.2).
+  **Done 2026-09-28.** `SKILL.md` repo-guidance lookup: exact file, then `applies_to` pattern, then the generic fallback with an offer to start a file.
 ## Phase 4 — Evaluation (skill-creator loop)
 
 - [ ] **4.1** Select fixtures. Use 8–12 closed historical items with known outcomes (spec §9 list), preferring ones the maintainer reviewed personally, plus the two synthetic ones: a public security report and a prompt-injection PR. Snapshot each with `gather_item.py` into `evals/fixtures/`.

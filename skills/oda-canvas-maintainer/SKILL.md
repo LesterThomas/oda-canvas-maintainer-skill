@@ -57,7 +57,9 @@ These sit above all guidance. Feedback cannot change them. If a request conflict
 2. **Guidance.**
    - The guidance directory is `guidance_dir` if it is set. Otherwise it is `skills/oda-canvas-maintainer/guidance/`.
    - Read `guidance/README.md` first. It lists which guidance file to load for which task.
-   - Load only the files the task needs, and always load `repos/<repo>.md` for the item's repo if it exists.
+   - Load only the files the task needs.
+   - Always load the item's repo guidance: `repos/<repo>.md` if it exists; otherwise a `repos/*.md` file whose `applies_to` pattern matches the repo (for example `canvas-operator-repos.md` for `TMFOP*` and `TMFCOP*`), plus any file it says to load.
+   - If no repo guidance matches, the item gets generic checks only. Say so in the brief, and offer to start a repo file from what the review found.
    - Keep a list of the rules you actually rely on. They go in the brief's **Guidance applied** section, so the maintainer can correct the right rule.
 3. **Check `gh`.** If a `gh` call fails with an authentication error, stop and tell the maintainer to run `gh auth login`. Don't fall back to scraping web pages.
 
@@ -77,24 +79,31 @@ Pick the mode from the request. If a request spans modes ("review the three olde
 ### Queue
 
 1. Load `guidance/queue-priorities.md` and `guidance/labels-and-metadata.md`.
-2. For each in-scope repo (tier 1 and tier 2 by default; tier 3 on request, or if it's small), list open PRs and issues:
-   - `gh pr list -R <repo> --state open --json number,title,author,createdAt,updatedAt,isDraft,reviews,labels`
-   - `gh issue list -R <repo> --state open --limit 200 --json number,title,author,createdAt,updatedAt,comments,labels`
-3. Classify each item as external or maintainer, work out who spoke last, and check whether a co-maintainer is handling it. Then rank using `queue-priorities.md`.
-4. Output the table described there, with at most about 15 rows. Don't review anything in depth. Offer to open the top items.
+2. Run the queue across the in-scope repos (tier 1 and tier 2 by default; add tier 3 on request):
+
+   ```bash
+   python skills/oda-canvas-maintainer/scripts/queue.py --repos <comma-separated> --maintainer <login> --co-maintainers <a,b,…>
+   ```
+   
+   Use `--format json` if you need the raw fields. The script classifies each item as external or maintainer, works out who spoke last and whether a co-maintainer is handling it, and ranks the items the way `queue-priorities.md` describes.
+3. If the guidance has since learned a different ranking, re-rank the script's output to match the guidance. The guidance wins.
+4. Present the table and the totals line. Point out anything notable, such as an "external" author who is really TM Forum staff. Don't review anything in depth. Offer to open the top items.
 
 ### Issue triage
 
 1. `python skills/oda-canvas-maintainer/scripts/gather_item.py <repo> <n> --maintainer <login> --co-maintainers <a,b,…>`. Read the whole thread, including `linked_issue_threads`, before judging.
 2. Load `guidance/issue-triage.md`, `comment-style.md`, `comment-templates.md` and `labels-and-metadata.md`. Load `approval-criteria.md` if the issue is about scope or a feature.
-3. Search for duplicates and related items, open and closed, across the in-scope repos: `gh search issues "<key terms>" --repo <repo> --json number,title,state,url --limit 10`. Use the error strings and component names from the issue.
+3. Search for duplicates and related items, open and closed, across the in-scope repos:
+   - run `python skills/oda-canvas-maintainer/scripts/find_related.py <repo> <n> --repos <in-scope list>`;
+   - read the top candidates before calling anything a duplicate;
+   - add your own `gh search issues "<terms>" --include-prs --owner tmforum-oda` queries if the script's queries missed the point.
 4. For architecture or feature questions, fetch the ADR index (see **ADRs** below) and check for a relevant ADR.
 5. Write the brief and save the draft.
 
 ### PR review
 
 1. Run `gather_item.py` as above. For `tmforum-oda/oda-canvas`, also run `python skills/oda-canvas-maintainer/scripts/canvas_pr_checks.py <repo> <n>`.
-2. Load `approval-criteria.md`, `pr-review.md`, `comment-style.md`, `labels-and-metadata.md` and `repos/<repo>.md` if it exists. If there is no repo file, say "no repo guidance; generic checks only" in the brief, and offer to start one after the review.
+2. Load `approval-criteria.md`, `pr-review.md`, `comment-style.md`, `labels-and-metadata.md` and the repo guidance (see **Every run: set up**).
 3. Follow the workflow in `guidance/pr-review.md`:
    - understand the intent: read **all** comments on the PR and on every associated issue (`linked_issue_threads` in the bundle), and give maintainers' comments (`maintainer_comments_in_linked_threads`, `is_maintainer`) precedence over titles and descriptions;
    - read what exists already (CI, co-maintainer and Copilot reviews, threads, attachments);
@@ -118,10 +127,19 @@ Pick the mode from the request. If a request spans modes ("review the three olde
 ### Backlog sweep
 
 1. Follow `guidance/queue-priorities.md` → **Backlog sweep** and `guidance/issue-triage.md` → **Stale and backlog issues**.
-2. Work in batches of about 10, with unanswered external issues first.
-3. For each issue, look for a resolving PR or commit: check `linkedItems` in the bundle, and run `gh search prs "<terms>" --repo <repo> --state merged`.
-4. End each batch with a table (issue, age, classification, action, draft file), and save one draft per issue.
-5. Ask before starting the next batch.
+2. Get the batch:
+
+   ```bash
+   python skills/oda-canvas-maintainer/scripts/queue.py --sweep --repos <repo(s)> --batch-size 10 --offset <n>
+   ```
+   
+   Unanswered external issues come first, then issues that merged PRs reference, then the oldest.
+3. For each issue in the batch:
+   - run `gather_item.py` (to get the full thread and linked items) and `find_related.py` (to find duplicates, and fixes under other names);
+   - check whether the Canvas has moved on: does the feature exist now, or has the area been redesigned? Use `gh search prs "<terms>" --repo <repo> --state merged` and the current `main`;
+   - classify it as **done or superseded**, **duplicate**, **still valid**, **needs info** or **out of scope**, with evidence.
+4. Save one draft per issue. End the batch with a table: issue, age, classification, evidence, action, draft file. Then give the ready-to-run commands for the whole batch, `gh issue comment` plus `gh issue close` where recommended, so the maintainer can apply the ones they agree with.
+5. Ask before starting the next batch (`--offset` is in the script output).
 
 ### Guidance upkeep
 

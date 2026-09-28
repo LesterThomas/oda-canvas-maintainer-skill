@@ -43,7 +43,8 @@ For **features**, check that the issue states the problem and who needs it, not 
 
 ## Duplicates and related work
 
-- Search open **and closed** issues and PRs across the in-scope repos.
+- Search open **and closed** issues and PRs across the in-scope repos. Start with `scripts/find_related.py <repo> <n>`, which runs several narrow searches and ranks the candidates, then read the top candidates yourself.
+- Groups of near-identical issues from the same author (e.g. #532, #533 and #534, "ProjectONE") should be consolidated: keep the most complete one, and close the rest pointing to it.
 - A duplicate needs a confident match on the *same problem*. When unsure, link it as "possibly related" and leave the issue open.
 - If a merged PR already fixed the issue, draft the closing comment in the maintainers' usual form: "Fixed in #nnn, thanks @reporter!"
 
@@ -71,5 +72,6 @@ External issues that have never had a maintainer reply come first, and deserve a
 
 ## Change log
 
+- 2026-09-28 — added — use `find_related.py` first; consolidate groups of near-identical issues — Phase 3
 - 2026-09-28 — added — read the whole thread, and linked items, before triaging; weight maintainer comments above the title — Lester's feedback on the #613 review
 - 2026-09-28 — added — seed from issue templates, `research/review-norms.md` §3–4 and `research/governance.md`

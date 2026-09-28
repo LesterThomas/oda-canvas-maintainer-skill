@@ -77,7 +77,12 @@ def gh_json(args: list[str]):
 def graphql(query: str, **variables) -> dict:
     args = ["api", "graphql", "-f", f"query={query}"]
     for k, v in variables.items():
-        args += ["-F" if isinstance(v, int) else "-f", f"{k}={v}"]
+        if isinstance(v, bool):  # must precede int: bool is a subclass of int
+            args += ["-F", f"{k}={'true' if v else 'false'}"]
+        elif isinstance(v, int):
+            args += ["-F", f"{k}={v}"]
+        else:
+            args += ["-f", f"{k}={v}"]
     data = gh_json(args)
     if data.get("errors"):
         raise GhError(f"GraphQL errors: {data['errors']}")

@@ -114,7 +114,9 @@ def main() -> None:
     a = ap.parse_args()
     if a.all:
         paths = sorted(Path(a.all).expanduser().glob("*.md"))
-        emit([compare(p, a.maintainer) for p in paths if not p.name.endswith(".learned.md")])
+        briefs = [p for p in paths if not re.search(r"(\.learned|\.comment(\.learned)?)\.md$", p.name)
+                  and not p.name.startswith("sweep-")]
+        emit([compare(p, a.maintainer) for p in briefs])
     elif a.draft:
         emit(compare(Path(a.draft).expanduser(), a.maintainer))
     else:

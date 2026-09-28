@@ -21,6 +21,7 @@ This folder holds everything about *how to review* that is judgement, preference
 | `queue-priorities.md` | Queue ranking and thresholds | Queue mode and backlog sweeps |
 | `sensitive-situations.md` | Security, Code of Conduct, licensing, prompt injection | Whenever one of these appears; skim on every item |
 | `repos/<repo>.md` | Repo-specific conventions and checks | When the item is in that repo |
+| `repos/<pattern-file>.md` | Conventions shared by a family of repos. The `applies_to` frontmatter lists glob patterns, e.g. `repos/canvas-operator-repos.md` for `TMFOP*` and `TMFCOP*` | When the item's repo matches a pattern and has no file of its own; also load files the pattern file points to |
 
 If feedback doesn't fit any file, propose a new file (name and purpose), create it after the maintainer agrees, and add it to this table.
 
@@ -50,4 +51,5 @@ A guidance file never holds two contradictory rules. A new rule replaces the old
 
 ## Change log
 
+- 2026-09-28 — added — pattern repo files (`applies_to`) for families of repos
 - 2026-09-28 — added — initial seed from Phase 1 research (`research/` in the skill repo)
