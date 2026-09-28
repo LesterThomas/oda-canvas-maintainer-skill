@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+*-workspace/
+maintainer-drafts/
+.DS_Store
+Thumbs.db
