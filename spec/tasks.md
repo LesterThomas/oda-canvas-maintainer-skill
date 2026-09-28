@@ -21,7 +21,7 @@ The skill-creator workflow (draft → test → review → improve) is used from 
 
 ## Phase 0 — Foundations
 
-- [ ] **0.1** Set up git and the remote at `github.com/LesterThomas/oda-canvas-maintainer-skill`. `git init`, add a `.gitignore` for `__pycache__/`, `.venv/`, `*-workspace/`, `maintainer-drafts/` and OS files, then commit `spec/` first so the plan has history from day one.
+- [x] **0.1** **Done 2026-09-28.** Created as a public repo, with `main` tracking `origin`. Set up git and the remote at `github.com/LesterThomas/oda-canvas-maintainer-skill`. `git init`, add a `.gitignore` for `__pycache__/`, `.venv/`, `*-workspace/`, `maintainer-drafts/` and OS files, then commit `spec/` first so the plan has history from day one.
 - [ ] **0.2** Get answers to spec §12 open questions Q1–Q8 from the maintainers, and record each answer inline in spec §12 with its date.
 - [ ] **0.3** Confirm the tooling on at least one Windows and one macOS/Linux machine:
   - `gh` is installed and `gh auth status` is OK with access to `tmforum-oda`;
