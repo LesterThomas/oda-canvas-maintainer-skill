@@ -230,3 +230,18 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
   - a scheduled weekly queue digest (still draft-only);
   - release-readiness review (release-notes table, suffix clearing, chart versions);
   - sharing learned guidance between maintainers.
+
+## Phase 4 status (2026-09-28, paused at usage limit)
+
+- [x] 4.1–4.4: there are 8 evals in `skills/oda-canvas-maintainer/evals/evals.json`, with 60 assertions and 2 synthetic fixtures. All 16 runs finished; outputs are in the git-ignored `skills/oda-canvas-maintainer-workspace/iteration-1/`. `check_no_writes.py` scanned the real transcripts and confirmed **0 GitHub writes in all 16 runs**. Eval 1's suffix assertion was corrected: #601 targets a feature branch.
+- [~] 4.5: 8 grader agents were launched and write `grading.json` into each `run-1/`. **Still to do:**
+  - check that every `run-1/grading.json` exists;
+  - run `python -m scripts.aggregate_benchmark <workspace>/iteration-1 --skill-name oda-canvas-maintainer` from the skill-creator directory;
+  - run `generate_review.py` with `--benchmark` and `--static`;
+  - send the viewer to Lester.
+- [ ] 4.6: improvements found during the runs, to apply in iteration 2:
+  1. `canvas_pr_checks.py`: suffix and version checks only apply when the PR base is `main` (#601 targets `feature/ai-canvas-experimental-changes`).
+  2. ADRs also live in `tmforum-oda/ai-canvas-architecture` (ADR-001..008, RAND-licensed). Add it as a second `adr_source`.
+  3. Queue additions: failing default-branch workflows (ref-components Release Charts failing since 26 Sep, so TMFC007 is unpublished); issues that @-mention the maintainer; PRs with the maintainer's review requested; `ai-canvas-architecture` PRs.
+  4. `queue.py` security flag misses "Critical bugs in … libraries" (Dependabot, #555–559). Add "critical bug(s)" and "Dependabot" to the pattern, as a dependency-security category rather than a disclosure.
+  5. Learning-loop check: ref-components #70 closed and #75 merged. Run `draft_diff.py` on the #70 draft.
