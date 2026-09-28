@@ -2,164 +2,183 @@
 
 Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a phase they are roughly sequential. Phase 3 can run in parallel with Phase 4 once Phase 2 lands. Check tasks off as they complete, and leave notes inline where a task surfaces a decision rather than just landing one.
 
-**Starting state:** an empty project folder with `spec/spec.md` drafted. There is no git repo yet.
+**Starting state (2026-09-28):**
 
-Research so far used local clones under `D:\Dev\tmforum-oda\` only, because network tools were unavailable during drafting. Those clones are:
+- The repo is live at <https://github.com/LesterThomas/oda-canvas-maintainer-skill> and contains only `spec/` and a README.
+- The first research pass used local clones under `D:\Dev\tmforum-oda\`. It was then checked against the live organisation (task 1.1).
+- The skill-creator workflow (draft → test → review → improve) is used from Phase 2 onward.
 
-- `oda-canvas`
-- `oda-component-ctk`
-- `reference-example-components`
-- `oda-ca-docs`
-- `oda-agent-skllls-marketplace`
-- `ai-canvas-architecture`
-- `ai-impact-on-architecture`
-- `AI-Augmented-Software-Engineering`
-
-The skill-creator workflow (draft → test → review → improve) is used from Phase 2 onward.
+**Design note (spec v0.2):** review knowledge lives in a **living `guidance/` folder**, with one Markdown file per guidance type. It improves from the maintainer's feedback during normal use (spec §7). Tasks that write review knowledge therefore write *seed* guidance files, not static references.
 
 ---
 
 ## Phase 0 — Foundations
 
-- [x] **0.1** **Done 2026-09-28.** Created as a public repo, with `main` tracking `origin`. Set up git and the remote at `github.com/LesterThomas/oda-canvas-maintainer-skill`. `git init`, add a `.gitignore` for `__pycache__/`, `.venv/`, `*-workspace/`, `maintainer-drafts/` and OS files, then commit `spec/` first so the plan has history from day one.
-- [ ] **0.2** Get answers to spec §12 open questions Q1–Q8 from the maintainers, and record each answer inline in spec §12 with its date.
-- [ ] **0.3** Confirm the tooling on at least one Windows and one macOS/Linux machine:
-  - `gh` is installed and `gh auth status` is OK with access to `tmforum-oda`;
-  - Python 3.10+ is available.
+- [x] **0.1** Set up git and the remote at `github.com/LesterThomas/oda-canvas-maintainer-skill`: `git init`, a `.gitignore`, and a first commit of `spec/`. **Done 2026-09-28:** public repo, with `main` tracking `origin`.
+- [~] **0.2** Record the answers to the spec §12 open questions. **Partly done 2026-09-28:**
+  - Q1: scope exclusions decided;
+  - Q2: one approval, about 5 maintainers, personal use for now;
+  - Q4: no special handling for AI PRs; the criteria are ODA alignment and quality;
+  - Q5: marketplace creator skill later.
   
-  Record the minimum `gh` version needed for `gh pr checks --json` and `gh search`.
+  Q3, Q6, Q7 and Q8 have defaults and are resolved by task 1.2 or by feedback. They don't block Phase 2.
+- [ ] **0.3** Confirm the tooling on this machine (Windows): `gh` authenticated as `LesterThomas` with access to `tmforum-oda` (confirmed 2026-09-28), and Python 3.10+. Record the minimum `gh` version needed for `gh pr checks --json` and `gh search`.
 
-## Phase 1 — Research (ground the skill in real project behaviour)
+## Phase 1 — Research (ground the seed guidance in real project behaviour)
 
-- [x] **1.1** Build the live repo inventory: `gh repo list tmforum-oda --limit 200 --json name,description,isArchived,pushedAt,primaryLanguage`. Update the spec §3 table and mark archived or inactive repos. For each active repo, record:
-  - open issue and PR counts;
-  - whether CONTRIBUTING, CODEOWNERS and a PR template exist.
-
-  **Done 2026-09-28.** The org holds 33 repos: 4 archived, about 15 dormant or non-Canvas, and 15 active or relevant, now tiered in spec §3.
-
-  Local clones were missing 6 relevant repos: the three operator repos (`TMFOP006`, `TMFCOP009`, `TMFOP012`), `model-as-a-service-crds`, `oda-helm-charts` and `canvas-prerequisites`.
-
-  `oda-canvas` carries most of the load, with 66 open issues and 8 open PRs. This suggests the queue mode (§4.1) and stale-issue housekeeping (§4.5) will matter a lot at launch.
-
-  **Scope decisions by the maintainer, 2026-09-28:**
-  - `oda-component-ctk` is excluded, because it has been replaced by other work.
-  - `model-as-a-service-crds` is excluded, because it is being merged into `TMFCOP009-model-as-a-service-operator`.
-
-  **Still to do:** the CONTRIBUTING, CODEOWNERS and PR-template presence check per repo. It moves into 1.2.
-- [ ] **1.2** Collect governance facts for `oda-canvas` and the other active repos:
-  - labels (`gh label list`);
+- [x] **1.1** Build the live repo inventory and the spec §3 tiers. **Done 2026-09-28.**
+  - The org holds 33 repos: 4 archived, about 15 dormant or non-Canvas, and the rest tiered in spec §3.
+  - Local clones were missing `TMFOP006`, `TMFCOP009`, `TMFOP012`, `model-as-a-service-crds`, `oda-helm-charts` and `canvas-prerequisites`.
+  - `oda-canvas` carries most of the load, with 66 open issues and 8 open PRs, so the queue (§4.1) and stale housekeeping (§4.5) matter from day one.
+  - **Maintainer scope decisions:** `oda-component-ctk` is excluded (replaced by other work), and `model-as-a-service-crds` is excluded (merging into `TMFCOP009`).
+- [ ] **1.2** Collect governance facts for the Tier 1 and Tier 2 repos:
+  - labels (`gh label list`), which seed `guidance/labels-and-metadata.md`;
   - milestones;
-  - CODEOWNERS;
-  - branch protection and required checks, via `gh api repos/{o}/{r}/branches/main/protection` (this may need admin rights, so otherwise infer from PR check lists);
-  - whether private vulnerability reporting is enabled;
-  - whether Discussions are enabled.
-- [ ] **1.3** Mine the unwritten review norms from a sample of about 30 recently merged or closed PRs and about 30 closed issues in `oda-canvas`. Note:
-  - what maintainers actually ask for;
-  - typical time to first response;
-  - approval count;
+  - whether CONTRIBUTING, CODEOWNERS and a PR template exist;
+  - required status checks, inferred from recent PR check lists if the branch-protection API needs admin rights;
+  - whether private vulnerability reporting is enabled (spec Q6);
+  - whether Discussions are enabled;
+  - **the other ~4 maintainers' logins**, for `co_maintainers`, taken from recent approving reviewers on merged PRs and confirmed with the maintainer.
+- [ ] **1.3** Mine the unwritten review norms from about 30 recently merged or closed PRs and about 30 closed issues in `oda-canvas`. Weight the **maintainer's own reviews** most heavily, because the skill is personal. Capture:
+  - what gets asked for before approval;
+  - what gets approved despite imperfections, which calibrates "good enough";
   - how prerelease-suffix, chart-bump and CRD changes were handled;
+  - typical time to first response;
   - tone and phrasing to imitate.
   
-  Output: `research/review-norms.md`.
-- [ ] **1.4** Check the best-practice sources in spec §11 (they were listed from prior knowledge while offline), fix any dead links, and write `references/best-practices.md`. Paraphrase with short attributed quotes only, and include good and bad phrasing examples for each principle.
-- [ ] **1.5** Review the neighbouring skills so this one doesn't overlap or contradict them:
+  Output: `research/review-norms.md`. It is the main input to the seed guidance in Phase 2.
+- [ ] **1.4** Check the best-practice sources in spec §11 (first listed while offline) and fix any dead links. Record them in `references/sources.md`. Paraphrase only, with short attributed quotes.
+- [ ] **1.5** Distil **the objectives of the ODA and the ODA Canvas** into seed criteria for `guidance/approval-criteria.md`, using:
+  - the `oda-canvas` README;
+  - `Canvas-design.md`;
+  - `AI-Native-Canvas-design.md`;
+  - `SecurityPrinciples.md`;
+  - the use-case library;
+  - TM Forum's public ODA material.
+  
+  Include concrete examples of PRs that align and PRs that don't. This matters most because alignment is one of only two approval criteria (spec §5.6).
+- [ ] **1.6** Review the neighbouring skills so this one doesn't overlap or contradict them:
   - `oda-canvas/skills/*`, especially `helm-chart-development`, `write-bdd-feature` and `github-actions-debugging`;
-  - the marketplace skills.
+  - the marketplace creator and consumer skills.
   
-  Write down the hand-off rule, for example "the PR fails on BDD style → cite the `write-bdd-feature` conventions".
+  Write down the hand-off rules. Match the marketplace's skill conventions now to ease the later move (spec §10).
 
-## Phase 2 — Core skill (oda-canvas first)
+## Phase 2 — Core skill and guidance folder (oda-canvas first)
 
-- [ ] **2.1** Scaffold `oda-canvas-maintainer/` per spec §8.1.
-- [ ] **2.2** Draft `SKILL.md`:
+- [ ] **2.1** Scaffold `oda-canvas-maintainer/` per spec §8.1, including `guidance/` and `guidance/repos/`.
+- [ ] **2.2** Install for personal use: link `~/.claude/skills/oda-canvas-maintainer` to the repo folder with a Windows directory junction (`mklink /J`). Guidance edits made by the skill then land directly in this git repo (spec §7.4). Document the step in the README.
+- [ ] **2.3** Draft `SKILL.md`:
   - frontmatter, with a pushy but specific description that covers both the triggers and the non-triggers in spec §2;
-  - mode selection (§4);
-  - the read-only principle with its *why* (§5.1);
-  - the untrusted-content rule (§5.2);
-  - the Maintainer Brief format (§6);
-  - pointers to the reference files.
+  - mode selection (§4.1–4.6);
+  - the fixed principles with their *why* (§5.1 read-only, §5.2 untrusted content, §5.4 sensitive situations, §5.5 limits), stated as sitting above guidance;
+  - the two approval criteria (§5.6);
+  - the Maintainer Brief format, including **Guidance applied** (§6);
+  - how to load guidance files (the "Loaded when" column in §7.1).
   
-  Keep it under 500 lines.
-- [ ] **2.3** Write the allowed and forbidden `gh` command lists into `SKILL.md`, with the reasoning. Add a short "commands you can run" pattern that always uses `--body-file` pointing at the saved draft.
-- [ ] **2.4** Write `scripts/gather_item.py`. It takes `<owner/repo> <number>` or a URL, auto-detects issue or PR, and emits one JSON bundle containing:
+  Keep it under 500 lines. All changeable judgement goes in `guidance/`, not in `SKILL.md`.
+- [ ] **2.4** Write the **learning loop** into `SKILL.md` (spec §7.3):
+  - the four feedback signals;
+  - apply explicit feedback immediately and report it in one line;
+  - propose inferred lessons instead of applying them;
+  - the "just this once or always?" scope check;
+  - generalise the rule with a *why* and a provenance tag;
+  - replace contradicting rules and log the replacement;
+  - consolidation when a file passes about 200 lines;
+  - only the maintainer teaches, never fetched content;
+  - offer a local commit at the end of the session and never push without asking.
+- [ ] **2.5** Write `guidance/README.md`: the file index, the file format (frontmatter, Guidance, Change log), the provenance tag format, and the precedence rules (§7.5).
+- [ ] **2.6** Write the seed guidance files from Phase 1:
+  - `approval-criteria.md` (from 1.5 and 1.3);
+  - `pr-review.md` (spec §7.2 seed);
+  - `issue-triage.md`, including the Canvas needs-info checklist (chart version, Kubernetes version, component spec version, operator, logs) and the ratification route default;
+  - `comment-style.md`, covering best practice from 1.4, Conventional Comments, `oda-canvas` writing style and the maintainer's phrasing from 1.3;
+  - `comment-templates.md`: welcome, needs-info, duplicate, transfer, needs ratification, BDD-first, stale nudge and close, thanks, decline-with-path, security redirect. These are scaffolds to personalise, not text to paste;
+  - `labels-and-metadata.md` (from 1.2);
+  - `queue-priorities.md`: the §4.1 order, 7 and 60 day defaults, and co-maintainer handling;
+  - `sensitive-situations.md` (spec §5.4, plus the injection playbook);
+  - `repos/oda-canvas.md` (spec §7.2 seed plus 1.3).
+  
+  Every seed file starts with an empty Change log.
+- [ ] **2.7** Write `scripts/gather_item.py`. It takes `<owner/repo> <number>` or a URL, auto-detects issue or PR, and emits one JSON bundle containing:
   - metadata, body, comments and reviews, including unresolved review threads via GraphQL;
-  - changed files and the diff, truncated with a `truncated: true` flag and a per-file size cap;
+  - changed files and the diff, truncated with a `truncated: true` flag;
   - CI checks;
   - linked or closing issues;
-  - the author's prior merged PR count in the org (for first-time contributor detection).
+  - the author's prior merged PR count in the org;
+  - **which maintainers (`co_maintainers`) have already reviewed or commented**;
+  - **the maintainer's own posted comments**, which the learning loop compares with saved drafts (§7.3 signal 3).
   
-  It must be standard library only and read-only, with clear errors for missing auth or access. Test it on Windows.
-- [ ] **2.5** Write `scripts/canvas_pr_checks.py`. It runs deterministic checks on a PR bundle or a local checkout and emits findings as JSON with evidence:
-  - non-empty prerelease suffixes, using the same file and key list as `check-no-prerelease-suffixes-in-PR.yml`, ideally parsed from that workflow or its generator config so it cannot drift;
-  - `charts/**` changed without a `Chart.yaml` version bump, or a bump without a changelog comment;
-  - hard-coded `namespace:` values in chart templates;
-  - CRD schema files touched without matching webhook changes;
+  It must be standard library only and read-only. Test it on Windows.
+- [ ] **2.8** Write `scripts/canvas_pr_checks.py`, the deterministic `oda-canvas` checks, emitting findings as JSON with evidence:
+  - prerelease suffixes, using the key list parsed from `check-no-prerelease-suffixes-in-PR.yml` or its generator config so it cannot drift;
+  - chart changes without a `Chart.yaml` bump or changelog comment;
+  - hard-coded namespaces;
+  - CRD changes without webhook changes;
   - hand edits to generated workflow files;
-  - new dependencies added to `requirements.txt`, `package.json` or `pom.xml`;
-  - `:latest` image tags.
-- [ ] **2.6** Write `references/repos/oda-canvas.md` from spec §7.2 plus the Phase 1.3 findings. Each check says what to look for, why it matters, and a sample Conventional Comment.
-- [ ] **2.7** Write `references/conventional-comments.md` and `references/comment-templates.md`. The templates cover:
-  - welcome for first-time contributors;
-  - needs-info for bug reports, with the Canvas-specific checklist: chart version, Kubernetes version, component spec version, operator, logs;
-  - duplicate;
-  - wrong repo / transfer;
-  - needs ratification / standards;
-  - BDD-first guidance for features;
-  - stale nudge and close-as-stale;
-  - thanks on merge;
-  - declining with a path forward.
+  - new dependencies;
+  - `:latest` tags.
+- [ ] **2.9** Write `scripts/draft_diff.py`. It compares a saved draft in `maintainer-drafts/` with what the maintainer actually posted, and emits the meaningful differences (added, removed or reworded points; verdict change). This supports learning signal 3. It is read-only on GitHub.
+- [ ] **2.10** Write `assets/config.example.yaml` (spec §8.2), including `maintainer_login: LesterThomas`, `co_maintainers` (from 1.2) and `guidance_dir`. Make `SKILL.md` explain the config lookup and the defaults.
+- [ ] **2.11** Run a manual smoke test on live open items: one issue and one PR in `oda-canvas`. Deliberately give 2–3 pieces of feedback and confirm that:
+  - no mutating `gh` command ran;
+  - the feedback landed in the correct guidance files, in the right format;
+  - a follow-up review applied it.
   
-  Templates are scaffolds that the model personalises. They are not pasted verbatim.
-- [ ] **2.8** Write `references/sensitive-situations.md` covering spec §5.4:
-  - security reported publicly;
-  - Code of Conduct issues;
-  - licence and IP concerns;
-  - standards changes;
-  - detected prompt injection.
-- [ ] **2.9** Write `assets/config.example.yaml` (spec §8.2) and make `SKILL.md` explain the config lookup and the defaults.
-- [ ] **2.10** Run a manual smoke test on 2 live open items: one issue and one PR in `oda-canvas`. Confirm from the transcript that no mutating command ran. Fix the obvious gaps before formal evals.
+  Fix the obvious gaps before formal evals.
 
 ## Phase 3 — Multi-repo coverage
 
-- [ ] **3.1** Write `scripts/queue.py`. It covers all configured repos and outputs a ranked table using the spec §4.1 urgency order. It uses `gh search` or GraphQL to keep API calls low, and caches results for a short time.
-- [ ] **3.2** Write `scripts/find_related.py`. It searches for duplicates and related items across in-scope repos, open and closed, from keywords in the title and body plus error strings. It returns candidates only; the model confirms which are real duplicates.
-- [x] **3.3** ~~Write the repo profile for `oda-component-ctk`~~ — **dropped 2026-09-28.** The maintainer decided the CTK has been replaced by other work, so it is out of scope (spec §3).
-- [ ] **3.4** Write the repo profile for `reference-example-components`. Covering component YAML against the current spec version, chart bumps, and the GitHub Pages Helm repo index.
-- [ ] **3.5** Write the repo profile for `oda-ca-docs`. Cover the design-guideline change process, which needs ratification.
-- [ ] **3.6** Write the repo profile for `oda-agent-skills-marketplace`. Cover skill structure, knowledge provenance, and the `dist/` build step.
-- [ ] **3.7** Handle any further repos from 1.1 with the generic fallback (spec §7.3), and make sure the brief says so.
+- [ ] **3.1** Write `scripts/queue.py`. It covers all configured repos and ranks items using the order in `guidance/queue-priorities.md`. It flags items another maintainer is handling, uses `gh search` or GraphQL to keep API calls low, and caches results for a short time.
+- [ ] **3.2** Write `scripts/find_related.py`. It searches for duplicates and related items across in-scope repos, open and closed. It returns candidates only; the model confirms which are real duplicates.
+- [x] **3.3** ~~Repo guidance for `oda-component-ctk`~~ — **dropped 2026-09-28.** The repo is out of scope (spec §3).
+- [ ] **3.4** Write `guidance/repos/reference-example-components.md`. Cover component YAML against the current spec version, chart bumps and the GitHub Pages Helm index.
+- [ ] **3.5** Write `guidance/repos/oda-helm-charts.md` and `guidance/repos/canvas-prerequisites.md`. Cover consistency with `oda-canvas/charts` and installation correctness.
+- [ ] **3.6** Write `guidance/repos/` files for the Tier 2 operators: `TMFOP006`, `TMFCOP009` and `TMFOP012`. Start from the `oda-canvas` operator and CRD rules. `TMFCOP009` also receives the MaaS CRDs being merged in.
+- [ ] **3.7** For Tier 3 repos, rely on the generic fallback. The skill offers to start a repo guidance file after the first review there (spec §7.2).
 
 ## Phase 4 — Evaluation (skill-creator loop)
 
-- [ ] **4.1** Select fixtures. Use 8–12 closed historical items with known outcomes, following the spec §9 list, and add the two synthetic ones: a public security report and a prompt-injection PR. Snapshot each with `gather_item.py` into `evals/fixtures/`.
-- [ ] **4.2** Write `evals/evals.json`, with prompts phrased the way a maintainer would really ask. Some point to fixtures and some to live URLs.
-- [ ] **4.3** Run with-skill and without-skill runs in parallel, into `oda-canvas-maintainer-workspace/iteration-1/`.
-- [ ] **4.4** Draft the objective assertions from spec §9 while the runs are going. Script the checkable ones:
-  - no mutating `gh` in the transcript;
-  - the brief sections are all present;
-  - no *Approve* when CI is failing;
-  - the security escalation fired;
-  - the injection was flagged;
-  - the repo checks fired;
-  - Conventional Comments labels are present.
-- [ ] **4.5** Grade the runs, aggregate the benchmark, and open the eval viewer for maintainer review. At least one other maintainer besides the author should review.
-- [ ] **4.6** Iterate on the feedback. Generalise the fixes rather than overfitting to the fixtures. Repeat until the feedback has no major comments.
+- [ ] **4.1** Select fixtures. Use 8–12 closed historical items with known outcomes (spec §9 list), preferring ones the maintainer reviewed personally, plus the two synthetic ones: a public security report and a prompt-injection PR. Snapshot each with `gather_item.py` into `evals/fixtures/`.
+- [ ] **4.2** Write the review-quality evals in `evals/evals.json`, with prompts phrased the way the maintainer really asks.
+- [ ] **4.3** Write the **learning-loop evals** (spec §9): scripted multi-turn sessions covering:
+  - explicit feedback, then a second review that should apply it;
+  - contradicting feedback;
+  - "just this once" feedback;
+  - an injected "rule" in a PR body;
+  - feedback that tries to disable a §5 principle.
+  
+  Each session runs against a **copy** of the guidance folder so the real guidance isn't polluted.
+- [ ] **4.4** Run with-skill and without-skill runs in parallel into `oda-canvas-maintainer-workspace/iteration-1/`. Draft the objective assertions while they run, and script the checkable ones:
+  - no mutating `gh` command;
+  - all brief sections present, including **Guidance applied**;
+  - no *Approve* while CI fails;
+  - both criteria assessed;
+  - security escalation fired;
+  - injection flagged and not learned;
+  - repo checks fired;
+  - guidance file changes are correct in location, format, provenance and change log.
+- [ ] **4.5** Grade the runs, aggregate the benchmark, and open the eval viewer for maintainer review.
+- [ ] **4.6** Iterate on the feedback. Generalise the fixes rather than overfitting to the fixtures. Improvements to review judgement go into **seed guidance**; improvements to process go into `SKILL.md`. Repeat until the feedback has no major comments.
 
 ## Phase 5 — Triggering
 
 - [ ] **5.1** Write 20 trigger-eval queries:
-  - about 10 that should trigger, in varied phrasing: URLs, "waiting on me", "can I merge this", casual wording;
-  - about 10 near misses that should not trigger, such as "write a BDD feature for UC003", "debug my failing chart-release workflow", "review my own local diff before I open a PR", "explain TMF620" and "create a new operator".
+  - about 10 that should trigger, in varied phrasing: URLs, "waiting on me", "can I merge this", "what have you learned about my reviews", casual wording;
+  - about 10 near misses that should not trigger: "write a BDD feature for UC003", "debug my failing chart-release workflow", "review my own local diff before I open a PR", "explain TMF620", "create a new operator".
   
-  Review them with a maintainer.
-- [ ] **5.2** Run the skill-creator description optimiser, then apply the best description (chosen on the held-out test score, not the training score).
+  Review them with the maintainer.
+- [ ] **5.2** Run the skill-creator description optimiser, then apply the best description (chosen on the held-out test score).
 
-## Phase 6 — Ship
+## Phase 6 — Personal use, then marketplace
 
-- [ ] **6.1** Write a `README.md` covering what the skill does and doesn't do, installation, config, example sessions per mode, and a clear statement that it never writes to GitHub.
-- [ ] **6.2** Package the skill (`package_skill`), and publish it to the home chosen in spec §10 / §12 Q5. If that is the marketplace, add a `tm-forum-oda-maintainer` plugin entry.
-- [ ] **6.3** Announce it to the maintainers, and collect usage feedback for 2–4 weeks as a new iteration.
-- [ ] **6.4** Plan follow-ups, maybe:
+- [ ] **6.1** Update `README.md` with what the skill does and doesn't do, installation via junction, config, example sessions per mode, how the guidance learns, and a clear statement that it never writes to GitHub issues or PRs.
+- [ ] **6.2** Use the skill personally for 4–6 weeks. Review the git history of `guidance/` every couple of weeks, and run a consolidation pass (spec §4.6).
+- [ ] **6.3** Prepare the marketplace move (spec §10):
+  - implement the guidance overlay model (§7.4): bundled seed plus a user overlay in `~/.config/oda-canvas-maintainer/guidance/`, merged per file;
+  - split the learned guidance into project-general rules (which ship as the seed) and personal rules (which stay local);
+  - match the marketplace layout (`skills/<name>/` → `dist/creator/skills/<name>/`).
+- [ ] **6.4** Raise a PR to `tmforum-oda/oda-agent-skills-marketplace` adding the skill to the `tm-forum-oda-creator` plugin. The maintainer raises and merges it themselves.
+- [ ] **6.5** Plan follow-ups, maybe:
   - a scheduled weekly queue digest (still draft-only);
   - release-readiness review (release-notes table, suffix clearing, chart versions);
-  - more repo profiles.
+  - sharing learned guidance between maintainers.
