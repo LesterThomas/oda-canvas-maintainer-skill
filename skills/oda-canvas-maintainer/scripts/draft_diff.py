@@ -67,6 +67,8 @@ def compare(draft_path: Path, maintainer: str) -> dict:
     meta, draft = read_draft(draft_path)
     if not meta.get("repo") or not meta.get("number"):
         return {"draft": str(draft_path), "error": "draft has no repo/number frontmatter"}
+    if not meta["number"].isdigit():
+        return {"draft": str(draft_path), "status": "new-item draft (no existing item to compare with yet)"}
     proc = subprocess.run([sys.executable, str(HERE / "gather_item.py"), meta["repo"], meta["number"],
                            "--maintainer", maintainer, "--no-diff"],
                           capture_output=True, text=True, encoding="utf-8")
@@ -114,7 +116,7 @@ def main() -> None:
     a = ap.parse_args()
     if a.all:
         paths = sorted(Path(a.all).expanduser().glob("*.md"))
-        briefs = [p for p in paths if not re.search(r"(\.learned|\.comment(\.learned)?)\.md$", p.name)
+        briefs = [p for p in paths if not re.search(r"(\.learned|\.comment(\.learned)?|\.body)\.md$", p.name)
                   and not p.name.startswith("sweep-")]
         emit([compare(p, a.maintainer) for p in briefs])
     elif a.draft:
