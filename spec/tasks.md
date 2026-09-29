@@ -244,7 +244,17 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
     - ready-to-run gh commands and batch structure.
   - Two skill "failures" are flaws in the assertions (eval 8 ProjectONE, eval 5 drafts).
   - Awaiting Lester's review in the viewer.
-- [ ] 4.6: improvements found during the runs, to apply in iteration 2:
+- [x] 4.6: **Iteration 2 done 2026-09-29.** With the skill: 100% (71/71). Without: 81%. The lead is +19 points, up from +13.
+  - Lester's eval feedback was applied as rules:
+    - non-`main` PRs get Comment only, and the fixes should also go to `main`;
+    - no parroted praise;
+    - ADR routing confirmed.
+  - Two #70 rules were also applied: the maintainer does trivial fixes, and replies stay on the question asked.
+  - All five fixes listed below were applied. In addition:
+    - `queue.py` broken-workflow detection is now deterministic;
+    - the `gh --merged` flag in `SKILL.md` is fixed;
+    - the ProjectONE seed error is corrected.
+  - The viewer is `review-iteration-2.html` and is waiting for Lester's review. The iteration-1 list follows:
   1. `canvas_pr_checks.py`: suffix and version checks only apply when the PR base is `main` (#601 targets `feature/ai-canvas-experimental-changes`).
   2. ADRs also live in `tmforum-oda/ai-canvas-architecture` (ADR-001..008, RAND-licensed). Add it as a second `adr_source`.
   3. Queue additions: failing default-branch workflows (ref-components Release Charts failing since 26 Sep, so TMFC007 is unpublished); issues that @-mention the maintainer; PRs with the maintainer's review requested; `ai-canvas-architecture` PRs.
