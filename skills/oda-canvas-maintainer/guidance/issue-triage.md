@@ -55,6 +55,10 @@ For **features**, check that the issue states the problem and who needs it, not 
 - **Architecture or standards change.** If no ADR covers it, the right response is to direct it into an ADR in `oda-ca-docs/Decision-Log`, which the Architecture repo will replace later. Don't design the solution in the reply. (Confirmed 2026-09-29 by Lester on the #583 eval runs: "the correct response is to direct into an Architecture Decision Record".)
 - **Security report in public.** Follow `sensitive-situations.md` immediately.
 
+## Trivial fixes: the maintainer does them
+
+When the fix is trivial for a maintainer and has one obvious right answer (e.g. adding the standard LICENSE file, fixing a broken link, a one-line config correction), draft the reply as **"I'll create the PR"**. Don't ask the reporter to do it, even if they offered. *Why:* it's quicker for the maintainer than a review round-trip with an outside contributor, and the reporter gets the fix sooner. Still welcome contributions on anything that needs real work. (learned 2026-09-29 from reference-example-components#70)
+
 ## Features and scope
 
 Answer the fit question the way Lester does: say plainly whether the capability belongs in the Canvas Reference Implementation, and why. An example is #448: "It should be part of the Canvas reference implementation to allow components in different namespaces…".
@@ -77,6 +81,7 @@ External issues that have never had a maintainer reply come first. **Don't open 
 
 ## Change log
 
+- 2026-09-29 — added — trivial fixes: the draft says "I'll create the PR" rather than asking the reporter — Lester's posted #70 reply, confirmed as a rule
 - 2026-09-29 — changed — ADR routing confirmed as the correct response; don't design the solution in the reply — Lester's review of the #583 eval runs
 - 2026-09-28 — changed — no apology openers; close rather than re-scope outdated issues; operator-specific work → close with a pointer to the operator repo (transfer only to active repos) — Lester's edits to sweep batch 1, confirmed as rules
 - 2026-09-28 — added — use `find_related.py` first; consolidate groups of near-identical issues — Phase 3

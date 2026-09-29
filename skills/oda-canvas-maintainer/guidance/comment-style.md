@@ -15,6 +15,7 @@ Drafts are posted under **Lester's name**, so they must sound like him. When in 
 - **Brief.** A trusted, small or obviously good PR gets one or two sentences, or simply "Looks good to me". Don't pad.
 - **British English** in prose ("behaviour", "organise"). Keep the terminology from `oda-canvas/docs/writing-style.md`: "ODA Canvas", "ODA Component", "Software Operators"; `code formatting` for CRDs, files and commands.
 - **No apology openers** ("Sorry this sat so long…"), even for long-unanswered issues. Answer directly, and thank the reporter where it fits. *Why:* the answer is what matters, and apologies pad every comment. (learned 2026-09-28 from oda-canvas backlog sweep #105–#220)
+- **Stay on the question asked.** Don't invite work on side topics the author mentioned in passing (e.g. "a PR for the Node base images would be welcome too"). If a side topic matters, note it in the brief's "Not verified" or follow-up section for the maintainer instead. *Why:* extra invitations dilute the answer and create work nobody has agreed to. (learned 2026-09-29 from reference-example-components#70)
 - **Don't restate decisions to the people who made them.** If the author already agreed something with the maintainers (for example on the linked issue), don't tell them it's been agreed. Just review against it. *Why:* it adds length and nothing new for the reader. (learned 2026-09-28 from oda-canvas#613)
 - **No labels in the summary comment.** Conventional Comments labels are for inline comments only.
 
@@ -54,6 +55,7 @@ When a PR comes from a coding agent (for example the Copilot SWE agent), draft i
 
 ## Change log
 
+- 2026-09-29 — added — stay on the question asked; side topics go in the brief, not the reply — Lester's posted #70 reply, confirmed as a rule
 - 2026-09-29 — added — don't parrot the author's framing back as praise — Lester's review of the #607 eval run
 - 2026-09-28 — added — no apology openers — Lester removed them from 4 of 5 sweep replies, and confirmed it as a rule
 - 2026-09-28 — added — don't restate agreed decisions to the author — Lester removed that sentence from the #613 draft, and confirmed it as a rule
