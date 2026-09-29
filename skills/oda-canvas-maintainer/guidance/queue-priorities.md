@@ -22,6 +22,7 @@ The data supports these defaults: the median time to first response on PRs is 23
 0. **Broken on the default branch:** workflows whose latest run on `main`/`master` failed. These go above the table, because they block releases for everyone. For example, reference-example-components' Release Charts failed from 26 Sep 2026, so TMFC007 was never published.
 1. **Possible vulnerability reports** from the last 90 days. Older mentions are noted in the row, not escalated, because a years-old public report needs a sweep decision, not an urgent private-channel reply.
 2. **Asks you directly:** your review is requested and you haven't reviewed, or you were @-mentioned after your last comment. *Why:* someone is explicitly waiting on you, and these are easy to miss in a large backlog (#545 waited 363 days).
+   Before listing an "asks you directly" item, check that it's still open for you. The script can't see action you took *elsewhere*, for example approving the linked PR (#612 → #613) or answering in a related thread. Demote items you've effectively handled, and say why.
 3. **External PRs with no maintainer review**, oldest first. One approval merges a PR, so a single review from Lester unblocks a contributor. *Why:* contributors reviewed within about 48 h are far more likely to return, and some external PRs have waited since February 2025.
 4. **External issues with no maintainer reply**, oldest first.
 5. **PRs where the author has responded** since the last maintainer review. The author is waiting on us.
@@ -44,6 +45,7 @@ Show one table, in this order: item link, age, type, author (external or maintai
 
 ## Change log
 
+- 2026-09-29 — added — verify "asks you directly" items against action taken on linked PRs or threads; broken-workflow list limited to failures within the stale threshold — iteration 2 eval run
 - 2026-09-29 — added — broken-on-default-branch section, "asks you directly" rank (review requested or unanswered @-mention), dependency-alert wording — gaps found in the Phase 4 eval baseline
 - 2026-09-28 — added — definition of external; security flag narrowed to disclosure language — Phase 3 testing of `queue.py`
 - 2026-09-28 — added — seed from spec §4.1 and `research/review-norms.md` §3

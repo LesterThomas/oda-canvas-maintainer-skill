@@ -98,10 +98,13 @@ def fetch(repo: str, with_prs: bool, with_issues: bool) -> tuple[list, list]:
     return prs, issues
 
 
-def broken_workflows(repo: str) -> list[dict]:
-    """Workflows whose most recent completed run on the default branch failed."""
+def broken_workflows(repo: str, max_age_days: int = 60) -> list[dict]:
+    """Workflows whose most recent completed run on the default branch failed within max_age_days.
+
+    Older failures are left out: a workflow whose last run failed months ago is usually a
+    dormant guard (e.g. "image tag already exists"), not live breakage."""
     default = gh_json(["repo", "view", repo, "--json", "defaultBranchRef"])["defaultBranchRef"]["name"]
-    runs = gh_json(["run", "list", "-R", repo, "--branch", default, "--limit", "40",
+    runs = gh_json(["run", "list", "-R", repo, "--branch", default, "--limit", "200",
                     "--json", "workflowName,conclusion,status,createdAt,url,event"]) or []
     bad = ("failure", "timed_out", "startup_failure")
     latest: dict[str, dict] = {}
@@ -110,7 +113,8 @@ def broken_workflows(repo: str) -> list[dict]:
             latest[r["workflowName"]] = r
     out = []
     for name, r in latest.items():
-        if r["conclusion"] in bad:
+        age = (dt.datetime.now(dt.timezone.utc) - parse_time(r["createdAt"])).days
+        if r["conclusion"] in bad and age <= max_age_days:
             done = [x for x in runs if x["workflowName"] == name and x["status"] == "completed"]
             streak = 0
             for x in done:
@@ -256,7 +260,7 @@ def main() -> None:
             continue
         if not a.sweep:
             try:
-                broken += broken_workflows(repo)
+                broken += broken_workflows(repo, a.stale_days)
             except GhError as exc:
                 errors.append(f"{repo} workflows: {exc}")
         items += [analyse(repo, n, "pr", me, maintainers, now, a.no_response_days, a.stale_days) for n in prs]

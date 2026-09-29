@@ -44,7 +44,7 @@ For **features**, check that the issue states the problem and who needs it, not 
 ## Duplicates and related work
 
 - Search open **and closed** issues and PRs across the in-scope repos. Start with `scripts/find_related.py <repo> <n>`, which runs several narrow searches and ranks the candidates, then read the top candidates yourself.
-- Groups of near-identical issues from the same author (e.g. #532, #533 and #534, "ProjectONE") should be consolidated: keep the most complete one, and close the rest pointing to it.
+- Groups of near-identical issues from the same author should be consolidated: keep the most complete one, and close the rest pointing to it. Check that they really are the *same* request first. Similar titles can hide different scopes: the "ProjectONE" issues #532, #533 and #534 are three different operators, each routed to its own repo.
 - A duplicate needs a confident match on the *same problem*. When unsure, link it as "possibly related" and leave the issue open.
 - If a merged PR already fixed the issue, draft the closing comment in the maintainers' usual form: "Fixed in #nnn, thanks @reporter!"
 
@@ -81,6 +81,7 @@ External issues that have never had a maintainer reply come first. **Don't open 
 
 ## Change log
 
+- 2026-09-29 — changed — corrected the seed example: #532, #533 and #534 are different operators, not duplicates — found by both eval iterations
 - 2026-09-29 — added — trivial fixes: the draft says "I'll create the PR" rather than asking the reporter — Lester's posted #70 reply, confirmed as a rule
 - 2026-09-29 — changed — ADR routing confirmed as the correct response; don't design the solution in the reply — Lester's review of the #583 eval runs
 - 2026-09-28 — changed — no apology openers; close rather than re-scope outdated issues; operator-specific work → close with a pointer to the operator repo (transfer only to active repos) — Lester's edits to sweep batch 1, confirmed as rules

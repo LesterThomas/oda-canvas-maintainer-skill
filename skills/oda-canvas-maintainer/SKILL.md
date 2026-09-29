@@ -136,7 +136,7 @@ Pick the mode from the request. If a request spans modes ("review the three olde
    Unanswered external issues come first, then issues that merged PRs reference, then the oldest.
 3. For each issue in the batch:
    - run `gather_item.py` (to get the full thread and linked items) and `find_related.py` (to find duplicates, and fixes under other names);
-   - check whether the Canvas has moved on: does the feature exist now, or has the area been redesigned? Use `gh search prs "<terms>" --repo <repo> --state merged` and the current `main`;
+   - check whether the Canvas has moved on: does the feature exist now, or has the area been redesigned? Use `gh search prs "<terms>" --repo <repo> --merged` and the current `main`;
    - classify it as **done or superseded**, **duplicate**, **still valid**, **needs info** or **out of scope**, with evidence.
 4. Save one draft per issue. End the batch with a table: issue, age, classification, evidence, action, draft file. Then give the ready-to-run commands for the whole batch, `gh issue comment` plus `gh issue close` where recommended, so the maintainer can apply the ones they agree with.
 5. Ask before starting the next batch (`--offset` is in the script output).
