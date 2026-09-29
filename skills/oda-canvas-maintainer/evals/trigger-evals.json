@@ -1,0 +1,82 @@
+[
+  {
+    "query": "can you look at https://github.com/tmforum-oda/oda-canvas/pull/605 and tell me if it's ok to merge? it's just a README change from someone at Red Hat",
+    "should_trigger": true
+  },
+  {
+    "query": "what's waiting on me across the canvas repos? been at DTW all week and haven't opened github",
+    "should_trigger": true
+  },
+  {
+    "query": "someone opened an issue on reference-example-components saying the TMF672 swagger link 404s (#63) - draft me a reply",
+    "should_trigger": true
+  },
+  {
+    "query": "let's keep going with the oda-canvas stale issue clean-up, next 10 please",
+    "should_trigger": true
+  },
+  {
+    "query": "ferenc pinged me about 574 again, it's the massive PDB management PR (50k lines!). what do I say to the author?",
+    "should_trigger": true
+  },
+  {
+    "query": "draft a review for anshul's PR on TMFOP012 that adds the databricks data operator",
+    "should_trigger": true
+  },
+  {
+    "query": "is oda-canvas #545 a real bug? the istio ingress service type one - the guy @'d me back in march and nobody ever replied",
+    "should_trigger": true
+  },
+  {
+    "query": "what have you learned so far about how I review PRs? show me the rules you've picked up",
+    "should_trigger": true
+  },
+  {
+    "query": "check TMFCOP009 PR 1 and tell me what I should do with it",
+    "should_trigger": true
+  },
+  {
+    "query": "new issue on oda-canvas asking us to add sse back into the apiType enum... help me respond without being rude",
+    "should_trigger": true
+  },
+  {
+    "query": "write a BDD feature for UC004 published events in the oda-canvas feature-definition-and-test-kit, with step definitions",
+    "should_trigger": false
+  },
+  {
+    "query": "the Release Charts workflow on reference-example-components keeps failing with 422 tag_name already_exists - fix release.yml so it skips existing charts",
+    "should_trigger": false
+  },
+  {
+    "query": "review my local changes in D:\\Dev\tmforum-oda\\oda-canvas before I push - I refactored componentOperator.py to dedupe the segment handling",
+    "should_trigger": false
+  },
+  {
+    "query": "explain what the TMF620 Product Catalog Management API does and which ODA component exposes it",
+    "should_trigger": false
+  },
+  {
+    "query": "scaffold a new kopf operator for event management in TMFOP006 following the canvas operator patterns",
+    "should_trigger": false
+  },
+  {
+    "query": "review this PR for me: https://github.com/kubernetes-sigs/kind/pull/3801 - does the containerd change look safe?",
+    "should_trigger": false
+  },
+  {
+    "query": "bump the oda-crds chart to 1.3.3, add the changelog comment and update the canvas-oda dependency",
+    "should_trigger": false
+  },
+  {
+    "query": "write an ADR in the oda-ca-docs Decision-Log format for a Solution Package operator - context, decision, consequences",
+    "should_trigger": false
+  },
+  {
+    "query": "summarise the ODA Canvas architecture in five bullets for a slide I'm presenting at the TM Forum AI-Native workshop",
+    "should_trigger": false
+  },
+  {
+    "query": "create a GitHub issue form for oda-canvas bug reports that asks for chart version, k8s version and component spec version",
+    "should_trigger": false
+  }
+]
