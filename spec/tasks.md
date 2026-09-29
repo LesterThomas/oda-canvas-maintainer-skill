@@ -210,12 +210,19 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
 
 ## Phase 5 — Triggering
 
-- [ ] **5.1** Write 20 trigger-eval queries:
-  - about 10 that should trigger, in varied phrasing: URLs, "waiting on me", "can I merge this", "what have you learned about my reviews", casual wording;
-  - about 10 near misses that should not trigger: "write a BDD feature for UC003", "debug my failing chart-release workflow", "review my own local diff before I open a PR", "explain TMF620", "create a new operator".
-  
-  Review them with the maintainer.
-- [ ] **5.2** Run the skill-creator description optimiser, then apply the best description (chosen on the held-out test score).
+- [x] **5.1** Write the trigger-eval set. **Done 2026-09-29:** 20 queries (10 that should trigger, 10 near misses) in `evals/trigger-evals.json`, approved by Lester.
+- [x] **5.2** Run the description optimiser. **Done 2026-09-29. Decision: keep the current description** (Lester: "good enough").
+  - Result with the fixed harness:
+    - train 12/12 (100%: 6/6 should-trigger at 3/3, 6/6 near misses at 0/3);
+    - held-out 4/8: all 4 near misses correct; misses were "what have you learned", "next 10 of the sweep", "TMFCOP009 PR 1" and the ref-components #63 reply.
+  - The held-out misses look partly like noise: two of them triggered 2/2 in an isolated smoke test minutes earlier with the same description.
+  - **Harness problems found and worked around** (patched copy of skill-creator in the session scratchpad; the installed plugin is unchanged). They are worth raising upstream:
+    1. `run_eval.py` uses `select()` on a subprocess pipe, which fails on Windows (`WinError 10038`). Fix: read the pipe on a thread.
+    2. **Parallel workers share one `.claude/commands` folder**, so each `claude -p` session sees N identical copies of the skill under different names and often picks another worker's copy. That gave a false ~1/N recall (17–22% with 6 workers). Fix: a temporary project folder per query.
+    3. `improve_description.py` hides the error text (`claude -p` in text mode prints errors to stdout) and has no retry.
+    4. The installed skill must be unlinked during the run, or it competes with the candidate description.
+    5. The `claude` CLI must support the model; v2.1.238 returned API errors for `claude-opus-5-5`, and v2.1.284 works.
+  - Possible later work: a larger held-out re-check with more runs per query, if real-world undertriggering shows up.
 
 ## Phase 6 — Personal use, then marketplace
 
