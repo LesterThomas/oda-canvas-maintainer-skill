@@ -54,6 +54,16 @@ The voice rules are in `comment-style.md`. `<…>` marks something to fill in.
 
 > @<author>, is this still an issue with the current Canvas release (<version>)? If we don't hear back in the next few weeks we'll close it, but it can always be reopened.
 
+## Close a non-main PR and carry the fixes over
+
+Issue body (against `main`):
+> Carries over the fixes from #<n> (thanks @<author>), which targeted `<branch>`. They apply to every Canvas install, so they belong on `main`.
+> **1. <fix>** — [ ] <exact file/line change> …
+> **Not carried over:** <change> — <why>.
+
+Closing comment on the PR:
+> Thanks @<author>. I've captured the fixes that apply to every Canvas install in #<issue> against `main`, with credit to you, so I'll close this PR. You'd be very welcome to pick up any of them.
+
 ## Close as stale / superseded
 
 > Closing, as <this was superseded by #<n> / the Canvas has changed significantly since (<how>)>. Please reopen, or raise a new issue, if it's still relevant.
@@ -72,5 +82,6 @@ See `sensitive-situations.md`. Use only that wording.
 
 ## Change log
 
+- 2026-09-29 — added — close-a-non-main-PR-and-carry-over template — Lester, #601
 - 2026-09-28 — changed — removed the apology opener from the stale template — the no-apology rule in `comment-style.md`
 - 2026-09-28 — added — seed templates in Lester's style
