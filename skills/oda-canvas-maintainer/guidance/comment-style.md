@@ -22,6 +22,8 @@ Drafts are posted under **Lester's name**, so they must sound like him. When in 
 
 Praise specifically: say *what* is good and *why it matters to the Canvas*. For example: "the first demonstration of a Carbon Management operator working in the Canvas", or "Kudos to @RJ-acc for such an impressive contribution". Generic praise such as "Great work!" adds nothing.
 
+**Don't parrot the author's own framing back as praise.** Restating what the contributor already wrote ("separating what is implemented from what is designed makes it easy to see…, and F3 is the right question to put first") reads as sycophantic and tells them nothing new. Praise what the contribution *achieves for the Canvas*, or a specific thing you checked and found right. Otherwise keep the thanks short. (learned 2026-09-29 from eval review, oda-canvas#607)
+
 When approving a correctness fix, briefly explain *why* it is right (#608). This shows the maintainer understood the change, and it teaches the codebase to others.
 
 ## Structure of a PR summary comment
@@ -52,6 +54,7 @@ When a PR comes from a coding agent (for example the Copilot SWE agent), draft i
 
 ## Change log
 
+- 2026-09-29 — added — don't parrot the author's framing back as praise — Lester's review of the #607 eval run
 - 2026-09-28 — added — no apology openers — Lester removed them from 4 of 5 sweep replies, and confirmed it as a rule
 - 2026-09-28 — added — don't restate agreed decisions to the author — Lester removed that sentence from the #613 draft, and confirmed it as a rule
 - 2026-09-28 — added — seed from Lester's reviews (`research/review-norms.md` §1), `research/sources.md` and the `oda-canvas` writing style

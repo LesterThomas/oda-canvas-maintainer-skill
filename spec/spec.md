@@ -533,7 +533,7 @@ The skill looks for `~/.config/oda-canvas-maintainer/config.yaml`, falling back 
 - `stale_days` and `no_response_days`;
 - `drafts_dir` — default `~/.oda-canvas-maintainer/drafts`. This is outside any repo and survives plugin updates. Each draft has a sibling `.comment.md` file holding only the comment text, for `--body-file`;
 - `guidance_dir` — defaults to the skill's own `guidance/` folder (§7.4);
-- `adr_source` — where to read the ADR index. The default is `tmforum-oda/oda-ca-docs:Decision-Log/README.md`, and it can be changed when the Architecture repo arrives. The index is fetched live at review time.
+- `adr_sources` — the ADR indexes to read, fetched live at review time: `tmforum-oda/oda-ca-docs:Decision-Log/README.md` (ODA/Canvas-wide) and `tmforum-oda/ai-canvas-architecture:decision-log/README.md` (AI-Native, RAND-licensed). Update when the Architecture repo arrives.
 
 Label mapping lives in `guidance/labels-and-metadata.md`, not in config, so that feedback can refine it.
 
@@ -650,7 +650,7 @@ All sources were **verified on 2026-09-28** (task 1.4). Summaries and paraphrase
 
 **Answered by Lester (2026-09-28, round 2):**
 
-7. **Ratification route.** Propose an **Architecture Decision Record**. ADRs live in `oda-ca-docs/Decision-Log` today and will move to a dedicated Architecture repo later (config `adr_source`). Existing ADRs are also an alignment source.
+7. **Ratification route.** Propose an **Architecture Decision Record**. ADRs live in `oda-ca-docs/Decision-Log` today and will move to a dedicated Architecture repo later (config `adr_sources`). Existing ADRs are also an alignment source.
 9. **`co_maintainers`.** Confirmed: `brian-burton`, `ferenc-hechler`, `adarshkumar4`, `anshulkumar-tmf`.
 10. **AI-Native changes.** An AI-Native Canvas is an ODA goal, so this work is aligned by default and reviewed on quality (§5.6).
 

@@ -3,13 +3,18 @@
 Read-only. One paginated GraphQL query per repo. Ranking follows
 guidance/queue-priorities.md (the model may re-rank if that guidance changes):
 
-  1 security?        title/body mentions security/vulnerability/CVE/exploit/leak
-  2 ext-pr-unreviewed   external PR, no maintainer review or comment yet (oldest first)
-  3 ext-issue-unanswered external issue, no maintainer reply yet (oldest first)
-  4 author-replied   author (or someone else) spoke after the last maintainer activity
-  5 maint-pr-unreviewed co-maintainer PR with no review from another maintainer
-  6 stale            no activity for >= --stale-days (candidates for a backlog sweep)
-  7 in-progress      everything else (waiting on author, recently handled, drafts)
+  1 security?           vulnerability-disclosure language in an item < 90 days old
+  2 asks-you            your review is requested (and you haven't reviewed), or you were
+                        @-mentioned after your last comment on the item
+  3 ext-pr-unreviewed   external PR, no maintainer review or comment yet (oldest first)
+  4 ext-issue-unanswered external issue, no maintainer reply yet (oldest first)
+  5 author-replied      someone spoke after the last maintainer activity
+  6 maint-pr-unreviewed co-maintainer PR with no review from another maintainer
+  7 stale               no activity for >= --stale-days (candidates for a backlog sweep)
+  8 in-progress         everything else (waiting on author, recently handled, drafts)
+
+Also reports workflows whose latest run on each repo's default branch failed
+("broken on default branch"), e.g. a failing chart release.
 
 Usage:
     python queue.py [--repos a/b,c/d] [--maintainer X] [--co-maintainers a,b]
@@ -26,7 +31,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _gh import GhError, emit, graphql  # noqa: E402
+from _gh import GhError, emit, gh_json, graphql  # noqa: E402
 
 DEFAULT_REPOS = [
     "tmforum-oda/oda-canvas", "tmforum-oda/reference-example-components", "tmforum-oda/oda-helm-charts",
@@ -39,7 +44,7 @@ BOTS = {"copilot-pull-request-reviewer", "Copilot", "copilot", "github-actions",
 # Canvas design vocabulary (there is a whole Authentication epic), so they are deliberately not matched.
 SECURITY_RE = re.compile(
     r"\b(vulnerabilit(y|ies)|CVE-\d{4}-\d+|exploit(s|able|ed)?|security (issue|flaw|hole|bug|advisory)"
-    r"|remote code execution|RCE|XSS|SQL injection|privilege escalation"
+    r"|remote code execution|RCE|XSS|SQL injection|privilege escalation|critical (bug|vulnerabilit)\w*|dependabot"
     r"|(token|password|secret|api key|private key)s? (is |are |was |were )?(leaked|exposed|committed|in plain ?text))\b", re.I)
 SECURITY_FRESH_DAYS = 90  # older mentions are noted, not escalated
 
@@ -50,12 +55,13 @@ query($owner:String!,$name:String!,$prCursor:String,$issueCursor:String,$withPRs
    pageInfo{hasNextPage endCursor}
    nodes{number title url createdAt updatedAt isDraft body author{login}
      reviews(last:30){nodes{author{login} state submittedAt}}
-     comments(last:30){nodes{author{login} createdAt}}
+     reviewRequests(first:10){nodes{requestedReviewer{... on User{login}}}}
+     comments(last:30){nodes{author{login} createdAt body}}
      labels(first:10){nodes{name}}}}
   issues(states:OPEN,first:50,after:$issueCursor) @include(if:$withIssues){
    pageInfo{hasNextPage endCursor}
    nodes{number title url createdAt updatedAt body author{login}
-     comments(last:30){nodes{author{login} createdAt}}
+     comments(last:30){nodes{author{login} createdAt body}}
      labels(first:10){nodes{name}}
      timelineItems(last:20,itemTypes:[CROSS_REFERENCED_EVENT]){nodes{... on CrossReferencedEvent{
         source{__typename ... on PullRequest{number url state merged mergedAt title}}}}}}}
@@ -92,6 +98,30 @@ def fetch(repo: str, with_prs: bool, with_issues: bool) -> tuple[list, list]:
     return prs, issues
 
 
+def broken_workflows(repo: str) -> list[dict]:
+    """Workflows whose most recent completed run on the default branch failed."""
+    default = gh_json(["repo", "view", repo, "--json", "defaultBranchRef"])["defaultBranchRef"]["name"]
+    runs = gh_json(["run", "list", "-R", repo, "--branch", default, "--limit", "40",
+                    "--json", "workflowName,conclusion,status,createdAt,url,event"]) or []
+    bad = ("failure", "timed_out", "startup_failure")
+    latest: dict[str, dict] = {}
+    for r in runs:  # newest first
+        if r["status"] == "completed" and r["workflowName"] not in latest:
+            latest[r["workflowName"]] = r
+    out = []
+    for name, r in latest.items():
+        if r["conclusion"] in bad:
+            done = [x for x in runs if x["workflowName"] == name and x["status"] == "completed"]
+            streak = 0
+            for x in done:
+                if x["conclusion"] not in bad:
+                    break
+                streak += 1
+            out.append({"repo": repo, "branch": default, "workflow": name, "failing_runs_in_a_row": streak,
+                        "since": done[streak - 1]["createdAt"][:10], "url": r["url"]})
+    return out
+
+
 def analyse(repo, node, kind, me, maintainers, now, no_resp_days, stale_days):
     author = login(node)
     external = author not in maintainers
@@ -107,6 +137,16 @@ def analyse(repo, node, kind, me, maintainers, now, no_resp_days, stale_days):
     handlers = sorted({e[1] for e in maint_events if (now - e[0]).days <= stale_days and e[1] != me})
     approved_by = sorted({e[1] for e in maint_events if e[2] == "review:APPROVED"})
     text = f"{node['title']}\n{node.get('body') or ''}"
+    tag = f"@{me}".lower()
+    my_last = max((e[0] for e in events if e[1] == me), default=None)
+    mentions = [parse_time(c["createdAt"]) for c in node["comments"]["nodes"]
+                if login(c) != me and tag in (c.get("body") or "").lower()]
+    if author != me and tag in (node.get("body") or "").lower():
+        mentions.append(parse_time(node["createdAt"]))
+    mentioned = any(my_last is None or m > my_last for m in mentions)
+    requested = kind == "pr" and any(((r.get("requestedReviewer") or {}).get("login") == me)
+                                     for r in node.get("reviewRequests", {}).get("nodes", []))
+    review_pending = requested and not any(e[1] == me and e[2].startswith("review:") for e in events)
     item = {
         "repo": repo, "number": node["number"], "kind": kind, "title": node["title"], "url": node["url"],
         "author": author, "external": external, "age_days": age, "idle_days": idle,
@@ -115,6 +155,7 @@ def analyse(repo, node, kind, me, maintainers, now, no_resp_days, stale_days):
         "maintainer_responded": bool(maint_events),
         "last_activity_by": last[1] if last else None,
         "handled_by": handlers, "approved_by": approved_by,
+        "review_requested_from_you": review_pending, "mentions_you_unanswered": mentioned,
     }
     if kind == "issue":
         merged = [s["source"] for s in node["timelineItems"]["nodes"]
@@ -127,24 +168,28 @@ def analyse(repo, node, kind, me, maintainers, now, no_resp_days, stale_days):
     item["security_terms"] = sec.group(0) if sec else None
     if sec and age <= SECURITY_FRESH_DAYS:
         cat, why = 1, f"possible vulnerability report ('{sec.group(0)}'): check before anything else"
+    elif (review_pending or mentioned) and idle < 365:
+        cat = 2
+        why = " and ".join(x for x in ("your review is requested" if review_pending else "",
+                                        "you were @-mentioned and haven't replied" if mentioned else "") if x)
     elif kind == "pr" and external and not maint_events and not item["draft"]:
-        cat, why = 2, "external PR with no maintainer review yet"
+        cat, why = 3, "external PR with no maintainer review yet"
     elif kind == "issue" and external and not maint_events:
-        cat, why = 3, "external issue with no maintainer reply yet"
+        cat, why = 4, "external issue with no maintainer reply yet"
     elif after_maint and idle < stale_days:
-        cat, why = 4, f"@{last[1]} replied after the last maintainer activity"
+        cat, why = 5, f"@{last[1]} replied after the last maintainer activity"
     elif kind == "pr" and not external and not approved_by and not item["draft"] and not any(
             e[1] != author for e in maint_events):
-        cat, why = 5, "co-maintainer PR with no review from another maintainer"
+        cat, why = 6, "co-maintainer PR with no review from another maintainer"
     elif idle >= stale_days:
-        cat, why = 6, f"stale: no activity for {idle} days"
+        cat, why = 7, f"stale: no activity for {idle} days"
     else:
-        cat, why = 7, "in progress"
-    if handlers and cat in (4, 5):
+        cat, why = 8, "in progress"
+    if handlers and cat in (5, 6):
         why += f" (being handled by @{', @'.join(handlers)})"
     if sec and cat != 1:
         why += f" (mentions '{sec.group(0)}')"
-    if cat in (2, 3) and age < no_resp_days:
+    if cat in (3, 4) and age < no_resp_days:
         why += f" (new: {age}d old)"
     item["category"], item["why"] = cat, why
     return item
@@ -155,14 +200,16 @@ def next_step(it) -> str:
     if c == 1:
         return "Open it; follow sensitive-situations.md"
     if c == 2:
-        return "Review the PR"
+        return "Review it" if it.get("review_requested_from_you") else "Reply to the mention"
     if c == 3:
-        return "Triage and reply"
+        return "Review the PR"
     if c == 4:
-        return "Re-review / reply"
+        return "Triage and reply"
     if c == 5:
-        return "Review, or leave to co-maintainers"
+        return "Re-review / reply"
     if c == 6:
+        return "Review, or leave to co-maintainers"
+    if c == 7:
         if it.get("merged_prs_referencing"):
             return "Close as fixed? Check " + ", ".join(f"#{m['number']}" for m in it["merged_prs_referencing"])
         if it["external"] and not it["maintainer_responded"]:
@@ -200,13 +247,18 @@ def main() -> None:
     me = a.maintainer
     maintainers = {me, *[x for x in a.co_maintainers.split(",") if x]}
     now = dt.datetime.now(dt.timezone.utc)
-    items, errors = [], []
+    items, errors, broken = [], [], []
     for repo in [r.strip() for r in a.repos.split(",") if r.strip()]:
         try:
             prs, issues = fetch(repo, with_prs=not a.sweep, with_issues=True)
         except GhError as exc:
             errors.append(f"{repo}: {exc}")
             continue
+        if not a.sweep:
+            try:
+                broken += broken_workflows(repo)
+            except GhError as exc:
+                errors.append(f"{repo} workflows: {exc}")
         items += [analyse(repo, n, "pr", me, maintainers, now, a.no_response_days, a.stale_days) for n in prs]
         items += [analyse(repo, n, "issue", me, maintainers, now, a.no_response_days, a.stale_days) for n in issues]
 
@@ -226,25 +278,32 @@ def main() -> None:
             if i.get("security_terms"):
                 reasons.append(f"mentions '{i['security_terms']}'")
             i["why"] = "; ".join(reasons)
-            i["category"] = 1 if i["category"] == 1 else 6
+            i["category"] = 1 if i["category"] == 1 else 7
         out = {"mode": "sweep", "total_open_issues": len(items), "offset": a.offset,
                "next_offset": a.offset + len(batch) if a.offset + len(batch) < len(items) else None,
                "batch": batch, "errors": errors}
         title = f"Backlog sweep batch (issues {a.offset + 1}-{a.offset + len(batch)} of {len(items)})"
     else:
-        items.sort(key=lambda i: (i["category"], -(i["age_days"] if i["category"] in (2, 3, 6) else -i["idle_days"])))
+        items.sort(key=lambda i: (i["category"], -(i["age_days"] if i["category"] in (3, 4, 7) else -i["idle_days"])))
         batch = items[:a.limit]
-        counts = {c: sum(1 for i in items if i["category"] == c) for c in range(1, 8)}
-        out = {"mode": "queue", "total_open": len(items), "category_counts": counts, "shown": batch, "errors": errors}
+        counts = {c: sum(1 for i in items if i["category"] == c) for c in range(1, 9)}
+        out = {"mode": "queue", "total_open": len(items), "category_counts": counts,
+               "broken_on_default_branch": broken, "shown": batch, "errors": errors}
         title = "Maintainer queue"
     if a.format == "json":
         emit(out)
     else:
         sys.stdout.reconfigure(encoding="utf-8")
+        if broken:
+            print("### Broken on default branch\n")
+            for b in broken:
+                print(f"- **{b['repo'].split('/', 1)[1]}** · {b['workflow']} on `{b['branch']}`: last "
+                      f"{b['failing_runs_in_a_row']} run(s) failed, since {b['since']} ([latest run]({b['url']}))")
+            print()
         print(to_md(batch, len(items), title))
         if not a.sweep:
-            names = {1: "security?", 2: "external PRs unreviewed", 3: "external issues unanswered",
-                     4: "author replied", 5: "co-maintainer PRs unreviewed", 6: "stale", 7: "in progress"}
+            names = {1: "security?", 2: "asks you directly", 3: "external PRs unreviewed", 4: "external issues unanswered",
+                     5: "author replied", 6: "co-maintainer PRs unreviewed", 7: "stale", 8: "in progress"}
             print("\nTotals: " + " · ".join(f"{names[c]} {n}" for c, n in counts.items() if n))
         elif out["next_offset"] is not None:
             print(f"\nNext batch: --sweep --offset {out['next_offset']}")

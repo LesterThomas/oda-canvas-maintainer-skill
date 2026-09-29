@@ -32,6 +32,8 @@ Copilot code review is active. Triage its comments; don't duplicate them.
 
 ## Versioning and images
 
+These rules gate merges into **`main`**. For PRs into other branches, such as `feature/ai-canvas-experimental-changes`, the suffix and CI checks don't apply, and the PR gets a Comment, not an approval (see `pr-review.md`). (learned 2026-09-29 from eval review, oda-canvas#601)
+
 This is the most common source of blocking findings.
 
 - **Prerelease suffixes** (for example `LT5`, `-JS3`) are used while developing and **must be empty before merge**. CI fails otherwise, but explain it kindly: "clear the `…PrereleaseSuffix` values before we merge". This is blocking.
@@ -85,6 +87,7 @@ Work specific to an operator that now has its own repo (ADR-0022), for example e
 
 ## Change log
 
+- 2026-09-29 — added — versioning and suffix rules apply to PRs into `main` only — Lester's review of the #601 eval runs
 - 2026-09-28 — added — split-out operators own their work and BDD features; close old oda-canvas issues with a pointer — Lester, sweep batch 1
 - 2026-09-28 — added — `apiType` means a semantic-layer protocol, not a transport; removed `sse` from the examples — Lester's #612 comment, approved in conversation
 - 2026-09-28 — added — seed from `AGENTS.md`, the `oda-canvas` skills and workflows, and `research/review-norms.md` §2

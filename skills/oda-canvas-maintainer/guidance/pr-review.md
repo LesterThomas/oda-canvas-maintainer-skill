@@ -31,7 +31,9 @@ last_updated: 2026-09-28
    Don't repeat points already made. Say which Copilot comments are worth acting on and which are noise.
 4. **Run the deterministic checks.** Run the repo's script if it has one (`canvas_pr_checks.py` for `oda-canvas`), then read the diff.
 5. **Assess alignment, then quality** (see `approval-criteria.md`). Classify every finding as blocking or non-blocking.
-6. **Decide the verdict:**
+6. **Decide the verdict.** First check the **base branch**. A PR into a branch other than `main` (for example `feature/ai-canvas-experimental-changes`) needs **no approval**: recommend **Comment**, and review on substance. Rules enforced on `main`, such as prerelease suffixes and CI checks, don't apply to the feature branch itself. If the PR fixes something that is also broken on `main`, the comment should suggest applying the same fixes to `main`, for example by cherry-picking onto a branch from `main`. *Why:* feature branches belong to their owners, and approval gates `main`, but fixes shouldn't be stranded on a side branch. (learned 2026-09-29 from eval review, oda-canvas#601)
+
+   For PRs into `main`:
    - **Approve:** aligned, no blocking findings, required CI green. Pending or long-running BDD runs are acceptable only if test evidence is attached.
    - **Request changes:** at least one blocking finding the author must fix that needs judgement or real work. A lone *mechanical* fix, such as a version bump, is Approve with the fix requested (see `approval-criteria.md`).
    - **Comment:** alignment is uncertain, an ADR is needed, or questions must be answered before a verdict.
@@ -70,6 +72,7 @@ Every finding cites evidence: `path:line`, a CI job name, or a quoted line. If t
 
 ## Change log
 
+- 2026-09-29 — added — PRs into non-`main` branches: Comment only, and suggest applying the fixes to `main` too — Lester's review of the #601 eval runs
 - 2026-09-28 — changed — verdict: a lone mechanical fix means Approve with the fix requested, not Request changes — Lester, #613
 - 2026-09-28 — added — read all comments on the PR and associated issues; weight maintainer comments above titles and descriptions — Lester: the #613 review flagged the deliberate removal of `sse` because #612's discussion wasn't read
 - 2026-09-28 — added — seed from spec §7.2 and `research/review-norms.md`

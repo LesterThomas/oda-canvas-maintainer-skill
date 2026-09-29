@@ -195,13 +195,17 @@ def main() -> None:
     owner, name, number = parse_target(sys.argv[1:] or ["--help"])
     repo = Repo(owner, name)
     try:
-        pr = gh_json(["pr", "view", str(number), "-R", repo.slug, "--json", "headRefOid,baseRefOid,title,isCrossRepository"])
+        pr = gh_json(["pr", "view", str(number), "-R", repo.slug, "--json", "headRefOid,baseRefOid,baseRefName,title,isCrossRepository"])
         files = [json.loads(l) for l in run_gh(["api", "-X", "GET", f"repos/{repo.slug}/pulls/{number}/files",
                                                   "-f", "per_page=100", "--paginate", "--jq", ".[]"]).splitlines() if l.strip()]
     except GhError as exc:
         raise SystemExit(str(exc))
 
     head, base = pr["headRefOid"], pr["baseRefOid"]
+    base_branch = pr["baseRefName"]
+    # Suffix/version rules gate merges into main. For other branches they are informational only.
+    into_main = base_branch == "main"
+    gate = "blocking" if into_main else "info"
     changed = {f["filename"]: f for f in files}
     findings: list[dict] = []
     not_checked: list[str] = []
@@ -221,7 +225,7 @@ def main() -> None:
         if not vfile:
             continue
         spath = img.get("valuesPathPrereleaseSuffix")
-        if spath and (vfile, spath) not in seen_suffix:
+        if into_main and spath and (vfile, spath) not in seen_suffix:
             seen_suffix.add((vfile, spath))
             val = yaml_get(repo.file_at(vfile, head), spath)
             if val:
@@ -234,7 +238,7 @@ def main() -> None:
         if touched and vpath:
             old, new = yaml_get(repo.file_at(vfile, base), vpath), yaml_get(repo.file_at(vfile, head), vpath)
             if old is not None and old == new:
-                add("image-version-not-bumped", "blocking",
+                add("image-version-not-bumped", gate,
                     f"Source for image {img['name']} changed but its version is still {new}; bump {vpath} in {vfile} (and the sub-chart values.yaml if it has its own copy).",
                     file=vfile, evidence=f"changed: {', '.join(touched[:5])}{' …' if len(touched) > 5 else ''}")
 
@@ -259,7 +263,7 @@ def main() -> None:
             substantive = [x for x in paths if "/templates/" in x or "/crds/" in x
                            or x.endswith(("Chart.yaml", "_helpers.tpl"))]
             if substantive:
-                add("chart-version-not-bumped", "blocking",
+                add("chart-version-not-bumped", gate,
                     f"Chart content in {cdir}/ changed but Chart.yaml version is still {new}; bump at least the patch version and add a changelog comment.",
                     file=cy, evidence=f"changed: {', '.join(substantive[:5])}{' …' if len(substantive) > 5 else ''}")
             else:
@@ -277,7 +281,7 @@ def main() -> None:
         deps = chart_deps(repo.file_at(umb, head))
         for cname, (old, new) in bumped.items():
             if cname in deps and deps[cname] != new:
-                add("umbrella-dependency-stale", "blocking",
+                add("umbrella-dependency-stale", gate,
                     f"Sub-chart {cname} is now {new} but {umb} still depends on {deps[cname]}; update it and run `helm dependency update`.",
                     file=umb, evidence=f"{cname}: {deps[cname]}")
 
@@ -347,7 +351,10 @@ def main() -> None:
 
     order = {"blocking": 0, "issue": 1, "question": 2, "non-blocking": 3, "info": 4}
     findings.sort(key=lambda x: (order.get(x["severity"], 9), x["check"]))
-    emit({"repo": repo.slug, "number": number, "title": pr["title"], "base": base, "head": head,
+    if not into_main:
+        not_checked.insert(0, f"prerelease-suffix: skipped (PR targets '{base_branch}', not main); version checks downgraded to info")
+    emit({"repo": repo.slug, "number": number, "title": pr["title"], "base_branch": base_branch,
+          "into_main": into_main, "base": base, "head": head,
           "files_changed": len(changed), "findings": findings,
           "summary": {s: sum(1 for f in findings if f["severity"] == s) for s in order},
           "not_checked": not_checked,

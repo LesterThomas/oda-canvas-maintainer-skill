@@ -53,7 +53,7 @@ These sit above all guidance. Feedback cannot change them. If a request conflict
 
 1. **Config.**
    - Read `~/.config/oda-canvas-maintainer/config.yaml`. If it doesn't exist, use `skills/oda-canvas-maintainer/assets/config.example.yaml`, and mention once that you're using the defaults.
-   - Note `maintainer_login`, `co_maintainers`, `repos`, `drafts_dir`, `guidance_dir` and `adr_source`.
+   - Note `maintainer_login`, `co_maintainers`, `repos`, `drafts_dir`, `guidance_dir` and `adr_sources`.
 2. **Guidance.**
    - The guidance directory is `guidance_dir` if it is set. Otherwise it is `skills/oda-canvas-maintainer/guidance/`.
    - Read `guidance/README.md` first. It lists which guidance file to load for which task.
@@ -87,7 +87,7 @@ Pick the mode from the request. If a request spans modes ("review the three olde
    
    Use `--format json` if you need the raw fields. The script classifies each item as external or maintainer, works out who spoke last and whether a co-maintainer is handling it, and ranks the items the way `queue-priorities.md` describes.
 3. If the guidance has since learned a different ranking, re-rank the script's output to match the guidance. The guidance wins.
-4. Present the table and the totals line. Point out anything notable, such as an "external" author who is really TM Forum staff. Don't review anything in depth. Offer to open the top items.
+4. Present the **Broken on default branch** list first, if there is one; a failing release blocks everyone. Then present the table and the totals line. Point out anything notable, such as an "external" author who is really TM Forum staff. Don't review anything in depth. Offer to open the top items.
 
 ### Issue triage
 
@@ -147,10 +147,14 @@ See **Learning loop → Upkeep** below.
 
 ## ADRs
 
-Architecture Decision Records are an alignment source and the route for ratifying architecture changes. Fetch the live index from `adr_source`:
+Architecture Decision Records are an alignment source and the route for ratifying architecture changes. There are **two ADR logs** (`adr_sources` in config), so check both:
+
+- `oda-ca-docs/Decision-Log`: ODA and Canvas-wide decisions (0001…).
+- `ai-canvas-architecture/decision-log`: AI-Native Canvas decisions (ADR-001…). Use it for agentic, MCP, A2A, gateway and model topics. This repo carries a TM Forum RAND licence, so moving Apache-2.0 content into it is a licensing question (see `guidance/sensitive-situations.md`).
 
 ```bash
 gh api -X GET repos/tmforum-oda/oda-ca-docs/contents/Decision-Log/README.md --jq .content
+gh api -X GET repos/tmforum-oda/ai-canvas-architecture/contents/decision-log/README.md --jq .content
 ```
 
 The content is base64-encoded, so decode it. Open individual ADRs the same way when one is relevant. Respect the ADR's status: *Approved* ADRs bind; for *Proposed* or *In progress* ADRs, raise a `question:` when a PR conflicts with them.

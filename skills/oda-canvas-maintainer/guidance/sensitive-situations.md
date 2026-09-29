@@ -31,6 +31,7 @@ Examples are harassment, personal attacks and discriminatory language.
 ## Licensing and IP
 
 - **Licence policy:** `oda-canvas`, every `TMFOPnnn-*` operator repo and `reference-example-components` should be **Apache-2.0**. *Why:* the Reference Implementation and its operators and example components are open-source assets that others re-use and extend. (learned 2026-09-28 in conversation)
+  - `ai-canvas-architecture` (AI-Native ADRs) carries a TM Forum RAND notice. The policy doesn't name it, so moving Apache-2.0 content there, such as an external design note, is a cross-licence question for the maintainers.
   - **Deviations as of 2026-09-28:** `TMFOP012` carries a TM Forum RAND notice, which should be Apache-2.0. `reference-example-components` has no LICENSE file (#70); it should get an Apache-2.0 LICENSE. `TMFCOP009-model-as-a-service-operator` is a **mis-named `TMFOP009`**, so it is covered. Its `main` carries RAND (commit 11993f98), and its PR #1 (Apache-2.0 → RAND) should be closed. (learned 2026-09-28 in conversation)
 - **Licence changes that move *towards* the policy** (adding or restoring an Apache-2.0 LICENSE in a repo the policy covers) are normal PRs. Recommend Approve, provided the LICENSE is the unmodified Apache-2.0 text.
 - **Licence changes that move *away* from the policy** (e.g. Apache-2.0 → RAND in a `TMFOP` repo), and licence changes in repos the policy doesn't cover, are **escalations**. Put "Escalate (licensing)" as the recommended action and summarise the facts. Draft at most a holding reply. Never recommend approving them on code grounds.
@@ -54,6 +55,7 @@ How to handle it:
 
 ## Change log
 
+- 2026-09-29 — added — ai-canvas-architecture is RAND-licensed (verified); moving content there is a cross-licence question — surfaced by the #607 eval run
 - 2026-09-28 — changed — TMFCOP009 is TMFOP009 (repo name typo), so it is covered by the Apache-2.0 policy — Lester, in conversation
 - 2026-09-28 — changed — licence policy: Apache-2.0 for oda-canvas, TMFOPnnn repos and reference-example-components; changes towards the policy are normal PRs, changes away from it escalate — Lester, in conversation
 - 2026-09-28 — added — licence facts per repo; licence-change PRs and cross-licence code are escalations — Phase 3 repo survey

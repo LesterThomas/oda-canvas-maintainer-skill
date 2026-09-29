@@ -52,7 +52,7 @@ For **features**, check that the issue states the problem and who needs it, not 
 
 - **Wrong repo.** Suggest the right repo. Out-of-scope repos (`oda-component-ctk`, `model-as-a-service-crds`) are never targets.
 - **Operator-specific work belongs in that operator's repo.** Under ADR-0022, each split-out operator repo (e.g. `TMFOP006-Event-Management`) owns that operator's work, including its BDD features. For an old `oda-canvas` issue about such an operator, **close it with a pointer** to the operator repo ("We will include … as part of TMFOP006-Event-Management"). **Transfer** only when the target repo is active and its owner wants the issue. (learned 2026-09-28 from oda-canvas backlog sweep #105–#220)
-- **Architecture or standards change.** If no ADR covers it, suggest proposing an ADR in `oda-ca-docs/Decision-Log`. The Architecture repo will replace this later.
+- **Architecture or standards change.** If no ADR covers it, the right response is to direct it into an ADR in `oda-ca-docs/Decision-Log`, which the Architecture repo will replace later. Don't design the solution in the reply. (Confirmed 2026-09-29 by Lester on the #583 eval runs: "the correct response is to direct into an Architecture Decision Record".)
 - **Security report in public.** Follow `sensitive-situations.md` immediately.
 
 ## Features and scope
@@ -77,6 +77,7 @@ External issues that have never had a maintainer reply come first. **Don't open 
 
 ## Change log
 
+- 2026-09-29 — changed — ADR routing confirmed as the correct response; don't design the solution in the reply — Lester's review of the #583 eval runs
 - 2026-09-28 — changed — no apology openers; close rather than re-scope outdated issues; operator-specific work → close with a pointer to the operator repo (transfer only to active repos) — Lester's edits to sweep batch 1, confirmed as rules
 - 2026-09-28 — added — use `find_related.py` first; consolidate groups of near-identical issues — Phase 3
 - 2026-09-28 — added — read the whole thread, and linked items, before triaging; weight maintainer comments above the title — Lester's feedback on the #613 review

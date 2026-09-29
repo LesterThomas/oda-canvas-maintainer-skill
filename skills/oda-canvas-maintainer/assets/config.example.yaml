@@ -42,5 +42,7 @@ drafts_dir: ~/.oda-canvas-maintainer/drafts
 # For a marketplace install, set this to a writable overlay, e.g. ~/.config/oda-canvas-maintainer/guidance
 guidance_dir: ""
 
-# Architecture Decision Records index: <owner/repo>:<path>. Change this when the Architecture repo exists.
-adr_source: tmforum-oda/oda-ca-docs:Decision-Log/README.md
+# Architecture Decision Records: list of <owner/repo>:<path> indexes. Update when the Architecture repo exists.
+adr_sources:
+  - tmforum-oda/oda-ca-docs:Decision-Log/README.md                 # ODA / Canvas ADRs 0001-0022+
+  - tmforum-oda/ai-canvas-architecture:decision-log/README.md       # AI-Native Canvas ADRs 001-008+ (mostly Proposed)
