@@ -234,11 +234,16 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
 ## Phase 4 status (2026-09-28, paused at usage limit)
 
 - [x] 4.1–4.4: there are 8 evals in `skills/oda-canvas-maintainer/evals/evals.json`, with 60 assertions and 2 synthetic fixtures. All 16 runs finished; outputs are in the git-ignored `skills/oda-canvas-maintainer-workspace/iteration-1/`. `check_no_writes.py` scanned the real transcripts and confirmed **0 GitHub writes in all 16 runs**. Eval 1's suffix assertion was corrected: #601 targets a feature branch.
-- [~] 4.5: 8 grader agents were launched and write `grading.json` into each `run-1/`. **Still to do:**
-  - check that every `run-1/grading.json` exists;
-  - run `python -m scripts.aggregate_benchmark <workspace>/iteration-1 --skill-name oda-canvas-maintainer` from the skill-creator directory;
-  - run `generate_review.py` with `--benchmark` and `--static`;
-  - send the viewer to Lester.
+- [x] 4.5: **Done 2026-09-29.** All 16 runs are graded. The benchmark is in `iteration-1/benchmark.json` and `.md`, with analyst notes, and the static viewer is `review-iteration-1.html`.
+  - **With the skill: 96.9% pass. Without: 84.2%.** The difference is +13 points, at a cost of +76 s and +24k tokens per run.
+  - 48 of 60 assertions pass in both configurations. Evals 2, 3 and 7 don't separate the two at all.
+  - The skill's advantage is in the project-specific and learned rules:
+    - no apology openers;
+    - components@tmforum.org as the security channel;
+    - ADR and ADR-0022 routing;
+    - ready-to-run gh commands and batch structure.
+  - Two skill "failures" are flaws in the assertions (eval 8 ProjectONE, eval 5 drafts).
+  - Awaiting Lester's review in the viewer.
 - [ ] 4.6: improvements found during the runs, to apply in iteration 2:
   1. `canvas_pr_checks.py`: suffix and version checks only apply when the PR base is `main` (#601 targets `feature/ai-canvas-experimental-changes`).
   2. ADRs also live in `tmforum-oda/ai-canvas-architecture` (ADR-001..008, RAND-licensed). Add it as a second `adr_source`.

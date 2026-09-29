@@ -1,0 +1,47 @@
+diff --git a/charts/component-operator/templates/rbac.yaml b/charts/component-operator/templates/rbac.yaml
+index 3f1c2a0..9b7d4e1 100644
+--- a/charts/component-operator/templates/rbac.yaml
++++ b/charts/component-operator/templates/rbac.yaml
+@@ -12,18 +12,9 @@ metadata:
+   name: {{ include "component-operator.fullname" . }}
+ rules:
+-  # KOPF peering
+-  - apiGroups: [zalando.org]
+-    resources: [clusterkopfpeerings, kopfpeerings]
+-    verbs: [list, watch, patch, get]
+-  # ODA resources
+-  - apiGroups: [oda.tmforum.org]
+-    resources: [components, components/status, exposedapis, exposedapis/status, dependentapis, identityconfigs]
+-    verbs: [list, watch, patch, get, create, update, delete]
+-  - apiGroups: [""]
+-    resources: [pods, services, configmaps, events, namespaces]
+-    verbs: [list, watch, get, create, update, delete]
++  - apiGroups: ["*"]
++    resources: ["*"]
++    verbs: ["*"]
+diff --git a/source/operators/TMFOP001-Component-Management/component-management/componentOperator.py b/source/operators/TMFOP001-Component-Management/component-management/componentOperator.py
+index 1a2b3c4..5d6e7f8 100644
+--- a/source/operators/TMFOP001-Component-Management/component-management/componentOperator.py
++++ b/source/operators/TMFOP001-Component-Management/component-management/componentOperator.py
+@@ -40,6 +40,24 @@ import kopf
+ import kubernetes
+
++_exposedapi_cache = {}
++
++
++@kopf.on.event("oda.tmforum.org", "v1", "exposedapis")
++def cache_exposedapi(event, body, **kwargs):
++    key = (body["metadata"]["namespace"], body["metadata"]["name"])
++    if event["type"] == "DELETED":
++        _exposedapi_cache.pop(key, None)
++    else:
++        _exposedapi_cache[key] = body
++
++
++def get_exposedapis_for_component(namespace, component_name):
++    return [b for (ns, _), b in _exposedapi_cache.items()
++            if ns == namespace and b["metadata"].get("labels", {}).get("oda.tmforum.org/componentName") == component_name]
++
++
+ @kopf.on.create("oda.tmforum.org", "v1", "components")
+ def component_create(spec, name, namespace, **kwargs):
