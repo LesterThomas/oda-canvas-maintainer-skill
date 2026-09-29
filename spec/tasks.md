@@ -254,7 +254,7 @@ Companion to [`spec.md`](./spec.md). Tasks are grouped into phases. Within a pha
     - `queue.py` broken-workflow detection is now deterministic;
     - the `gh --merged` flag in `SKILL.md` is fixed;
     - the ProjectONE seed error is corrected.
-  - The viewer is `review-iteration-2.html` and is waiting for Lester's review. The iteration-1 list follows:
+  - Lester reviewed the iteration-2 viewer on 2026-09-29: "All the output looks great and I have no comments." **Phase 4 complete.** The iteration-1 list follows:
   1. `canvas_pr_checks.py`: suffix and version checks only apply when the PR base is `main` (#601 targets `feature/ai-canvas-experimental-changes`).
   2. ADRs also live in `tmforum-oda/ai-canvas-architecture` (ADR-001..008, RAND-licensed). Add it as a second `adr_source`.
   3. Queue additions: failing default-branch workflows (ref-components Release Charts failing since 26 Sep, so TMFC007 is unpublished); issues that @-mention the maintainer; PRs with the maintainer's review requested; `ai-canvas-architecture` PRs.
