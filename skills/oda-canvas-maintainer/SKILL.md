@@ -198,8 +198,8 @@ Labels: … · Linked items: … · Also worth a look from: @<co-maintainer> (on
 <which Copilot comments are worth acting on, which to ignore, and why>
 
 ## Commands you can run
-```bash
-gh pr review <n> -R <repo> --approve --body-file "<draft file>"
+```powershell
+gh pr review <n> -R <repo> --approve --body-file "$HOME\.oda-canvas-maintainer\drafts\<repo-name>-<n>.comment.md"
 ```
 
 ## Not verified
@@ -223,6 +223,7 @@ gh pr review <n> -R <repo> --approve --body-file "<draft file>"
   ---
   ```
 - The **Commands you can run** section points `--body-file` at a file containing *only* the draft comment. Write that comment to `<drafts_dir>/<repo-name>-<n>.comment.md` as well, so the command works exactly as written.
+- Write the commands for Windows PowerShell, as `guidance/comment-templates.md` → **Command lines for the maintainer** describes.
 - For the command, use `gh pr review` with `--approve`, `--request-changes` or `--comment` for PRs, and `gh issue comment` for issues. Add `gh issue close <n> -R <repo> --reason "not planned"|completed` when closing is recommended.
 
 ## Learning loop

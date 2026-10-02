@@ -1,7 +1,7 @@
 ---
 name: comment-templates
 description: Scaffolds for recurring maintainer comments. Personalise every one — never paste verbatim.
-last_updated: 2026-09-28
+last_updated: 2026-10-02
 ---
 
 # Comment templates
@@ -80,8 +80,20 @@ Closing comment on the PR:
 
 See `sensitive-situations.md`. Use only that wording.
 
+## Command lines for the maintainer
+
+Write every command the maintainer will run (`gh pr review`, `gh issue comment`, `gh issue close`, `git push` and so on) for **Windows PowerShell**:
+- use a `powershell` code fence, one command per block;
+- write draft paths as `"$HOME\.oda-canvas-maintainer\drafts\<file>"`, in double quotes, never with `~`, which PowerShell doesn't reliably expand in arguments to native programs like `gh`;
+- use backslashes in Windows paths, and no `cd /d/...` (Git Bash) forms.
+
+Commands you run yourself to gather data (the `scripts/` and read-only `gh`) are unaffected.
+
+*Why:* Lester runs the drafted commands in Windows PowerShell. (learned 2026-10-02 from reference-example-components#63/#67/#47)
+
 ## Change log
 
+- 2026-10-02 — added — maintainer command lines are written for Windows PowerShell (`$HOME` paths, `powershell` fences) — Lester, triage of reference-example-components #63/#67/#47
 - 2026-09-29 — added — close-a-non-main-PR-and-carry-over template — Lester, #601
 - 2026-09-28 — changed — removed the apology opener from the stale template — the no-apology rule in `comment-style.md`
 - 2026-09-28 — added — seed templates in Lester's style
