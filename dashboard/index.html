@@ -1,0 +1,509 @@
+<style>
+#dash-root .mp { display: flex; flex-direction: column; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); }
+#dash-root .mp-head h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+#dash-root .mp-head p { margin: var(--cds-gap-xs) 0 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-body); max-width: 72ch; }
+#dash-root .mp-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--cds-gap-md); }
+#dash-root .mp-tile, #dash-root .mp-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; }
+#dash-root .mp-tile .lbl { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); letter-spacing: .01em; }
+#dash-root .mp-tile .num { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: calc(var(--cds-font-size-title) * 1.6); line-height: 1.15; font-variant-numeric: tabular-nums; margin-top: var(--cds-gap-xs); min-height: 1.15em; }
+#dash-root .mp-tile .sub { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-top: var(--cds-gap-xs); }
+#dash-root .mp-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+#dash-root .mp-card .note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: var(--cds-gap-xs) 0 var(--cds-gap-md); }
+#dash-root .mp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--cds-gap-md); }
+#dash-root .mp-chart { position: relative; min-height: 260px; }
+#dash-root .mp-chart svg { display: block; }
+#dash-root .mp-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs) var(--cds-gap-md); margin: 0 0 var(--cds-gap-sm); padding: 0; list-style: none; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+#dash-root .mp-legend li { display: flex; align-items: center; gap: var(--cds-gap-xs); }
+#dash-root .mp-swatch { width: .625rem; height: .625rem; border-radius: 2px; flex: none; }
+#dash-root .mp-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+#dash-root .mp-tip .when { color: var(--cds-text-secondary); margin-bottom: 2px; }
+#dash-root .mp-tip .line { display: flex; align-items: center; gap: var(--cds-gap-xs); font-variant-numeric: tabular-nums; }
+#dash-root .mp-tip .line b { margin-left: auto; padding-left: var(--cds-gap-md); font-weight: var(--cds-font-weight-medium); }
+#dash-root .mp-fail { display: flex; align-items: center; justify-content: center; gap: var(--cds-gap-xs); min-height: inherit; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+#dash-root .mp-fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+#dash-root .mp-bars { display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-height: 4rem; }
+#dash-root .mp-bar { display: grid; grid-template-columns: 7rem 1fr 2.5rem; align-items: center; gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); }
+#dash-root .mp-bar .track { height: .75rem; }
+#dash-root .mp-bar .fill { height: 100%; border-radius: 4px; }
+#dash-root .mp-bar .val { text-align: right; font-variant-numeric: tabular-nums; }
+#dash-root .mp-tablewrap { overflow: auto; max-height: 34rem; }
+#dash-root .mp-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+#dash-root .mp-table th { position: sticky; top: 0; background: var(--color-panel); text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); border-bottom: 1px solid var(--color-border-line); padding: 0; z-index: 1; }
+#dash-root .mp-table th button { all: unset; cursor: pointer; display: block; padding: var(--cds-pad-xs) var(--cds-pad-sm); }
+#dash-root .mp-table th button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: -2px; }
+#dash-root .mp-table th[aria-sort="ascending"] button::after { content: " ↑"; }
+#dash-root .mp-table th[aria-sort="descending"] button::after { content: " ↓"; }
+#dash-root .mp-table td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+#dash-root .mp-table td.n, #dash-root .mp-table th.n { text-align: right; }
+#dash-root .mp-table th.n button { text-align: right; }
+#dash-root .mp-table a { color: inherit; white-space: nowrap; }
+#dash-root .mp-table .title { min-width: 14rem; }
+#dash-root .mp-pill { display: inline-block; padding: 0 .5rem; border-radius: 999px; border: 1px solid var(--color-border-line); white-space: nowrap; }
+#dash-root .mp-pill.done { color: var(--color-ok); }
+#dash-root .mp-pill.open { color: var(--color-warn); }
+#dash-root .mp-controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; margin-bottom: var(--cds-gap-sm); }
+#dash-root .mp-controls input { flex: 1 1 14rem; min-width: 0; font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); }
+#dash-root .mp-seg { display: inline-flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+#dash-root .mp-seg button { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 0; background: transparent; color: var(--color-fg-muted); cursor: pointer; }
+#dash-root .mp-seg button[aria-pressed="true"] { background: var(--color-bg); color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+#dash-root .mp-foot { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+#dash-root [data-dash-source-state=empty] { color: transparent; }
+#dash-root [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+</style>
+
+<div class="mp">
+  <header class="mp-head" id="summary">
+    <h1>ODA Canvas maintainer progress</h1>
+    <p class="mp-takeaway dash-skeleton" data-source="totals">—</p>
+  </header>
+
+  <section class="mp-tiles" id="headline" aria-label="Headline figures">
+    <div class="mp-tile" id="tile-issues-closed">
+      <div class="lbl">Issues closed</div>
+      <div class="num dash-skeleton" data-source="totals" data-field="issuesClosed" data-row="0">—</div>
+      <div class="sub">Closed by you, any reason</div>
+    </div>
+    <div class="mp-tile" id="tile-prs-merged">
+      <div class="lbl">PRs merged</div>
+      <div class="num dash-skeleton" data-source="totals" data-field="prsMerged" data-row="0">—</div>
+      <div class="sub">Merged by you</div>
+    </div>
+    <div class="mp-tile" id="tile-prs-reviewed">
+      <div class="lbl">PRs reviewed</div>
+      <div class="num dash-skeleton" data-source="totals" data-field="prsReviewed" data-row="0">—</div>
+      <div class="sub">Approved, reviewed or commented on</div>
+    </div>
+    <div class="mp-tile" id="tile-comments">
+      <div class="lbl">Comments posted</div>
+      <div class="num dash-skeleton" data-source="totals" data-field="comments" data-row="0">—</div>
+      <div class="sub">On issues and PRs</div>
+    </div>
+    <div class="mp-tile" id="tile-items">
+      <div class="lbl">Issues and PRs touched</div>
+      <div class="num dash-skeleton" data-source="totals" data-field="itemsTouched" data-row="0">—</div>
+      <div class="sub">At least one action each</div>
+    </div>
+  </section>
+
+  <section class="mp-card" id="per-day">
+    <h2>Actions per day</h2>
+    <p class="note">Each bar counts your actions that day (UTC), split by type. Days with no bar had no activity.</p>
+    <ul class="mp-legend" data-source="daily"></ul>
+    <div class="mp-chart dash-skeleton" data-source="daily"></div>
+  </section>
+
+  <div class="mp-grid">
+    <section class="mp-card" id="by-repo">
+      <h2>By repository</h2>
+      <p class="note">Actions per repository, with the number of issues and PRs they were on.</p>
+      <div class="mp-tablewrap">
+        <table class="mp-table" data-source="byRepo" data-row-key="repo">
+          <thead><tr>
+            <th data-field="repo">Repository</th>
+            <th class="n" data-field="items">Items</th>
+            <th class="n" data-field="closed">Closed</th>
+            <th class="n" data-field="merged">Merged</th>
+            <th class="n" data-field="reviewed">Reviewed</th>
+            <th class="n" data-field="commented">Comments</th>
+            <th class="n" data-field="opened">Opened</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mp-card" id="close-reasons">
+      <h2>Why issues were closed</h2>
+      <p class="note">Issues you closed, by the reason GitHub records.</p>
+      <div class="mp-bars dash-skeleton" data-source="closeReasons"></div>
+    </section>
+  </div>
+
+  <section class="mp-card" id="items">
+    <h2>Issues and PRs</h2>
+    <p class="note">Every issue and PR you acted on. Click a heading to sort.</p>
+    <div class="mp-controls">
+      <input id="mp-search" type="search" placeholder="Search title or number" aria-label="Search issues and PRs">
+      <div class="mp-seg" role="group" aria-label="Show">
+        <button type="button" data-kind="all" aria-pressed="true">All</button>
+        <button type="button" data-kind="issue" aria-pressed="false">Issues</button>
+        <button type="button" data-kind="pr" aria-pressed="false">PRs</button>
+      </div>
+    </div>
+    <div class="mp-tablewrap">
+      <table class="mp-table" data-source="items" data-row-key="ref">
+        <thead><tr>
+          <th data-field="ref"><button type="button" data-sort="ref">Item</button></th>
+          <th data-field="title"><button type="button" data-sort="title">Title</button></th>
+          <th data-field="kind"><button type="button" data-sort="kind">Type</button></th>
+          <th data-field="did"><button type="button" data-sort="did">What you did</button></th>
+          <th class="n" data-field="count"><button type="button" data-sort="count">Actions</button></th>
+          <th data-field="last"><button type="button" data-sort="last">Last activity</button></th>
+          <th data-field="state"><button type="button" data-sort="state">State now</button></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="mp-foot">Source: GitHub activity by LesterThomas across tmforum-oda since 28 September 2026, collected read-only from the GitHub API. Dates are in UTC.</p>
+</div>
+
+<script>
+dash.calc('totals', {
+  inputs: ['activity'],
+  title: 'Headline totals',
+  description: 'Distinct issues closed and PRs merged or reviewed, comment count, and the active date range.',
+  fn: (activity) => {
+    const refs = (pred) => new Set(activity.filter(pred).map((r) => r.ref)).size;
+    const perDay = {};
+    activity.forEach((r) => { perDay[r.day] = (perDay[r.day] || 0) + 1; });
+    const days = Object.keys(perDay).sort();
+    const busiest = Object.entries(perDay).sort((a, b) => b[1] - a[1])[0] || [null, 0];
+    return [{
+      issuesClosed: refs((r) => r.kind === 'issue' && r.action === 'closed'),
+      prsMerged: refs((r) => r.action === 'merged'),
+      prsReviewed: refs((r) => r.kind === 'pr' && ['approved', 'reviewed', 'changes_requested', 'commented'].includes(r.action)),
+      comments: activity.filter((r) => r.action === 'commented').length,
+      itemsTouched: refs(() => true),
+      actions: activity.length,
+      firstDay: days[0] || null,
+      lastDay: days[days.length - 1] || null,
+      activeDays: days.length,
+      busiestDay: busiest[0],
+      busiestCount: busiest[1],
+    }];
+  },
+});
+
+dash.calc('daily', {
+  inputs: ['activity'],
+  title: 'Actions per day',
+  description: 'Actions per UTC day, with approvals and reviews counted together.',
+  fn: (activity) => {
+    const group = { approved: 'reviewed', reviewed: 'reviewed', changes_requested: 'reviewed' };
+    const by = {};
+    activity.forEach((r) => {
+      const d = by[r.day] || (by[r.day] = { day: r.day, closed: 0, merged: 0, reviewed: 0, commented: 0, opened: 0, total: 0 });
+      d[group[r.action] || r.action] += 1;
+      d.total += 1;
+    });
+    return Object.values(by).sort((a, b) => (a.day < b.day ? -1 : 1));
+  },
+});
+
+dash.calc('byRepo', {
+  inputs: ['activity'],
+  title: 'Actions by repository',
+  description: 'Actions per repository, with the distinct issues and PRs they were on.',
+  fn: (activity) => {
+    const group = { approved: 'reviewed', reviewed: 'reviewed', changes_requested: 'reviewed' };
+    const by = {};
+    activity.forEach((r) => {
+      const d = by[r.repo] || (by[r.repo] = { repo: r.repo, refs: {}, closed: 0, merged: 0, reviewed: 0, commented: 0, opened: 0, total: 0 });
+      d.refs[r.ref] = true;
+      d[group[r.action] || r.action] += 1;
+      d.total += 1;
+    });
+    return Object.values(by)
+      .map(({ refs, ...d }) => ({ ...d, items: Object.keys(refs).length }))
+      .sort((a, b) => b.total - a.total);
+  },
+});
+
+dash.calc('closeReasons', {
+  inputs: ['activity'],
+  title: 'Issue close reasons',
+  description: 'Distinct issues you closed, grouped by the close reason GitHub records.',
+  fn: (activity) => {
+    const by = {};
+    activity.filter((r) => r.kind === 'issue' && r.action === 'closed').forEach((r) => {
+      const reason = r.closeReason || 'UNKNOWN';
+      (by[reason] = by[reason] || {})[r.ref] = true;
+    });
+    return Object.entries(by)
+      .map(([closeReason, refs]) => ({ closeReason, issues: Object.keys(refs).length }))
+      .sort((a, b) => b.issues - a.issues);
+  },
+});
+
+dash.calc('items', {
+  inputs: ['activity'],
+  title: 'Issues and PRs acted on',
+  description: 'One row per issue or PR, listing the kinds of action you took and the latest day.',
+  fn: (activity) => {
+    const label = { closed: 'Closed', merged: 'Merged', approved: 'Approved', reviewed: 'Reviewed', changes_requested: 'Changes requested', commented: 'Commented', opened: 'Opened' };
+    const by = {};
+    activity.forEach((r) => {
+      const it = by[r.ref] || (by[r.ref] = { ref: r.ref, kind: r.kind, title: r.title, url: r.url.split('#')[0], state: r.state, done: [], last: r.day, count: 0 });
+      const name = label[r.action] || r.action;
+      if (!it.done.includes(name)) it.done.push(name);
+      if (r.day > it.last) it.last = r.day;
+      it.count += 1;
+    });
+    return Object.values(by).map(({ done, ...it }) => ({ ...it, did: done.join(', ') }));
+  },
+});
+
+const SERIES = [
+  { key: 'closed', label: 'Closed' },
+  { key: 'merged', label: 'Merged' },
+  { key: 'reviewed', label: 'Approved or reviewed' },
+  { key: 'commented', label: 'Commented' },
+  { key: 'opened', label: 'Opened' },
+];
+const REASONS = { COMPLETED: 'Completed', NOT_PLANNED: 'Not planned', DUPLICATE: 'Duplicate', UNKNOWN: 'Not recorded' };
+const parseDay = d3.utcParse('%Y-%m-%d');
+const fmtDay = d3.utcFormat('%b %-d');
+const fmtInt = d3.format(',');
+const root = document.querySelector('#dash-root .mp');
+
+const failed = (el) => {
+  el.classList.remove('dash-skeleton');
+  el.replaceChildren(Object.assign(document.createElement('div'), { className: 'mp-fail', textContent: 'Failed to load' }));
+};
+const settle = (el, status) => {
+  if (status === 'ok') { el.classList.remove('dash-skeleton'); return true; }
+  if (status === 'error') failed(el); else el.classList.add('dash-skeleton');
+  return false;
+};
+
+function drawTiles(t) {
+  root.querySelectorAll('.mp-tile .num').forEach((el) => {
+    if (t.status === 'ok' && t.data[0]) {
+      el.classList.remove('dash-skeleton');
+      el.textContent = fmtInt(t.data[0][el.dataset.field]);
+    } else if (t.status === 'error') {
+      el.classList.remove('dash-skeleton');
+      el.textContent = '—';
+    } else {
+      el.classList.add('dash-skeleton');
+      el.textContent = '—';
+    }
+  });
+}
+
+function drawTakeaway(t) {
+  const el = root.querySelector('.mp-takeaway');
+  if (t.status !== 'ok' || !t.data[0] || !t.data[0].firstDay) {
+    el.textContent = '—';
+    if (t.status === 'ok' || t.status === 'error') el.classList.remove('dash-skeleton');
+    return;
+  }
+  el.classList.remove('dash-skeleton');
+  const s = t.data[0];
+  const last = parseDay(s.lastDay);
+  const idle = Math.floor((d3.utcDay.floor(new Date()) - last) / 864e5);
+  const plural = (n, one, many) => `${fmtInt(n)} ${n === 1 ? one : many}`;
+  let text = `From ${fmtDay(parseDay(s.firstDay))} to ${fmtDay(last)} you closed ${plural(s.issuesClosed, 'issue', 'issues')} and merged ${plural(s.prsMerged, 'PR', 'PRs')}, across ${plural(s.itemsTouched, 'issue or PR', 'issues and PRs')} on ${plural(s.activeDays, 'day', 'days')}. The busiest day was ${fmtDay(parseDay(s.busiestDay))}, with ${plural(s.busiestCount, 'action', 'actions')}.`;
+  if (idle >= 2) text += ` No activity in the last ${idle} days.`;
+  el.textContent = text;
+}
+
+function drawLegend(daily) {
+  const ul = root.querySelector('.mp-legend');
+  if (daily.status !== 'ok') { ul.replaceChildren(); return; }
+  const used = SERIES.filter((s) => daily.data.some((d) => d[s.key] > 0));
+  ul.replaceChildren(...used.map((s) => {
+    const li = document.createElement('li');
+    const sw = document.createElement('span');
+    sw.className = 'mp-swatch';
+    sw.style.background = dash.colors[SERIES.indexOf(s)];
+    li.append(sw, document.createTextNode(s.label));
+    return li;
+  }));
+}
+
+function drawChart(daily) {
+  const box = root.querySelector('.mp-chart');
+  if (!settle(box, daily.status)) { if (daily.status !== 'error') box.replaceChildren(); return; }
+  box.replaceChildren();
+  const rows = daily.data;
+  if (!rows.length) return;
+
+  const W = Math.max(280, box.clientWidth);
+  const H = 260;
+  const mt = 8, mr = 8, mb = 26;
+  const start = parseDay(rows[0].day);
+  const end = d3.max([parseDay(rows[rows.length - 1].day), d3.utcDay.floor(new Date())]);
+  const days = d3.utcDay.range(start, d3.utcDay.offset(end, 1)).map(d3.utcFormat('%Y-%m-%d'));
+  const byDay = new Map(rows.map((r) => [r.day, r]));
+  const y = d3.scaleLinear([0, d3.max(rows, (r) => r.total) || 1], [H - mb, mt]).nice();
+  const yTicks = y.ticks(5).filter(Number.isInteger);
+
+  const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img')
+    .attr('aria-label', 'Stacked bar chart of actions per day');
+  const probe = svg.append('g').attr('font-size', 'var(--cds-font-size-caption)');
+  const ml = 10 + d3.max(yTicks, (v) => probe.append('text').text(fmtInt(v)).node().getComputedTextLength()) || 24;
+  probe.remove();
+
+  const x = d3.scaleBand(days, [ml, W - mr]).paddingInner(0.25).paddingOuter(0.1);
+  const barW = Math.min(x.bandwidth(), 32);
+  const bx = (day) => x(day) + (x.bandwidth() - barW) / 2;
+
+  svg.append('g').selectAll('line').data(yTicks).join('line')
+    .attr('x1', ml).attr('x2', W - mr).attr('y1', (v) => y(v)).attr('y2', (v) => y(v))
+    .attr('stroke', 'var(--cds-chart-grid)').attr('stroke-width', 1);
+  svg.append('g').selectAll('text').data(yTicks).join('text')
+    .attr('x', ml - 6).attr('y', (v) => y(v)).attr('dy', '0.32em').attr('text-anchor', 'end')
+    .attr('fill', 'var(--color-fg-muted)').attr('font-size', 'var(--cds-font-size-caption)')
+    .text((v) => fmtInt(v));
+  svg.append('line').attr('x1', ml).attr('x2', W - mr).attr('y1', y(0)).attr('y2', y(0))
+    .attr('stroke', 'var(--cds-chart-axis)').attr('stroke-width', 1);
+
+  const every = Math.max(1, Math.ceil(days.length * 48 / (W - ml - mr)));
+  svg.append('g').selectAll('text').data(days.filter((d, i) => i % every === 0)).join('text')
+    .attr('x', (d) => x(d) + x.bandwidth() / 2).attr('y', H - mb + 16).attr('text-anchor', 'middle')
+    .attr('fill', 'var(--color-fg-muted)').attr('font-size', 'var(--cds-font-size-caption)')
+    .text((d) => fmtDay(parseDay(d)));
+
+  const stack = d3.stack().keys(SERIES.map((s) => s.key))(rows);
+  stack.forEach((layer, i) => {
+    svg.append('g').attr('fill', dash.colors[i]).selectAll('rect').data(layer.filter((d) => d[1] > d[0])).join('rect')
+      .attr('x', (d) => bx(d.data.day)).attr('width', barW)
+      .attr('y', (d) => y(d[1])).attr('height', (d) => Math.max(0, y(d[0]) - y(d[1]) - 1))
+      .attr('rx', 2);
+  });
+
+  const tip = document.createElement('div');
+  tip.className = 'mp-tip';
+  tip.hidden = true;
+  box.append(tip);
+  const hover = svg.append('rect').attr('fill', 'var(--color-fg)').attr('opacity', 0).attr('pointer-events', 'none');
+  svg.append('g').selectAll('rect').data(days.filter((d) => byDay.has(d))).join('rect')
+    .attr('x', (d) => x(d)).attr('width', x.bandwidth()).attr('y', mt).attr('height', H - mb - mt)
+    .attr('fill', 'transparent')
+    .on('mouseenter', (event, day) => {
+      const r = byDay.get(day);
+      hover.attr('x', bx(day) - 2).attr('width', barW + 4).attr('y', y(r.total) - 2).attr('height', y(0) - y(r.total) + 2).attr('opacity', 0.08);
+      const when = Object.assign(document.createElement('div'), { className: 'when', textContent: d3.utcFormat('%a %b %-d')(parseDay(day)) });
+      const lines = SERIES.map((s, i) => [s, i]).filter(([s]) => r[s.key] > 0).map(([s, i]) => {
+        const line = Object.assign(document.createElement('div'), { className: 'line' });
+        const sw = Object.assign(document.createElement('span'), { className: 'mp-swatch' });
+        sw.style.background = dash.colors[i];
+        const b = document.createElement('b');
+        b.textContent = fmtInt(r[s.key]);
+        line.append(sw, document.createTextNode(s.label), b);
+        return line;
+      });
+      const total = Object.assign(document.createElement('div'), { className: 'line' });
+      const tb = document.createElement('b');
+      tb.textContent = fmtInt(r.total);
+      total.append(document.createTextNode('Total'), tb);
+      tip.replaceChildren(when, ...lines, total);
+      tip.hidden = false;
+      const scale = box.clientWidth / W;
+      const cx = (x(day) + x.bandwidth() / 2) * scale;
+      const tw = tip.offsetWidth;
+      tip.style.left = `${Math.min(Math.max(0, cx + 12 + tw > box.clientWidth ? cx - tw - 12 : cx + 12), Math.max(0, box.clientWidth - tw))}px`;
+      tip.style.top = `${Math.max(0, y(r.total) * scale - 8)}px`;
+    })
+    .on('mouseleave', () => { tip.hidden = true; hover.attr('opacity', 0); });
+}
+
+function drawRepo(byRepo) {
+  const table = root.querySelector('#by-repo table');
+  const tbody = table.tBodies[0];
+  if (byRepo.status === 'error') { tbody.replaceChildren(); failed(table.parentElement); return; }
+  if (byRepo.status !== 'ok') { tbody.replaceChildren(); return; }
+  const cols = ['repo', 'items', 'closed', 'merged', 'reviewed', 'commented', 'opened'];
+  tbody.replaceChildren(...byRepo.data.map((r) => {
+    const tr = document.createElement('tr');
+    cols.forEach((c) => {
+      const td = document.createElement('td');
+      if (c !== 'repo') td.className = 'n';
+      td.textContent = c === 'repo' ? r.repo : fmtInt(r[c]);
+      tr.append(td);
+    });
+    return tr;
+  }));
+}
+
+function drawReasons(reasons) {
+  const box = root.querySelector('.mp-bars');
+  if (!settle(box, reasons.status)) { if (reasons.status !== 'error') box.replaceChildren(); return; }
+  const max = d3.max(reasons.data, (r) => r.issues) || 1;
+  box.replaceChildren(...reasons.data.map((r, i) => {
+    const row = Object.assign(document.createElement('div'), { className: 'mp-bar' });
+    const name = Object.assign(document.createElement('span'), { textContent: REASONS[r.closeReason] || r.closeReason });
+    const track = Object.assign(document.createElement('div'), { className: 'track' });
+    const fill = Object.assign(document.createElement('div'), { className: 'fill' });
+    fill.style.width = `${(r.issues / max) * 100}%`;
+    fill.style.background = i === 0 ? dash.colors[0] : 'var(--cds-chart-muted)';
+    track.append(fill);
+    const val = Object.assign(document.createElement('span'), { className: 'val', textContent: fmtInt(r.issues) });
+    row.append(name, track, val);
+    return row;
+  }));
+}
+
+const view = { q: '', kind: 'all', sort: 'last', dir: -1 };
+const itemsTable = root.querySelector('#items table');
+function drawItems() {
+  const items = dash.data('items');
+  const tbody = itemsTable.tBodies[0];
+  itemsTable.querySelectorAll('th').forEach((th) => {
+    th.setAttribute('aria-sort', th.dataset.field === view.sort ? (view.dir > 0 ? 'ascending' : 'descending') : 'none');
+  });
+  if (items.status === 'error') { tbody.replaceChildren(); failed(itemsTable.parentElement); return; }
+  if (items.status !== 'ok') { tbody.replaceChildren(); return; }
+  const q = view.q.trim().toLowerCase();
+  const rows = items.data
+    .filter((r) => view.kind === 'all' || r.kind === view.kind)
+    .filter((r) => !q || r.ref.toLowerCase().includes(q) || r.title.toLowerCase().includes(q))
+    .sort((a, b) => {
+      const va = a[view.sort], vb = b[view.sort];
+      const c = typeof va === 'number' ? va - vb : String(va).localeCompare(String(vb), 'en', { numeric: true });
+      return c * view.dir || a.ref.localeCompare(b.ref, 'en', { numeric: true });
+    });
+  tbody.replaceChildren(...rows.map((r) => {
+    const tr = document.createElement('tr');
+    const ref = document.createElement('td');
+    const a = document.createElement('a');
+    a.href = r.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = r.ref;
+    ref.append(a);
+    const title = Object.assign(document.createElement('td'), { className: 'title', textContent: r.title });
+    const kind = Object.assign(document.createElement('td'), { textContent: r.kind === 'pr' ? 'PR' : 'Issue' });
+    const did = Object.assign(document.createElement('td'), { textContent: r.did });
+    const count = Object.assign(document.createElement('td'), { className: 'n', textContent: fmtInt(r.count) });
+    const last = Object.assign(document.createElement('td'), { textContent: fmtDay(parseDay(r.last)) });
+    const state = document.createElement('td');
+    const pill = Object.assign(document.createElement('span'), {
+      className: `mp-pill ${r.state === 'OPEN' ? 'open' : 'done'}`,
+      textContent: { OPEN: 'Open', CLOSED: 'Closed', MERGED: 'Merged' }[r.state] || r.state,
+    });
+    state.append(pill);
+    tr.append(ref, title, kind, did, count, last, state);
+    return tr;
+  }));
+}
+
+const search = root.querySelector('#mp-search');
+search.addEventListener('input', () => { view.q = search.value; drawItems(); });
+root.querySelectorAll('.mp-seg button').forEach((btn) => btn.addEventListener('click', () => {
+  view.kind = btn.dataset.kind;
+  root.querySelectorAll('.mp-seg button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+  drawItems();
+}));
+itemsTable.querySelectorAll('th button').forEach((btn) => btn.addEventListener('click', () => {
+  const key = btn.dataset.sort;
+  view.dir = view.sort === key ? -view.dir : (['count', 'last'].includes(key) ? -1 : 1);
+  view.sort = key;
+  drawItems();
+}));
+
+dash.onData(() => {
+  const totals = dash.data('totals');
+  const daily = dash.data('daily');
+  drawTiles(totals);
+  drawTakeaway(totals);
+  drawLegend(daily);
+  drawChart(daily);
+  drawRepo(dash.data('byRepo'));
+  drawReasons(dash.data('closeReasons'));
+  drawItems();
+});
+</script>
