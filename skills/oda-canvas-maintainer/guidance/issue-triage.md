@@ -1,7 +1,7 @@
 ---
 name: issue-triage
 description: How to classify, check, route and respond to issues, including stale and backlog issues.
-last_updated: 2026-09-28
+last_updated: 2026-10-13
 ---
 
 # Issue triage
@@ -52,6 +52,7 @@ For **features**, check that the issue states the problem and who needs it, not 
 
 - **Wrong repo.** Suggest the right repo. Out-of-scope repos (`oda-component-ctk`, `model-as-a-service-crds`) are never targets.
 - **Operator-specific work belongs in that operator's repo.** Under ADR-0022, each split-out operator repo (e.g. `TMFOP006-Event-Management`) owns that operator's work, including its BDD features. For an old `oda-canvas` issue about such an operator, **close it with a pointer** to the operator repo ("We will include … as part of TMFOP006-Event-Management"). **Transfer** only when the target repo is active and its owner wants the issue. (learned 2026-09-28 from oda-canvas backlog sweep #105–#220)
+- **Umbrella issues whose work moves to another repo stay open.** When an `oda-canvas` umbrella issue (one with sub-issues, spanning the Canvas and another repo) has part of its work move to another `tmforum-oda` repo, keep the umbrella open. Recommend adding the other repo's tracking issue to it as a sub-issue, rather than transferring or closing the umbrella. Single-task issues whose whole scope moved still close with a pointer, as above. *Why:* the umbrella keeps the end-to-end change visible in one place, while each repo owns its own part. (learned 2026-10-13 from oda-canvas#522)
 - **Architecture or standards change.** If no ADR covers it, the right response is to direct it into an ADR in `oda-ca-docs/Decision-Log`, which the Architecture repo will replace later. Don't design the solution in the reply. (Confirmed 2026-09-29 by Lester on the #583 eval runs: "the correct response is to direct into an Architecture Decision Record".)
 - **Security report in public.** Follow `sensitive-situations.md` immediately.
 
@@ -81,6 +82,7 @@ External issues that have never had a maintainer reply come first. **Don't open 
 
 ## Change log
 
+- 2026-10-13 — added — umbrella issues stay open as the parent of the other repo's issue, linked as a sub-issue; single-task issues still close with a pointer — Lester's decision on oda-canvas#522
 - 2026-09-29 — changed — corrected the seed example: #532, #533 and #534 are different operators, not duplicates — found by both eval iterations
 - 2026-09-29 — added — trivial fixes: the draft says "I'll create the PR" rather than asking the reporter — Lester's posted #70 reply, confirmed as a rule
 - 2026-09-29 — changed — ADR routing confirmed as the correct response; don't design the solution in the reply — Lester's review of the #583 eval runs
