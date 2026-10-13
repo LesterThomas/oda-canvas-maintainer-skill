@@ -1,0 +1,102 @@
+name: Maintainer dashboard
+
+# Refreshes dashboard/maintainer-activity.json from GitHub (read-only queries)
+# every Monday, commits it when it changed, and publishes the dashboard to
+# GitHub Pages. It also republishes on any push that changes dashboard/.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "dashboard/**"
+      - ".github/workflows/dashboard.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: maintainer-dashboard
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Collect activity
+        env:
+          # Read-only queries. DASHBOARD_TOKEN (a fine-grained token with public
+          # read access) is used if set; otherwise the workflow's own token.
+          GH_TOKEN: ${{ secrets.DASHBOARD_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          before=$(python -c "import json; print(len(json.load(open('dashboard/maintainer-activity.json'))['rows']))")
+          python dashboard/collect_activity.py dashboard/maintainer-activity.json
+          after=$(python -c "import json; print(len(json.load(open('dashboard/maintainer-activity.json'))['rows']))")
+          echo "Rows before: $before, after: $after"
+          # A deleted comment can lower the count a little; a big drop means the
+          # token could not see the activity.
+          if [ "$after" -eq 0 ] || [ $((after * 10)) -lt $((before * 9)) ]; then
+            echo "::error::The refresh returned $after rows, against $before in the committed file. Not committing; check the token's access."
+            exit 1
+          fi
+
+      - name: Commit if the data changed
+        run: |
+          if git diff --quiet -- dashboard/maintainer-activity.json; then
+            echo "No new activity."
+            exit 0
+          fi
+          # generatedAt changes on every run; commit only when the rows changed.
+          if git diff -U0 -- dashboard/maintainer-activity.json | grep '^[-+] ' | grep -qv '"generatedAt"'; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add dashboard/maintainer-activity.json
+            git commit -m "Refresh maintainer activity data"
+            git push
+          else
+            echo "Only the timestamp changed; not committing."
+          fi
+
+  build:
+    needs: refresh
+    if: always() && (needs.refresh.result == 'success' || needs.refresh.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build site
+        run: python dashboard/site/build.py _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

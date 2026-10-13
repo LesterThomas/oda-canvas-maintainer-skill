@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ODA Canvas Maintainer Progress</title>
+<meta name="description" content="Issues closed and PRs merged, approved or commented on by LesterThomas across the tmforum-oda GitHub organisation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<style>
+/* Tokens the dashboard page expects, mapped to a light and a dark palette. */
+:root {
+  color-scheme: light;
+  --font-anthropic-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-anthropic-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --cds-font-size-caption: 0.8125rem;
+  --cds-font-size-body: 0.9375rem;
+  --cds-font-size-heading: 1.0625rem;
+  --cds-font-size-title: 1.75rem;
+  --cds-font-weight-medium: 500;
+  --cds-gap-xs: 0.25rem; --cds-gap-sm: 0.5rem; --cds-gap-md: 0.875rem; --cds-gap-lg: 1.5rem; --cds-gap-xl: 2.5rem;
+  --cds-pad-xs: 0.3rem; --cds-pad-sm: 0.6rem; --cds-pad-md: 0.875rem; --cds-pad-lg: 1.125rem; --cds-pad-xl: 1.75rem;
+  --cds-radius: 8px;
+  --cds-dur-slow: 240ms;
+  --cds-ease-out: cubic-bezier(.2, .7, .2, 1);
+
+  --color-bg: #f6f7f9;
+  --color-panel: #ffffff;
+  --color-fg: #1b2330;
+  --color-fg-muted: #5b6575;
+  --color-border-line: #dfe3ea;
+  --color-ok: #1f7a4d;
+  --color-warn: #9a6200;
+  --color-bad: #c2362f;
+  --cds-chart-grid: #e8ebf0;
+  --cds-chart-axis: #b4bcc8;
+  --cds-chart-muted: #c3c9d3;
+  --cds-surface-popover: #ffffff;
+  --cds-border: #d3d9e2;
+  --cds-shadow-popover: 0 6px 18px rgb(20 30 50 / .12);
+  --cds-text-secondary: #5b6575;
+  --series-1: #2f6fdf; --series-2: #1f9e74; --series-3: #8a5cd6; --series-4: #e0892b;
+  --series-5: #d24f7b; --series-6: #3aa3b8; --series-7: #8f9636; --series-8: #6b7280;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-bg: #10141b;
+    --color-panel: #171c25;
+    --color-fg: #e6e9ef;
+    --color-fg-muted: #9aa4b4;
+    --color-border-line: #2a313d;
+    --color-ok: #5fcf96;
+    --color-warn: #e8b04f;
+    --color-bad: #f07a72;
+    --cds-chart-grid: #232a35;
+    --cds-chart-axis: #475163;
+    --cds-chart-muted: #3d4655;
+    --cds-surface-popover: #1d2330;
+    --cds-border: #343c4a;
+    --cds-shadow-popover: 0 6px 18px rgb(0 0 0 / .45);
+    --cds-text-secondary: #9aa4b4;
+    --series-1: #6c9ef5; --series-2: #4cc79c; --series-3: #ad8bef; --series-4: #f0a95a;
+    --series-5: #ec7aa0; --series-6: #62c3d6; --series-7: #b5bc5a; --series-8: #9ca3af;
+  }
+}
+html, body { margin: 0; background: var(--color-bg); color: var(--color-fg); font-family: var(--font-anthropic-sans); font-size: var(--cds-font-size-body); line-height: 1.5; }
+.site { max-width: 1200px; margin-inline: auto; padding: 1.5rem 16px 2.5rem; display: flex; flex-direction: column; gap: var(--cds-gap-lg); }
+.site-bar { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.site-bar a { color: inherit; }
+#dash-root { min-width: 0; }
+.dash-skeleton { color: transparent !important; position: relative; }
+.dash-skeleton::after { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: min(8rem, 60%); height: .8em; border-radius: 999px; background: var(--color-border-line); }
+.mp-chart.dash-skeleton::after, .mp-bars.dash-skeleton::after { top: 0; transform: none; width: 100%; height: 100%; border-radius: var(--cds-radius); opacity: .45; }
+@media (prefers-reduced-motion: no-preference) {
+  .dash-skeleton::after { animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .5; } }
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="dash-shim.js"></script>
+</head>
+<body>
+<main class="site">
+  <div id="dash-root">
+<!-- PAGE -->
+  </div>
+  <p class="site-bar">
+    <span id="site-updated">Loading data…</span>
+    <a href="maintainer-activity.json">Download the data (JSON)</a>
+    <a href="https://github.com/LesterThomas/oda-canvas-maintainer-skill/tree/main/dashboard">How this page is built</a>
+  </p>
+</main>
+<script>
+dash._load('activity', 'maintainer-activity.json').then((r) => {
+  const el = document.getElementById('site-updated');
+  if (r.status !== 'ok') { el.textContent = 'The data file failed to load.'; return; }
+  const at = r.body && r.body.generatedAt ? new Date(r.body.generatedAt) : null;
+  el.textContent = at ? `Data collected ${d3.utcFormat('%-d %b %Y, %H:%M UTC')(at)}` : 'Data loaded';
+});
+</script>
+</body>
+</html>

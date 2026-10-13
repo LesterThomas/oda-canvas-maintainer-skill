@@ -47,4 +47,13 @@ skills/oda-canvas-maintainer/     # same layout as oda-agent-skills-marketplace 
 └── assets/config.example.yaml
 research/                         # Phase 1 evidence behind the seed guidance
 spec/                             # spec.md + tasks.md
+dashboard/                        # maintainer progress dashboard (data, page, Pages build)
 ```
+
+## Maintainer dashboard
+
+**[ODA Canvas maintainer progress](https://lesterthomas.github.io/oda-canvas-maintainer-skill/)** shows the issues closed and the PRs merged, approved or commented on by LesterThomas across `tmforum-oda` since 28 September 2026.
+
+- `dashboard/collect_activity.py` gathers the activity with read-only `gh` GraphQL queries into `dashboard/maintainer-activity.json` (one row per action).
+- `dashboard/index.html` is the page. `dashboard/site/` wraps it into a standalone site for GitHub Pages.
+- `.github/workflows/dashboard.yml` refreshes the data every Monday, commits it when it changed, and republishes the site. Run it by hand from the Actions tab with **Run workflow**.
