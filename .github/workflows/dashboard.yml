@@ -90,6 +90,8 @@ jobs:
 
   deploy:
     needs: build
+    # Without this, a skipped refresh (push runs) skips deploy too.
+    if: always() && needs.build.result == 'success'
     runs-on: ubuntu-latest
     permissions:
       pages: write
