@@ -3,7 +3,7 @@
   "maintainer": "LesterThomas",
   "org": "tmforum-oda",
   "periodStart": "2026-09-28",
-  "generatedAt": "2026-10-13T08:58:17Z",
+  "generatedAt": "2026-10-19T06:05:57Z",
   "rows": [
     {
       "day": "2026-10-02",
@@ -18,7 +18,7 @@
       "author": "brian-burton",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -33,7 +33,7 @@
       "author": "brian-burton",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -48,7 +48,7 @@
       "author": "brian-burton",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -63,7 +63,7 @@
       "author": "ferenc-hechler",
       "state": "CLOSED",
       "closeReason": "NOT_PLANNED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -78,7 +78,7 @@
       "author": "ferenc-hechler",
       "state": "CLOSED",
       "closeReason": "NOT_PLANNED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -93,7 +93,7 @@
       "author": "peeterko2",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -108,7 +108,7 @@
       "author": "peeterko2",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -123,7 +123,7 @@
       "author": "peeterko2",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -138,7 +138,7 @@
       "author": "peeterko2",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -153,7 +153,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -168,7 +168,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -183,7 +183,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -198,7 +198,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -213,7 +213,7 @@
       "author": "abbeydom",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -228,7 +228,7 @@
       "author": "abbeydom",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -243,7 +243,7 @@
       "author": "Priyasaxena21",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -258,7 +258,7 @@
       "author": "Priyasaxena21",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -273,7 +273,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -288,7 +288,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -303,7 +303,7 @@
       "author": "adarshkumar4",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -318,7 +318,7 @@
       "author": "adarshkumar4",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -333,7 +333,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -348,7 +348,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -363,7 +363,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "NOT_PLANNED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -378,7 +378,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "NOT_PLANNED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -393,7 +393,7 @@
       "author": "sigrid-braun",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -408,7 +408,7 @@
       "author": "sigrid-braun",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -423,7 +423,7 @@
       "author": "sigrid-braun",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -438,7 +438,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -453,7 +453,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -468,7 +468,7 @@
       "author": "hvaughanattmforum",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -483,7 +483,7 @@
       "author": "hvaughanattmforum",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -498,7 +498,7 @@
       "author": "RJ-acc",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -513,7 +513,7 @@
       "author": "RJ-acc",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -528,7 +528,7 @@
       "author": "hvaughanattmforum",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -543,7 +543,7 @@
       "author": "hvaughanattmforum",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -558,7 +558,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -573,7 +573,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -588,7 +588,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "NOT_PLANNED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -603,7 +603,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "NOT_PLANNED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -618,7 +618,7 @@
       "author": "brian-burton",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -633,7 +633,7 @@
       "author": "brian-burton",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -648,7 +648,7 @@
       "author": "brian-burton",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -663,7 +663,7 @@
       "author": "brian-burton",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -678,7 +678,7 @@
       "author": "brian-burton",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -693,7 +693,7 @@
       "author": "brian-burton",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -708,7 +708,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -723,7 +723,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -738,7 +738,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -753,7 +753,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -768,7 +768,7 @@
       "author": "adarshkumar4",
       "state": "CLOSED",
       "closeReason": "NOT_PLANNED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -783,7 +783,7 @@
       "author": "adarshkumar4",
       "state": "CLOSED",
       "closeReason": "NOT_PLANNED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -798,7 +798,7 @@
       "author": "adarshkumar4",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -813,7 +813,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -828,7 +828,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -843,7 +843,7 @@
       "author": "ferenc-hechler",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -858,7 +858,7 @@
       "author": "ferenc-hechler",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -873,7 +873,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -888,7 +888,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -903,7 +903,7 @@
       "author": "aankursarkar",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -918,7 +918,7 @@
       "author": "IremGA",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -933,7 +933,7 @@
       "author": "IremGA",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -948,7 +948,52 @@
       "author": "tienhoanho",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T09:29:36Z",
+      "action": "commented",
+      "ref": "oda-canvas#522",
+      "repo": "oda-canvas",
+      "number": 522,
+      "kind": "issue",
+      "title": "Split Canvas Installation into Infrastructure, Prerequisites, and Canvas Components",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/522#issuecomment-6142548762",
+      "author": "brian-burton",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T09:46:24Z",
+      "action": "commented",
+      "ref": "oda-canvas#523",
+      "repo": "oda-canvas",
+      "number": 523,
+      "kind": "issue",
+      "title": "Create Helm Chart for Non-Canvas Prerequisites with Default Values",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/523#issuecomment-6142833175",
+      "author": "brian-burton",
+      "state": "CLOSED",
+      "closeReason": "NOT_PLANNED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T09:46:30Z",
+      "action": "closed",
+      "ref": "oda-canvas#523",
+      "repo": "oda-canvas",
+      "number": 523,
+      "kind": "issue",
+      "title": "Create Helm Chart for Non-Canvas Prerequisites with Default Values",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/523",
+      "author": "brian-burton",
+      "state": "CLOSED",
+      "closeReason": "NOT_PLANNED",
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -963,7 +1008,7 @@
       "author": "glupotmforumorg",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -978,7 +1023,22 @@
       "author": "glupotmforumorg",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T10:11:51Z",
+      "action": "commented",
+      "ref": "oda-canvas#533",
+      "repo": "oda-canvas",
+      "number": 533,
+      "kind": "issue",
+      "title": "ProjectONE - Canvas Operator (Device Driver) - Agentic Interactions",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/533#issuecomment-6143261143",
+      "author": "glupotmforumorg",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -993,7 +1053,7 @@
       "author": "glupotmforumorg",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -1008,7 +1068,82 @@
       "author": "glupotmforumorg",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T10:05:12Z",
+      "action": "commented",
+      "ref": "oda-canvas#536",
+      "repo": "oda-canvas",
+      "number": 536,
+      "kind": "issue",
+      "title": "pre-install-check-istio failing as bitnami/kubectl:latest is not present on dockerhub",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/536#issuecomment-6143149871",
+      "author": "RJ-acc",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T10:05:50Z",
+      "action": "closed",
+      "ref": "oda-canvas#536",
+      "repo": "oda-canvas",
+      "number": 536,
+      "kind": "issue",
+      "title": "pre-install-check-istio failing as bitnami/kubectl:latest is not present on dockerhub",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/536",
+      "author": "RJ-acc",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T10:05:55Z",
+      "action": "commented",
+      "ref": "oda-canvas#537",
+      "repo": "oda-canvas",
+      "number": 537,
+      "kind": "issue",
+      "title": "Changes to the bitnami container images",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/537#issuecomment-6143161989",
+      "author": "adarshkumar4",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T17:19:55Z",
+      "action": "commented",
+      "ref": "oda-canvas#540",
+      "repo": "oda-canvas",
+      "number": 540,
+      "kind": "issue",
+      "title": "Keycloak: refactor Keycloak installation to remove dependency on Bitnami",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/540#issuecomment-6151163378",
+      "author": "brian-burton",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T17:20:29Z",
+      "action": "commented",
+      "ref": "oda-canvas#541",
+      "repo": "oda-canvas",
+      "number": 541,
+      "kind": "issue",
+      "title": "Kong: refactor Kong installation to remove/resolve dependencies on bitnami",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/541#issuecomment-6151173169",
+      "author": "brian-burton",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1023,7 +1158,7 @@
       "author": "AliSaygin",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1038,7 +1173,52 @@
       "author": "AliSaygin",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T17:22:08Z",
+      "action": "commented",
+      "ref": "oda-canvas#557",
+      "repo": "oda-canvas",
+      "number": 557,
+      "kind": "issue",
+      "title": "Critical bugs in Canvas Log Viewer libraries",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/557#issuecomment-6151202349",
+      "author": "brian-burton",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-14",
+      "at": "2026-10-14T11:11:05Z",
+      "action": "closed",
+      "ref": "oda-canvas#557",
+      "repo": "oda-canvas",
+      "number": 557,
+      "kind": "issue",
+      "title": "Critical bugs in Canvas Log Viewer libraries",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/557",
+      "author": "brian-burton",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-15",
+      "at": "2026-10-15T12:21:44Z",
+      "action": "closed",
+      "ref": "oda-canvas#558",
+      "repo": "oda-canvas",
+      "number": 558,
+      "kind": "issue",
+      "title": "Critical bugs in Component Viewer libraries",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/558",
+      "author": "brian-burton",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1053,7 +1233,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1068,7 +1248,7 @@
       "author": "LesterThomas",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1083,7 +1263,7 @@
       "author": "NoNickeD",
       "state": "MERGED",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1098,7 +1278,7 @@
       "author": "NoNickeD",
       "state": "MERGED",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -1113,7 +1293,7 @@
       "author": "hvaughanattmforum",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -1128,7 +1308,37 @@
       "author": "chuckgruber",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-09-29",
+      "at": "2026-09-29T22:50:57Z",
+      "action": "closed",
+      "ref": "oda-canvas#601",
+      "repo": "oda-canvas",
+      "number": 601,
+      "kind": "pr",
+      "title": "Canvas Local Installation Fixes",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/601",
+      "author": "IremGA",
+      "state": "CLOSED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-09-29",
+      "at": "2026-09-29T22:50:57Z",
+      "action": "commented",
+      "ref": "oda-canvas#601",
+      "repo": "oda-canvas",
+      "number": 601,
+      "kind": "pr",
+      "title": "Canvas Local Installation Fixes",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/601#issuecomment-5900572011",
+      "author": "IremGA",
+      "state": "CLOSED",
+      "closeReason": null,
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -1143,7 +1353,7 @@
       "author": "arusakov-rh",
       "state": "MERGED",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -1158,7 +1368,7 @@
       "author": "arusakov-rh",
       "state": "MERGED",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -1173,7 +1383,7 @@
       "author": "LesterThomas",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -1188,7 +1398,7 @@
       "author": "anshulkumar-tmf",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -1203,7 +1413,7 @@
       "author": "anshulkumar-tmf",
       "state": "MERGED",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -1216,9 +1426,9 @@
       "title": "Canvas images: remove end-of-life or floating base images",
       "url": "https://github.com/tmforum-oda/oda-canvas/issues/615",
       "author": "LesterThomas",
-      "state": "OPEN",
-      "closeReason": null,
-      "discussedInSession": true
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
     },
     {
       "day": "2026-09-29",
@@ -1233,7 +1443,7 @@
       "author": "LesterThomas",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1246,9 +1456,324 @@
       "title": "Bug fix: removed end-of-life or floating base images",
       "url": "https://github.com/tmforum-oda/oda-canvas/pull/617#issuecomment-5950579802",
       "author": "adarshkumar4",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T17:48:49Z",
+      "action": "approved",
+      "ref": "oda-canvas#617",
+      "repo": "oda-canvas",
+      "number": 617,
+      "kind": "pr",
+      "title": "Bug fix: removed end-of-life or floating base images",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/617#pullrequestreview-5507710255",
+      "author": "adarshkumar4",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T17:51:31Z",
+      "action": "closed",
+      "ref": "oda-canvas#619",
+      "repo": "oda-canvas",
+      "number": 619,
+      "kind": "issue",
+      "title": "Installation README: document kind/local clusters and fix the uninstall command",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/619",
+      "author": "hvaughanattmforum",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-14",
+      "at": "2026-10-14T15:23:14Z",
+      "action": "approved",
+      "ref": "oda-canvas#622",
+      "repo": "oda-canvas",
+      "number": 622,
+      "kind": "pr",
+      "title": "Wait for the cert-manager webhook before creating issuers",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/622#pullrequestreview-5520326009",
+      "author": "hvaughanattmforum",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T17:51:15Z",
+      "action": "approved",
+      "ref": "oda-canvas#623",
+      "repo": "oda-canvas",
+      "number": 623,
+      "kind": "pr",
+      "title": "Installation README: document kind/local clusters and fix the uninstall command",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/623#pullrequestreview-5507737648",
+      "author": "hvaughanattmforum",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T17:51:30Z",
+      "action": "merged",
+      "ref": "oda-canvas#623",
+      "repo": "oda-canvas",
+      "number": 623,
+      "kind": "pr",
+      "title": "Installation README: document kind/local clusters and fix the uninstall command",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/623",
+      "author": "hvaughanattmforum",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T17:27:48Z",
+      "action": "opened",
+      "ref": "oda-canvas#624",
+      "repo": "oda-canvas",
+      "number": 624,
+      "kind": "pr",
+      "title": "fix(canvas-log-viewer): upgrade @kubernetes/client-node to 1.x and add unit tests",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/624",
+      "author": "LesterThomas",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-14",
+      "at": "2026-10-14T11:11:03Z",
+      "action": "merged",
+      "ref": "oda-canvas#624",
+      "repo": "oda-canvas",
+      "number": 624,
+      "kind": "pr",
+      "title": "fix(canvas-log-viewer): upgrade @kubernetes/client-node to 1.x and add unit tests",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/624",
+      "author": "LesterThomas",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T21:24:34Z",
+      "action": "opened",
+      "ref": "oda-canvas#625",
+      "repo": "oda-canvas",
+      "number": 625,
+      "kind": "issue",
+      "title": "BDD test kit: run only the features a PR affects, and base test charts on the reference components",
+      "url": "https://github.com/tmforum-oda/oda-canvas/issues/625",
+      "author": "LesterThomas",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-14",
+      "at": "2026-10-14T07:26:21Z",
+      "action": "opened",
+      "ref": "oda-canvas#626",
+      "repo": "oda-canvas",
+      "number": 626,
+      "kind": "pr",
+      "title": "fix(component-viewer): upgrade @kubernetes/client-node to 1.x and add unit tests",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/626",
+      "author": "LesterThomas",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-15",
+      "at": "2026-10-15T12:21:43Z",
+      "action": "merged",
+      "ref": "oda-canvas#626",
+      "repo": "oda-canvas",
+      "number": 626,
+      "kind": "pr",
+      "title": "fix(component-viewer): upgrade @kubernetes/client-node to 1.x and add unit tests",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/626",
+      "author": "LesterThomas",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T16:57:08Z",
+      "action": "opened",
+      "ref": "oda-canvas#627",
+      "repo": "oda-canvas",
+      "number": 627,
+      "kind": "pr",
+      "title": "Test kit: remove committed temp output and unused charts, fix UC015 tags (#625, 1 of 9)",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/627",
+      "author": "LesterThomas",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T17:10:23Z",
+      "action": "opened",
+      "ref": "oda-canvas#628",
+      "repo": "oda-canvas",
+      "number": 628,
+      "kind": "pr",
+      "title": "Test kit: add the BDD test-selection map and selector (#625, 2 of 9)",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/628",
+      "author": "LesterThomas",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T17:26:13Z",
+      "action": "opened",
+      "ref": "oda-canvas#629",
+      "repo": "oda-canvas",
+      "number": 629,
+      "kind": "pr",
+      "title": "CI: run only the BDD features a PR affects, with a cluster per gateway (#625, 3 of 9)",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/629",
+      "author": "LesterThomas",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T17:46:29Z",
+      "action": "opened",
+      "ref": "oda-canvas#630",
+      "repo": "oda-canvas",
+      "number": 630,
+      "kind": "pr",
+      "title": "Test kit: pin the reference productcatalog chart to 1.4.4 in UC002-F003/F004",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/630",
+      "author": "LesterThomas",
+      "state": "CLOSED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T17:48:12Z",
+      "action": "closed",
+      "ref": "oda-canvas#630",
+      "repo": "oda-canvas",
+      "number": 630,
+      "kind": "pr",
+      "title": "Test kit: pin the reference productcatalog chart to 1.4.4 in UC002-F003/F004",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/630",
+      "author": "LesterThomas",
+      "state": "CLOSED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T18:06:12Z",
+      "action": "opened",
+      "ref": "oda-canvas#631",
+      "repo": "oda-canvas",
+      "number": 631,
+      "kind": "pr",
+      "title": "test(UC015): fix Kong and APISIX gateway BDD features (#625, stacked on #629)",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/631",
+      "author": "LesterThomas",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T18:10:18Z",
+      "action": "merged",
+      "ref": "oda-canvas#631",
+      "repo": "oda-canvas",
+      "number": 631,
+      "kind": "pr",
+      "title": "test(UC015): fix Kong and APISIX gateway BDD features (#625, stacked on #629)",
+      "url": "https://github.com/tmforum-oda/oda-canvas/pull/631",
+      "author": "LesterThomas",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T20:22:51Z",
+      "action": "commented",
+      "ref": "reference-example-components#26",
+      "repo": "reference-example-components",
+      "number": 26,
+      "kind": "issue",
+      "title": "Add upstream component instance name to Service Inventory",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/26#issuecomment-6223997739",
+      "author": "LesterThomas",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T20:23:08Z",
+      "action": "closed",
+      "ref": "reference-example-components#26",
+      "repo": "reference-example-components",
+      "number": 26,
+      "kind": "issue",
+      "title": "Add upstream component instance name to Service Inventory",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/26",
+      "author": "LesterThomas",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T20:22:09Z",
+      "action": "commented",
+      "ref": "reference-example-components#28",
+      "repo": "reference-example-components",
+      "number": 28,
+      "kind": "issue",
+      "title": "Authentication:  Add authentication capability to reference example components",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/28#issuecomment-6223986465",
+      "author": "brian-burton",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T20:22:19Z",
+      "action": "closed",
+      "ref": "reference-example-components#28",
+      "repo": "reference-example-components",
+      "number": 28,
+      "kind": "issue",
+      "title": "Authentication:  Add authentication capability to reference example components",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/28",
+      "author": "brian-burton",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1263,7 +1788,7 @@
       "author": "ilyatheo",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1278,7 +1803,7 @@
       "author": "GaoHaobo-1843",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1293,7 +1818,7 @@
       "author": "GaoHaobo-1843",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1308,7 +1833,7 @@
       "author": "abbeydom",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1323,7 +1848,7 @@
       "author": "abbeydom",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -1338,7 +1863,7 @@
       "author": "Chiverz",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -1353,7 +1878,7 @@
       "author": "Chiverz",
       "state": "CLOSED",
       "closeReason": "COMPLETED",
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -1368,7 +1893,7 @@
       "author": "LesterThomas",
       "state": "MERGED",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-09-28",
@@ -1383,7 +1908,7 @@
       "author": "LesterThomas",
       "state": "MERGED",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-02",
@@ -1473,7 +1998,7 @@
       "author": "LesterThomas",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
     },
     {
       "day": "2026-10-06",
@@ -1488,7 +2013,142 @@
       "author": "LesterThomas",
       "state": "OPEN",
       "closeReason": null,
-      "discussedInSession": true
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T22:04:26Z",
+      "action": "commented",
+      "ref": "reference-example-components#79",
+      "repo": "reference-example-components",
+      "number": 79,
+      "kind": "issue",
+      "title": "Product Catalog exposes TMF672 as its security API, but the published TMFC001 specification requires TMF669",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/79#issuecomment-6156158403",
+      "author": "hvaughanattmforum",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T21:33:46Z",
+      "action": "closed",
+      "ref": "reference-example-components#80",
+      "repo": "reference-example-components",
+      "number": 80,
+      "kind": "issue",
+      "title": "Product Catalog fails the TMF620 v4.1.0 CTK: missing lifecycleStatus, broken date filters, PATCH returns 201",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/80",
+      "author": "hvaughanattmforum",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T22:12:37Z",
+      "action": "commented",
+      "ref": "reference-example-components#81",
+      "repo": "reference-example-components",
+      "number": 81,
+      "kind": "issue",
+      "title": "Run the component conformance test kit against reference components in CI",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/81#issuecomment-6156297149",
+      "author": "hvaughanattmforum",
+      "state": "OPEN",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T21:33:44Z",
+      "action": "merged",
+      "ref": "reference-example-components#82",
+      "repo": "reference-example-components",
+      "number": 82,
+      "kind": "pr",
+      "title": "Fix Product Catalog TMF620 conformance failures (lifecycleStatus, date filters, PATCH status)",
+      "url": "https://github.com/tmforum-oda/reference-example-components/pull/82",
+      "author": "hvaughanattmforum",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T21:24:38Z",
+      "action": "opened",
+      "ref": "reference-example-components#84",
+      "repo": "reference-example-components",
+      "number": 84,
+      "kind": "issue",
+      "title": "Publish component images from an organisation-owned Docker Hub account",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/84",
+      "author": "LesterThomas",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-13",
+      "at": "2026-10-13T21:30:49Z",
+      "action": "commented",
+      "ref": "reference-example-components#84",
+      "repo": "reference-example-components",
+      "number": 84,
+      "kind": "issue",
+      "title": "Publish component images from an organisation-owned Docker Hub account",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/84#issuecomment-6155623265",
+      "author": "LesterThomas",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T16:06:22Z",
+      "action": "closed",
+      "ref": "reference-example-components#84",
+      "repo": "reference-example-components",
+      "number": 84,
+      "kind": "issue",
+      "title": "Publish component images from an organisation-owned Docker Hub account",
+      "url": "https://github.com/tmforum-oda/reference-example-components/issues/84",
+      "author": "LesterThomas",
+      "state": "CLOSED",
+      "closeReason": "COMPLETED",
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-14",
+      "at": "2026-10-14T07:30:05Z",
+      "action": "opened",
+      "ref": "reference-example-components#85",
+      "repo": "reference-example-components",
+      "number": 85,
+      "kind": "pr",
+      "title": "Publish component images from the tmforumodacanvas Docker Hub organization (#84)",
+      "url": "https://github.com/tmforum-oda/reference-example-components/pull/85",
+      "author": "LesterThomas",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
+    },
+    {
+      "day": "2026-10-16",
+      "at": "2026-10-16T16:06:20Z",
+      "action": "merged",
+      "ref": "reference-example-components#85",
+      "repo": "reference-example-components",
+      "number": 85,
+      "kind": "pr",
+      "title": "Publish component images from the tmforumodacanvas Docker Hub organization (#84)",
+      "url": "https://github.com/tmforum-oda/reference-example-components/pull/85",
+      "author": "LesterThomas",
+      "state": "MERGED",
+      "closeReason": null,
+      "discussedInSession": false
     }
   ]
 }
