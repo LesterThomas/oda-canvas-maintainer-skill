@@ -82,17 +82,18 @@ See `sensitive-situations.md`. Use only that wording.
 
 ## Command lines for the maintainer
 
-Write every command the maintainer will run (`gh pr review`, `gh issue comment`, `gh issue close`, `git push` and so on) for **Windows PowerShell**:
-- use a `powershell` code fence, one command per block;
-- write draft paths as `"$HOME\.oda-canvas-maintainer\drafts\<file>"`, in double quotes, never with `~`, which PowerShell doesn't reliably expand in arguments to native programs like `gh`;
-- use backslashes in Windows paths, and no `cd /d/...` (Git Bash) forms.
+Write every command the maintainer will run (`gh pr review`, `gh issue comment`, `gh issue close`, `git push` and so on) so it runs unchanged in **Windows PowerShell** and gets a **Run button** in the Claude desktop app:
+- put each command on **one line** in its own code fence tagged `bash`; the app adds a Run button only to single-line, shell-tagged blocks;
+- write draft paths as `"$HOME/.oda-canvas-maintainer/drafts/<file>"`: in double quotes, with forward slashes, never with `~`. This form works in both PowerShell and bash, whichever shell the Run button uses. `~` isn't reliably expanded by PowerShell in arguments to native programs like `gh`;
+- no `cd /d/...` (Git Bash) forms and no PowerShell-only syntax.
 
 Commands you run yourself to gather data (the `scripts/` and read-only `gh`) are unaffected.
 
-*Why:* Lester runs the drafted commands in Windows PowerShell. (learned 2026-10-02 from reference-example-components#63/#67/#47)
+*Why:* Lester runs the drafted commands from the desktop app's Run button or from Windows PowerShell. (learned 2026-10-02 from reference-example-components#63/#67/#47; Run buttons added 2026-11-03 from oda-canvas#654–#656)
 
 ## Change log
 
+- 2026-11-03 — changed — maintainer commands go one per single-line `bash` fence so the app shows a Run button; paths use forward slashes so they work in PowerShell and bash — Lester, review of oda-canvas#654–#656
 - 2026-10-02 — added — maintainer command lines are written for Windows PowerShell (`$HOME` paths, `powershell` fences) — Lester, triage of reference-example-components #63/#67/#47
 - 2026-09-29 — added — close-a-non-main-PR-and-carry-over template — Lester, #601
 - 2026-09-28 — changed — removed the apology opener from the stale template — the no-apology rule in `comment-style.md`
