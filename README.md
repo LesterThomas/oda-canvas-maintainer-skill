@@ -52,8 +52,9 @@ dashboard/                        # maintainer progress dashboard (data, page, P
 
 ## Maintainer dashboard
 
-**[ODA Canvas maintainer progress](https://lesterthomas.github.io/oda-canvas-maintainer-skill/)** shows the issues closed and the PRs merged, approved or commented on by LesterThomas across `tmforum-oda` since 28 September 2026.
+**[ODA Canvas maintainer progress](https://lesterthomas.github.io/oda-canvas-maintainer-skill/)** shows the issues closed and the PRs merged, approved or commented on by LesterThomas across `tmforum-oda` since 28 September 2026, and how many issues and PRs were open on each day of the last 6 months.
 
 - `dashboard/collect_activity.py` gathers the activity with read-only `gh` GraphQL queries into `dashboard/maintainer-activity.json` (one row per action).
+- `dashboard/collect_backlog.py` works out the open issue and PR counts per repository and day from each item's created and closed dates, into `dashboard/open-backlog.json`.
 - `dashboard/index.html` is the page. `dashboard/site/` wraps it into a standalone site for GitHub Pages.
 - `.github/workflows/dashboard.yml` refreshes the data every Monday, commits it when it changed, and republishes the site. Run it by hand from the Actions tab with **Run workflow**.

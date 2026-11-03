@@ -88,11 +88,13 @@ html, body { margin: 0; background: var(--color-bg); color: var(--color-fg); fon
   </div>
   <p class="site-bar">
     <span id="site-updated">Loading data…</span>
-    <a href="maintainer-activity.json">Download the data (JSON)</a>
+    <a href="maintainer-activity.json">Download the activity data (JSON)</a>
+    <a href="open-backlog.json">Download the open-items data (JSON)</a>
     <a href="https://github.com/LesterThomas/oda-canvas-maintainer-skill/tree/main/dashboard">How this page is built</a>
   </p>
 </main>
 <script>
+dash._load('backlog', 'open-backlog.json');
 dash._load('activity', 'maintainer-activity.json').then((r) => {
   const el = document.getElementById('site-updated');
   if (r.status !== 'ok') { el.textContent = 'The data file failed to load.'; return; }

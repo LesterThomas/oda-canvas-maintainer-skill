@@ -2,7 +2,7 @@
 
 Wraps dashboard/index.html (the same page the Claude dashboard shows) in a
 standalone HTML document with a stand-in for the dashboard runtime, and copies
-the data file next to it.
+the data files next to it.
 
 Usage:
     python dashboard/site/build.py <output-dir>
@@ -23,5 +23,6 @@ if "<!-- PAGE -->" not in template:
 (out / "index.html").write_text(template.replace("<!-- PAGE -->", page), encoding="utf-8")
 shutil.copy(here / "dash-shim.js", out / "dash-shim.js")
 shutil.copy(dashboard / "maintainer-activity.json", out / "maintainer-activity.json")
+shutil.copy(dashboard / "open-backlog.json", out / "open-backlog.json")
 (out / ".nojekyll").write_text("", encoding="utf-8")
 print(f"Built {out / 'index.html'}")

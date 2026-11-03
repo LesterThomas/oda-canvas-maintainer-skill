@@ -42,6 +42,7 @@
 #dash-root .mp-pill.done { color: var(--color-ok); }
 #dash-root .mp-pill.open { color: var(--color-warn); }
 #dash-root .mp-controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; margin-bottom: var(--cds-gap-sm); }
+#dash-root .mp-controls select { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); max-width: 100%; }
 #dash-root .mp-controls input { flex: 1 1 14rem; min-width: 0; font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); }
 #dash-root .mp-seg { display: inline-flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
 #dash-root .mp-seg button { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 0; background: transparent; color: var(--color-fg-muted); cursor: pointer; }
@@ -90,6 +91,18 @@
     <p class="note">Each bar counts your actions that day (UTC), split by type. Days with no bar had no activity.</p>
     <ul class="mp-legend" data-source="daily"></ul>
     <div class="mp-chart dash-skeleton" data-source="daily"></div>
+  </section>
+
+  <section class="mp-card" id="open-trend">
+    <h2>Open issues and PRs</h2>
+    <p class="note mp-open-note">How many issues and PRs were open at the end of each day (UTC), over the last 6 months.</p>
+    <div class="mp-controls">
+      <select id="mp-open-repo" aria-label="Repository">
+        <option value="">All repositories</option>
+      </select>
+    </div>
+    <ul class="mp-legend mp-open-legend"></ul>
+    <div class="mp-chart mp-open-chart dash-skeleton" data-source="openTrend"></div>
   </section>
 
   <div class="mp-grid">
@@ -146,7 +159,7 @@
     </div>
   </section>
 
-  <p class="mp-foot">Source: GitHub activity by LesterThomas across tmforum-oda since 28 September 2026, collected read-only from the GitHub API. Dates are in UTC.</p>
+  <p class="mp-foot">Source: GitHub activity by LesterThomas across tmforum-oda since 28 September 2026, collected read-only from the GitHub API. Open counts cover every public, non-archived tmforum-oda repository. Dates are in UTC.</p>
 </div>
 
 <script>
@@ -242,6 +255,22 @@ dash.calc('items', {
       it.count += 1;
     });
     return Object.values(by).map(({ done, ...it }) => ({ ...it, did: done.join(', ') }));
+  },
+});
+
+dash.calc('openTrend', {
+  inputs: ['backlog'],
+  title: 'Open issues and PRs per day',
+  description: 'Issues and PRs open at the end of each UTC day, per repository and summed across all of them (repo is empty for the sum).',
+  fn: (backlog) => {
+    const all = {};
+    backlog.forEach((r) => {
+      const d = all[r.day] || (all[r.day] = { day: r.day, repo: '', openIssues: 0, openPRs: 0 });
+      d.openIssues += r.openIssues;
+      d.openPRs += r.openPRs;
+    });
+    return [...Object.values(all), ...backlog.map((r) => ({ day: r.day, repo: r.repo, openIssues: r.openIssues, openPRs: r.openPRs }))]
+      .sort((a, b) => (a.day < b.day ? -1 : a.day > b.day ? 1 : 0));
   },
 });
 
@@ -401,6 +430,113 @@ function drawChart(daily) {
     .on('mouseleave', () => { tip.hidden = true; hover.attr('opacity', 0); });
 }
 
+const OPEN_SERIES = [
+  { key: 'openIssues', label: 'Open issues', color: dash.colors[0] },
+  { key: 'openPRs', label: 'Open PRs', color: dash.colors[3] },
+];
+const openRepo = root.querySelector('#mp-open-repo');
+
+function drawOpenTrend() {
+  const trend = dash.data('openTrend');
+  const box = root.querySelector('.mp-open-chart');
+  const ul = root.querySelector('.mp-open-legend');
+  const note = root.querySelector('.mp-open-note');
+  if (!settle(box, trend.status)) { if (trend.status !== 'error') box.replaceChildren(); ul.replaceChildren(); return; }
+  box.replaceChildren();
+
+  // Repository choices, keeping the current selection.
+  const repos = [...new Set(trend.data.filter((r) => r.repo).map((r) => r.repo))].sort();
+  if (openRepo.options.length !== repos.length + 1) {
+    const keep = openRepo.value;
+    openRepo.replaceChildren(new Option('All repositories', ''), ...repos.map((r) => new Option(r, r)));
+    openRepo.value = repos.includes(keep) ? keep : '';
+  }
+  const rows = trend.data.filter((r) => r.repo === openRepo.value);
+  if (!rows.length) return;
+
+  ul.replaceChildren(...OPEN_SERIES.map((s) => {
+    const li = document.createElement('li');
+    const sw = Object.assign(document.createElement('span'), { className: 'mp-swatch' });
+    sw.style.background = s.color;
+    li.append(sw, document.createTextNode(s.label));
+    return li;
+  }));
+  const first = rows[0], last = rows[rows.length - 1];
+  const change = (k) => {
+    const d = last[k] - first[k];
+    return d === 0 ? 'no change' : `${d > 0 ? 'up' : 'down'} ${fmtInt(Math.abs(d))}`;
+  };
+  note.textContent = `Open at the end of each day (UTC) over the last 6 months. Now ${fmtInt(last.openIssues)} issues and ${fmtInt(last.openPRs)} PRs: issues ${change('openIssues')} and PRs ${change('openPRs')} since ${fmtDay(parseDay(first.day))}.`;
+
+  const W = Math.max(280, box.clientWidth);
+  const H = 260;
+  const mt = 10, mr = 12, mb = 26;
+  const x0 = parseDay(first.day), x1 = parseDay(last.day);
+  const y = d3.scaleLinear([0, d3.max(rows, (r) => Math.max(r.openIssues, r.openPRs)) || 1], [H - mb, mt]).nice();
+  const yTicks = y.ticks(5).filter(Number.isInteger);
+
+  const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img')
+    .attr('aria-label', `Line chart of open issues and PRs per day, ${openRepo.value || 'all repositories'}`);
+  const probe = svg.append('g').attr('font-size', 'var(--cds-font-size-caption)');
+  const ml = 10 + d3.max(yTicks, (v) => probe.append('text').text(fmtInt(v)).node().getComputedTextLength()) || 24;
+  probe.remove();
+  const x = d3.scaleUtc([x0, x1], [ml, W - mr]);
+
+  svg.append('g').selectAll('line').data(yTicks).join('line')
+    .attr('x1', ml).attr('x2', W - mr).attr('y1', (v) => y(v)).attr('y2', (v) => y(v))
+    .attr('stroke', 'var(--cds-chart-grid)').attr('stroke-width', 1);
+  svg.append('g').selectAll('text').data(yTicks).join('text')
+    .attr('x', ml - 6).attr('y', (v) => y(v)).attr('dy', '0.32em').attr('text-anchor', 'end')
+    .attr('fill', 'var(--color-fg-muted)').attr('font-size', 'var(--cds-font-size-caption)')
+    .text((v) => fmtInt(v));
+  svg.append('line').attr('x1', ml).attr('x2', W - mr).attr('y1', y(0)).attr('y2', y(0))
+    .attr('stroke', 'var(--cds-chart-axis)').attr('stroke-width', 1);
+  svg.append('g').selectAll('text').data(x.ticks(Math.max(2, Math.floor((W - ml - mr) / 90)))).join('text')
+    .attr('x', (d) => x(d)).attr('y', H - mb + 16).attr('text-anchor', 'middle')
+    .attr('fill', 'var(--color-fg-muted)').attr('font-size', 'var(--cds-font-size-caption)')
+    .text((d) => fmtDay(d));
+
+  OPEN_SERIES.forEach((s) => {
+    svg.append('path').datum(rows)
+      .attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 2).attr('stroke-linejoin', 'round')
+      .attr('d', d3.line().curve(d3.curveStepAfter).x((r) => x(parseDay(r.day))).y((r) => y(r[s.key])));
+  });
+
+  const tip = Object.assign(document.createElement('div'), { className: 'mp-tip' });
+  tip.hidden = true;
+  box.append(tip);
+  const rule = svg.append('line').attr('y1', mt).attr('y2', H - mb).attr('stroke', 'var(--cds-chart-axis)').attr('opacity', 0);
+  const dots = OPEN_SERIES.map((s) => svg.append('circle').attr('r', 3.5).attr('fill', s.color).attr('opacity', 0));
+  const bisect = d3.bisector((r) => parseDay(r.day)).center;
+  svg.append('rect').attr('x', ml).attr('y', mt).attr('width', W - ml - mr).attr('height', H - mb - mt).attr('fill', 'transparent')
+    .on('mousemove', (event) => {
+      const [px] = d3.pointer(event);
+      const r = rows[bisect(rows, x.invert(px))];
+      const cx = x(parseDay(r.day));
+      rule.attr('x1', cx).attr('x2', cx).attr('opacity', 1);
+      dots.forEach((dot, i) => dot.attr('cx', cx).attr('cy', y(r[OPEN_SERIES[i].key])).attr('opacity', 1));
+      const when = Object.assign(document.createElement('div'), { className: 'when', textContent: d3.utcFormat('%a %b %-d, %Y')(parseDay(r.day)) });
+      const lines = OPEN_SERIES.map((s) => {
+        const line = Object.assign(document.createElement('div'), { className: 'line' });
+        const sw = Object.assign(document.createElement('span'), { className: 'mp-swatch' });
+        sw.style.background = s.color;
+        const b = document.createElement('b');
+        b.textContent = fmtInt(r[s.key]);
+        line.append(sw, document.createTextNode(s.label), b);
+        return line;
+      });
+      tip.replaceChildren(when, ...lines);
+      tip.hidden = false;
+      const scale = box.clientWidth / W;
+      const sx = cx * scale;
+      const tw = tip.offsetWidth;
+      tip.style.left = `${Math.min(Math.max(0, sx + 12 + tw > box.clientWidth ? sx - tw - 12 : sx + 12), Math.max(0, box.clientWidth - tw))}px`;
+      tip.style.top = `${Math.max(0, y(Math.max(r.openIssues, r.openPRs)) * scale - 8)}px`;
+    })
+    .on('mouseleave', () => { tip.hidden = true; rule.attr('opacity', 0); dots.forEach((d) => d.attr('opacity', 0)); });
+}
+openRepo.addEventListener('change', drawOpenTrend);
+
 function drawRepo(byRepo) {
   const table = root.querySelector('#by-repo table');
   const tbody = table.tBodies[0];
@@ -502,6 +638,7 @@ dash.onData(() => {
   drawTakeaway(totals);
   drawLegend(daily);
   drawChart(daily);
+  drawOpenTrend();
   drawRepo(dash.data('byRepo'));
   drawReasons(dash.data('closeReasons'));
   drawItems();

@@ -1,8 +1,8 @@
 name: Maintainer dashboard
 
-# Refreshes dashboard/maintainer-activity.json from GitHub (read-only queries)
-# every Monday, commits it when it changed, and publishes the dashboard to
-# GitHub Pages. It also republishes on any push that changes dashboard/.
+# Refreshes dashboard/maintainer-activity.json and dashboard/open-backlog.json
+# from GitHub (read-only queries) every Monday, commits them when they
+# changed, and publishes the dashboard to GitHub Pages. It also republishes on any push that changes dashboard/.
 
 on:
   schedule:
@@ -51,21 +51,27 @@ jobs:
             exit 1
           fi
 
+      - name: Collect open issue and PR counts
+        env:
+          GH_TOKEN: ${{ secrets.DASHBOARD_TOKEN || secrets.GITHUB_TOKEN }}
+        run: python dashboard/collect_backlog.py dashboard/open-backlog.json
+
       - name: Commit if the data changed
         run: |
-          if git diff --quiet -- dashboard/maintainer-activity.json; then
-            echo "No new activity."
+          files="dashboard/maintainer-activity.json dashboard/open-backlog.json"
+          if git diff --quiet -- $files; then
+            echo "No new data."
             exit 0
           fi
           # generatedAt changes on every run; commit only when the rows changed.
-          if git diff -U0 -- dashboard/maintainer-activity.json | grep '^[-+] ' | grep -qv '"generatedAt"'; then
+          if git diff -U0 -- $files | grep '^[-+] ' | grep -qv '"generatedAt"'; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add dashboard/maintainer-activity.json
-            git commit -m "Refresh maintainer activity data"
+            git add $files
+            git commit -m "Refresh maintainer dashboard data"
             git push
           else
-            echo "Only the timestamp changed; not committing."
+            echo "Only the timestamps changed; not committing."
           fi
 
   build:
