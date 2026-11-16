@@ -1,0 +1,16 @@
+[
+  {"query": "any new comments on my youtube videos? haven't looked at the channel in weeks", "should_trigger": true},
+  {"query": "help me reply to the comments on the ODA Canvas training series", "should_trigger": true},
+  {"query": "someone asked under my auth deep-dive video why I didn't configure TMF669 at 4:41 - what should I say?", "should_trigger": true},
+  {"query": "https://www.youtube.com/watch?v=w0iQv9FtuiM&lc=UgxC7YRpVPPX2cBP6Bx4AaABAg draft me a reply", "should_trigger": true},
+  {"query": "a viewer on the Systems Architecture channel wants to know what order to watch the canvas videos in", "should_trigger": true},
+  {"query": "I've posted the replies to the video comments, check what I changed and learn from it", "should_trigger": true},
+  {"query": "what have you learned about how I reply to viewers on youtube?", "should_trigger": true},
+  {"query": "there's a long critical comment on the MCP product catalog video saying claude picked a random product spec - help me respond without being defensive", "should_trigger": true},
+  {"query": "what needs my attention on the canvas repos this week?", "should_trigger": false},
+  {"query": "review https://github.com/tmforum-oda/oda-canvas/pull/613", "should_trigger": false},
+  {"query": "help me reply to oda-canvas issue #583 about the istio gateway", "should_trigger": false},
+  {"query": "write a script for part 6 of the ODA Canvas training series on event management", "should_trigger": false},
+  {"query": "download the observability video from youtube as mp4", "should_trigger": false},
+  {"query": "create a remotion intro animation for my next canvas video", "should_trigger": false}
+]

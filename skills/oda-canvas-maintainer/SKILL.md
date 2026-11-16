@@ -11,8 +11,8 @@ description: >
   attention on the Canvas repos, wants a tmforum-oda PR reviewed or approved ("can I merge
   #613?", a github.com/tmforum-oda/... link), wants help replying to or triaging an issue,
   wants to sweep old or stale issues, or asks what the skill has learned about how they review.
-  Not for writing Canvas code, charts, BDD features or operators, and not for debugging the
-  user's own CI run.
+  Not for writing Canvas code, charts, BDD features or operators, debugging the user's CI
+  run, or YouTube video comments.
 ---
 
 # ODA Canvas maintainer
