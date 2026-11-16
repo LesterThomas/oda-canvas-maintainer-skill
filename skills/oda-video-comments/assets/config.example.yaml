@@ -1,0 +1,20 @@
+# oda-video-comments configuration.
+# Copy to ~/.config/oda-video-comments/config.yaml to override. If that file doesn't
+# exist, the skill uses these defaults and says so.
+
+# The YouTube channel the videos are on. The skill works only when Studio shows this channel.
+channel_name: Systems Architecture
+channel_id: UCmVRZcgf2-gY_HR2lKAHhhw
+
+# Comments drafted per run (the Studio inbox loads about 10-12 at a time; scroll for more).
+batch_size: 10
+
+# Where drafts are saved: outside any repo, next to the maintainer skill's drafts.
+drafts_dir: ~/.oda-canvas-maintainer/video-drafts
+
+# This skill's guidance folder. Empty means the skill's own guidance/ folder (personal install via junction).
+guidance_dir: ""
+
+# The oda-canvas-maintainer skill, whose guidance, scripts and config (repos, adr_sources)
+# this skill shares. Empty means the sibling folder ../oda-canvas-maintainer.
+maintainer_skill_dir: ""

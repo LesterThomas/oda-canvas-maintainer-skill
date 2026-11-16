@@ -20,6 +20,21 @@ Its review knowledge lives in [`skills/oda-canvas-maintainer/guidance/`](skills/
 
 A PR is judged on two criteria only: **alignment with the objectives of the ODA** (including the AI-Native Canvas and the ADRs in `oda-ca-docs/Decision-Log`), and **good-enough quality**.
 
+## Companion skill: ODA video comments
+
+[`skills/oda-video-comments/`](skills/oda-video-comments/) drafts replies to viewer comments on the ODA Canvas video series on the **Systems Architecture** YouTube channel.
+
+- It reads the YouTube Studio comments inbox in Chrome, with the Claude in Chrome extension.
+- It checks technical answers against the same sources as the maintainer skill: that skill's guidance, the `tmforum-oda` repos through read-only `gh`, and the ADR logs.
+- It drafts plain-text replies, each with a direct link to the comment.
+
+It **never posts, hearts, pins, hides or reports anything on YouTube**; the maintainer does every update. It has the same learning loop: after the replies are posted, it reads them back from Studio, compares each with its draft using `scripts/reply_diff.py`, and proposes guidance changes.
+
+- YouTube style rules are learned into its own `guidance/`.
+- Canvas facts are learned into the maintainer skill's guidance, so both skills benefit.
+
+Ask, for example, "any new comments on my videos?" or "I've posted the replies, what did I change?". Drafts are saved to `~/.oda-canvas-maintainer/video-drafts/`.
+
 ## Install (personal use, Windows)
 
 Link the skill folder into Claude Code's skills directory, so guidance updates land in this repo:
@@ -28,7 +43,13 @@ Link the skill folder into Claude Code's skills directory, so guidance updates l
 New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\skills\oda-canvas-maintainer" -Target "D:\Dev\tmforum-oda\oda-canvas-maintainer-skill\skills\oda-canvas-maintainer"
 ```
 
-On macOS or Linux, use `ln -s <repo>/skills/oda-canvas-maintainer ~/.claude/skills/oda-canvas-maintainer`.
+For the companion video-comments skill, add a second junction alongside it. It finds the maintainer skill as its sibling folder:
+
+```powershell
+New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\skills\oda-video-comments" -Target "D:\Dev\tmforum-oda\oda-canvas-maintainer-skill\skills\oda-video-comments"
+```
+
+On macOS or Linux, use `ln -s <repo>/skills/oda-canvas-maintainer ~/.claude/skills/oda-canvas-maintainer`, and the same for `oda-video-comments`.
 
 **Requirements:**
 - the `gh` CLI, authenticated with `gh auth login` and with read access to `tmforum-oda`;
