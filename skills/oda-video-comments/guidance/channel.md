@@ -14,10 +14,12 @@ last_updated: 2026-11-16
 
 ## Series
 
-- **ODA Canvas training:** a numbered series. Titles read "<topic> | ODA Canvas training, part <n>", for example "Observability in the ODA Canvas | ODA Canvas training, part 5". Its videos include an introduction to the ODA Canvas and "The ODA Agent Skills Marketplace".
+- **ODA Canvas training:** a numbered series. Titles read "<topic> | ODA Canvas training, part <n>", for example "Observability in the ODA Canvas | ODA Canvas training, part 5". Part 7 is titled "ODA training, part 7".
+  - **Playlist (Public):** https://www.youtube.com/playlist?list=PLapO-bBgV8s8. Link this when a viewer asks where to start or what order to watch in. It is in part order: 1 Introduction, 2 How do I buy or build an ODA Canvas?, 3 Authentication and Authorization, 4 The AI-Native ODA Canvas, 5 Observability, 7 The ODA Agent Skills Marketplace. Part 6 isn't public yet. (created 2026-11-16 at Lester's request)
+  - **New parts aren't added automatically.** When a new part is published, remind Lester to add it to the playlist.
 - **Earlier stand-alone videos** that still get comments include "AI Native ODA Canvas", "ODA Canvas installation", "ODA Component tutorial", "ODA Canvas Authentication and Authorization deep-dive", "Mcp Tools On Product Catalog Oda Component" and "ODA Cavnas Tutorial Agent Skill" (the misspelling is in the video's title).
 
-The video list changes. When a viewer asks what to watch, read the channel's current videos and playlists (the channel's Videos and Playlists tabs, or Studio → Content) rather than relying on this list. Record the playlist URL and the recommended viewing order here once Lester confirms them.
+The video list changes. When a viewer asks what to watch, read the channel's current videos and playlists (the channel's Videos and Playlists tabs, or Studio → Content) rather than relying on this list.
 
 ## Where to send viewers
 
@@ -27,4 +29,5 @@ The video list changes. When a viewer asks what to watch, read the channel's cur
 
 ## Change log
 
+- 2026-11-16 — added — public ODA Canvas training playlist and its order, created at Lester's request
 - 2026-11-16 — added — channel ID, inbox URL, series naming and older videos with active comments, as seen in Studio on 2026-11-16
