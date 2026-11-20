@@ -1,7 +1,7 @@
 ---
 name: queue-priorities
 description: How to rank the "what needs my attention" queue and backlog sweeps, and the thresholds used.
-last_updated: 2026-09-28
+last_updated: 2026-11-17
 ---
 
 # Queue priorities
@@ -26,7 +26,7 @@ The data supports these defaults: the median time to first response on PRs is 23
 3. **External PRs with no maintainer review**, oldest first. One approval merges a PR, so a single review from Lester unblocks a contributor. *Why:* contributors reviewed within about 48 h are far more likely to return, and some external PRs have waited since February 2025.
 4. **External issues with no maintainer reply**, oldest first.
 5. **PRs where the author has responded** since the last maintainer review. The author is waiting on us.
-6. **Co-maintainer PRs with no review**. These rank lower, because maintainers routinely self-merge.
+6. **Maintainer PRs with no review from another maintainer.** In `oda-canvas` these can't merge without a second maintainer's approval (see `labels-and-metadata.md`). For a co-maintainer's PR, review it if you can. For your own PR, the next step is to request or nudge a co-maintainer's review. Move your own PR up to the **Broken on default branch** section when it fixes that breakage, because it's then the blocker. (learned 2026-11-17 from oda-canvas#667)
 7. **Stale items** that need a keep, refresh or close decision. These go to a backlog sweep rather than the daily queue.
 
 **Handled by someone else.** An item a co-maintainer is actively handling (a review or comment within the stale threshold) drops below unclaimed items. Mark it "handled by @<login>".
@@ -44,6 +44,8 @@ Show one table, in this order: item link, age, type, author (external or maintai
 - End with a batch table so the maintainer can act on all ten quickly.
 
 ## Change log
+
+- 2026-11-17 — changed — rank 6: maintainer PRs need another maintainer's approval in `oda-canvas`; own PRs → request a review, and a PR fixing a broken default branch goes with that section (replaces "maintainers routinely self-merge") — Lester, #667
 
 - 2026-09-29 — added — verify "asks you directly" items against action taken on linked PRs or threads; broken-workflow list limited to failures within the stale threshold — iteration 2 eval run
 - 2026-09-29 — added — broken-on-default-branch section, "asks you directly" rank (review requested or unanswered @-mention), dependency-alert wording — gaps found in the Phase 4 eval baseline

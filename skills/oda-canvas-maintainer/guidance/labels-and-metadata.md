@@ -1,7 +1,7 @@
 ---
 name: labels-and-metadata
 description: Real labels per repo, co-maintainers, and how to suggest labels, assignees and milestones.
-last_updated: 2026-09-28
+last_updated: 2026-11-17
 ---
 
 # Labels and metadata
@@ -38,9 +38,11 @@ Milestones aren't used; the only ones are 2023 relics. Don't suggest them.
 - **Co-maintainers:** `brian-burton`, `ferenc-hechler`, `adarshkumar4`, `anshulkumar-tmf` (confirmed by Lester 2026-09-28).
 - When a co-maintainer has already reviewed or commented, say so, and treat the item as handled unless it's waiting on Lester specifically.
 - ferenc-hechler reviews operator internals, Docker and Helm versioning in the most detail. Suggest him as a second reviewer for deep operator or chart changes.
-- One approval merges a PR. Maintainers routinely merge their own PRs, so don't flag self-merge.
+- One approval merges a PR, but in `oda-canvas` it must come from a maintainer **other than the author**, so maintainers can't merge their own PRs there unaided. For a maintainer's own PR, the next step is to request (or nudge) a co-maintainer's review, never "merge it". *Why:* branch protection blocks the merge, so advice to merge wastes the maintainer's time. Some young operator repos have allowed self-merges (TMFOP012#1), so don't assume the rule either way outside `oda-canvas`. (learned 2026-11-17 from oda-canvas#667)
 - Contributors self-assign issues. Don't suggest assignees unless asked.
 
 ## Change log
+
+- 2026-11-17 — changed — `oda-canvas` PRs need approval from a maintainer other than the author; own PRs → request a co-maintainer review (replaces "maintainers routinely self-merge") — Lester, #667
 
 - 2026-09-28 — added — seed from `research/governance.md`

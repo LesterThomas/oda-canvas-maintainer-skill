@@ -22,7 +22,7 @@ A PR is judged on two criteria only: **alignment with the objectives of the ODA*
 
 ## Companion skill: ODA video comments
 
-[`skills/oda-video-comments/`](skills/oda-video-comments/) drafts replies to viewer comments on the ODA Canvas video series on the **Systems Architecture** YouTube channel.
+[`skills/oda-video-comments/`](skills/oda-video-comments/) drafts replies to viewer comments on the ODA Canvas video series on the **Inside Telco Architecture** YouTube channel.
 
 - It reads the YouTube Studio comments inbox in Chrome, with the Claude in Chrome extension.
 - It checks technical answers against the same sources as the maintainer skill: that skill's guidance, the `tmforum-oda` repos through read-only `gh`, and the ADR logs.

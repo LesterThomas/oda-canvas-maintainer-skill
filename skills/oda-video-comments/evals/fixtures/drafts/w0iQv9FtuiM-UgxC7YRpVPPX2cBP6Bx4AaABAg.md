@@ -1,6 +1,6 @@
 ---
 platform: youtube
-channel: Systems Architecture
+channel: Inside Telco Architecture
 video_id: w0iQv9FtuiM
 video_title: "ODA Canvas Authentication and Authorization deep-dive"
 comment_id: UgxC7YRpVPPX2cBP6Bx4AaABAg

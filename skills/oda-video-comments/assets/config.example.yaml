@@ -3,7 +3,7 @@
 # exist, the skill uses these defaults and says so.
 
 # The YouTube channel the videos are on. The skill works only when Studio shows this channel.
-channel_name: Systems Architecture
+channel_name: Inside Telco Architecture
 channel_id: UCmVRZcgf2-gY_HR2lKAHhhw
 
 # Comments drafted per run (the Studio inbox loads about 10-12 at a time; scroll for more).

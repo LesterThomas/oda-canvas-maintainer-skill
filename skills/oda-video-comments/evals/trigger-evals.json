@@ -3,7 +3,7 @@
   {"query": "help me reply to the comments on the ODA Canvas training series", "should_trigger": true},
   {"query": "someone asked under my auth deep-dive video why I didn't configure TMF669 at 4:41 - what should I say?", "should_trigger": true},
   {"query": "https://www.youtube.com/watch?v=w0iQv9FtuiM&lc=UgxC7YRpVPPX2cBP6Bx4AaABAg draft me a reply", "should_trigger": true},
-  {"query": "a viewer on the Systems Architecture channel wants to know what order to watch the canvas videos in", "should_trigger": true},
+  {"query": "a viewer on the Inside Telco Architecture channel wants to know what order to watch the canvas videos in", "should_trigger": true},
   {"query": "I've posted the replies to the video comments, check what I changed and learn from it", "should_trigger": true},
   {"query": "what have you learned about how I reply to viewers on youtube?", "should_trigger": true},
   {"query": "there's a long critical comment on the MCP product catalog video saying claude picked a random product spec - help me respond without being defensive", "should_trigger": true},

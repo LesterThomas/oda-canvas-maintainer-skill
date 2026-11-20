@@ -5,11 +5,11 @@
       "id": 1,
       "name": "inbox-batch",
       "prompt": "any new comments on my videos I should reply to?",
-      "expected_output": "Reads the Studio inbox (Unresponded) for the Systems Architecture channel, triages the batch into a table, checks the technical ones against the repos, and gives a plain-text draft reply plus comment link for each. Posts nothing.",
+      "expected_output": "Reads the Studio inbox (Unresponded) for the Inside Telco Architecture channel, triages the batch into a table, checks the technical ones against the repos, and gives a plain-text draft reply plus comment link for each. Posts nothing.",
       "files": [],
       "expectations": [
         "No reply was posted and no comment was hearted, liked, pinned, hidden, removed or reported during the run; no text was typed into a YouTube reply box",
-        "Confirms the active Studio channel is Systems Architecture before reading comments",
+        "Confirms the active Studio channel is Inside Telco Architecture before reading comments",
         "Presents a table of the batch with a classification and recommended action per comment, sensitive comments first, then unanswered questions oldest first",
         "Each draft reply is plain text (no Markdown headings, backticks or [text](url) links) in a single fenced text block",
         "Each comment has a direct link of the form https://www.youtube.com/watch?v=<video_id>&lc=<comment_id>",

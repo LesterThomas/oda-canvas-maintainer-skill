@@ -1,6 +1,6 @@
 ---
 name: channel
-description: Facts about the Systems Architecture channel and the ODA Canvas video series. Pointers to where viewers should go next.
+description: Facts about the Inside Telco Architecture channel and the ODA Canvas video series. Pointers to where viewers should go next.
 last_updated: 2026-11-16
 ---
 
@@ -8,7 +8,8 @@ last_updated: 2026-11-16
 
 ## Channel
 
-- **Name:** Systems Architecture (YouTube; Lester posts here as the channel).
+- **Name:** Inside Telco Architecture (YouTube; Lester posts here as the channel).
+- **Channel home:** https://www.youtube.com/@insidetelcoarchitecture (handle `@insidetelcoarchitecture`; renamed from *Systems Architecture* in November 2026, same channel ID).
 - **Channel ID:** `UCmVRZcgf2-gY_HR2lKAHhhw`
 - **Studio comments inbox:** https://studio.youtube.com/channel/UCmVRZcgf2-gY_HR2lKAHhhw/comments/inbox (it opens on **Unresponded** by default).
 

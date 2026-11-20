@@ -6,7 +6,7 @@ last_updated: 2026-11-16
 
 # Reply style
 
-Replies go out under the **Systems Architecture** channel, but viewers know it is Lester; comments address Lester by name. Write in the first person, in Lester's voice, as the maintainer's `comment-style.md` describes: direct, friendly, British English, Canvas terminology, specific praise rather than generic praise, and no apology openers.
+Replies go out under the **Inside Telco Architecture** channel, but viewers know it is Lester; comments address Lester by name. Write in the first person, in Lester's voice, as the maintainer's `comment-style.md` describes: direct, friendly, British English, Canvas terminology, specific praise rather than generic praise, and no apology openers.
 
 ## Length
 
