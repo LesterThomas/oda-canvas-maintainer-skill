@@ -5,3 +5,7 @@ __pycache__/
 maintainer-drafts/
 .DS_Store
 Thumbs.db
+
+# Third-party drafts kept locally, not for this public repo
+research/ODA Security Framework.md
+research/ODA Security Framework - review.md
