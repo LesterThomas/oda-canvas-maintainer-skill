@@ -1,52 +1,10 @@
 {
  "schemaVersion": 1,
  "org": "tmforum-oda",
- "periodStart": "2026-05-18",
- "generatedAt": "2026-11-16T06:04:56Z",
+ "periodStart": "2026-05-25",
+ "generatedAt": "2026-11-23T06:04:40Z",
  "rows": [
   {
-   "day": "2026-05-18",
-   "repo": "TMFOP006-Event-Management",
-   "openIssues": 0,
-   "openPRs": 0
-  },
-  {
-   "day": "2026-05-19",
-   "repo": "TMFOP006-Event-Management",
-   "openIssues": 0,
-   "openPRs": 0
-  },
-  {
-   "day": "2026-05-20",
-   "repo": "TMFOP006-Event-Management",
-   "openIssues": 0,
-   "openPRs": 0
-  },
-  {
-   "day": "2026-05-21",
-   "repo": "TMFOP006-Event-Management",
-   "openIssues": 0,
-   "openPRs": 0
-  },
-  {
-   "day": "2026-05-22",
-   "repo": "TMFOP006-Event-Management",
-   "openIssues": 0,
-   "openPRs": 0
-  },
-  {
-   "day": "2026-05-23",
-   "repo": "TMFOP006-Event-Management",
-   "openIssues": 0,
-   "openPRs": 0
-  },
-  {
-   "day": "2026-05-24",
-   "repo": "TMFOP006-Event-Management",
-   "openIssues": 0,
-   "openPRs": 0
-  },
-  {
    "day": "2026-05-25",
    "repo": "TMFOP006-Event-Management",
    "openIssues": 0,
@@ -1103,46 +1061,46 @@
    "openPRs": 2
   },
   {
-   "day": "2026-05-18",
-   "repo": "ai-canvas-architecture",
+   "day": "2026-11-17",
+   "repo": "TMFOP006-Event-Management",
    "openIssues": 1,
-   "openPRs": 3
+   "openPRs": 1
   },
   {
-   "day": "2026-05-19",
-   "repo": "ai-canvas-architecture",
+   "day": "2026-11-18",
+   "repo": "TMFOP006-Event-Management",
    "openIssues": 1,
-   "openPRs": 3
+   "openPRs": 1
   },
   {
-   "day": "2026-05-20",
-   "repo": "ai-canvas-architecture",
+   "day": "2026-11-19",
+   "repo": "TMFOP006-Event-Management",
    "openIssues": 1,
-   "openPRs": 3
+   "openPRs": 1
   },
   {
-   "day": "2026-05-21",
-   "repo": "ai-canvas-architecture",
+   "day": "2026-11-20",
+   "repo": "TMFOP006-Event-Management",
    "openIssues": 1,
-   "openPRs": 3
+   "openPRs": 1
   },
   {
-   "day": "2026-05-22",
-   "repo": "ai-canvas-architecture",
+   "day": "2026-11-21",
+   "repo": "TMFOP006-Event-Management",
    "openIssues": 1,
-   "openPRs": 3
+   "openPRs": 1
   },
   {
-   "day": "2026-05-23",
-   "repo": "ai-canvas-architecture",
+   "day": "2026-11-22",
+   "repo": "TMFOP006-Event-Management",
    "openIssues": 1,
-   "openPRs": 3
+   "openPRs": 1
   },
   {
-   "day": "2026-05-24",
-   "repo": "ai-canvas-architecture",
+   "day": "2026-11-23",
+   "repo": "TMFOP006-Event-Management",
    "openIssues": 1,
-   "openPRs": 3
+   "openPRs": 1
   },
   {
    "day": "2026-05-25",
@@ -2201,46 +2159,46 @@
    "openPRs": 3
   },
   {
-   "day": "2026-05-18",
-   "repo": "ai-native-oda-canvas-workshop",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-17",
+   "repo": "ai-canvas-architecture",
+   "openIssues": 1,
+   "openPRs": 3
   },
   {
-   "day": "2026-05-19",
-   "repo": "ai-native-oda-canvas-workshop",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-18",
+   "repo": "ai-canvas-architecture",
+   "openIssues": 1,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-20",
-   "repo": "ai-native-oda-canvas-workshop",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-19",
+   "repo": "ai-canvas-architecture",
+   "openIssues": 1,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-21",
-   "repo": "ai-native-oda-canvas-workshop",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-20",
+   "repo": "ai-canvas-architecture",
+   "openIssues": 1,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-22",
-   "repo": "ai-native-oda-canvas-workshop",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-21",
+   "repo": "ai-canvas-architecture",
+   "openIssues": 1,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-23",
-   "repo": "ai-native-oda-canvas-workshop",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-22",
+   "repo": "ai-canvas-architecture",
+   "openIssues": 1,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-24",
-   "repo": "ai-native-oda-canvas-workshop",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-23",
+   "repo": "ai-canvas-architecture",
+   "openIssues": 1,
+   "openPRs": 4
   },
   {
    "day": "2026-05-25",
@@ -3299,46 +3257,46 @@
    "openPRs": 0
   },
   {
-   "day": "2026-05-18",
-   "repo": "canvas-prerequisites",
-   "openIssues": 1,
-   "openPRs": 1
+   "day": "2026-11-17",
+   "repo": "ai-native-oda-canvas-workshop",
+   "openIssues": 0,
+   "openPRs": 0
   },
   {
-   "day": "2026-05-19",
-   "repo": "canvas-prerequisites",
-   "openIssues": 1,
-   "openPRs": 1
+   "day": "2026-11-18",
+   "repo": "ai-native-oda-canvas-workshop",
+   "openIssues": 0,
+   "openPRs": 0
   },
   {
-   "day": "2026-05-20",
-   "repo": "canvas-prerequisites",
-   "openIssues": 1,
-   "openPRs": 1
+   "day": "2026-11-19",
+   "repo": "ai-native-oda-canvas-workshop",
+   "openIssues": 0,
+   "openPRs": 0
   },
   {
-   "day": "2026-05-21",
-   "repo": "canvas-prerequisites",
-   "openIssues": 1,
-   "openPRs": 1
+   "day": "2026-11-20",
+   "repo": "ai-native-oda-canvas-workshop",
+   "openIssues": 0,
+   "openPRs": 0
   },
   {
-   "day": "2026-05-22",
-   "repo": "canvas-prerequisites",
-   "openIssues": 1,
-   "openPRs": 1
+   "day": "2026-11-21",
+   "repo": "ai-native-oda-canvas-workshop",
+   "openIssues": 0,
+   "openPRs": 0
   },
   {
-   "day": "2026-05-23",
-   "repo": "canvas-prerequisites",
-   "openIssues": 1,
-   "openPRs": 1
+   "day": "2026-11-22",
+   "repo": "ai-native-oda-canvas-workshop",
+   "openIssues": 0,
+   "openPRs": 0
   },
   {
-   "day": "2026-05-24",
-   "repo": "canvas-prerequisites",
-   "openIssues": 1,
-   "openPRs": 1
+   "day": "2026-11-23",
+   "repo": "ai-native-oda-canvas-workshop",
+   "openIssues": 0,
+   "openPRs": 0
   },
   {
    "day": "2026-05-25",
@@ -4397,46 +4355,46 @@
    "openPRs": 1
   },
   {
-   "day": "2026-05-18",
-   "repo": "model-as-a-service-crds",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-17",
+   "repo": "canvas-prerequisites",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-19",
-   "repo": "model-as-a-service-crds",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-18",
+   "repo": "canvas-prerequisites",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-20",
-   "repo": "model-as-a-service-crds",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-19",
+   "repo": "canvas-prerequisites",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-21",
-   "repo": "model-as-a-service-crds",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-20",
+   "repo": "canvas-prerequisites",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-22",
-   "repo": "model-as-a-service-crds",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-21",
+   "repo": "canvas-prerequisites",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-23",
-   "repo": "model-as-a-service-crds",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-22",
+   "repo": "canvas-prerequisites",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-24",
-   "repo": "model-as-a-service-crds",
-   "openIssues": 0,
-   "openPRs": 0
+   "day": "2026-11-23",
+   "repo": "canvas-prerequisites",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
    "day": "2026-05-25",
@@ -5495,45 +5453,45 @@
    "openPRs": 0
   },
   {
-   "day": "2026-05-18",
-   "repo": "oda-agent-skills-marketplace",
-   "openIssues": 0,
+   "day": "2026-11-17",
+   "repo": "model-as-a-service-crds",
+   "openIssues": 1,
    "openPRs": 0
   },
   {
-   "day": "2026-05-19",
-   "repo": "oda-agent-skills-marketplace",
-   "openIssues": 0,
+   "day": "2026-11-18",
+   "repo": "model-as-a-service-crds",
+   "openIssues": 1,
    "openPRs": 0
   },
   {
-   "day": "2026-05-20",
-   "repo": "oda-agent-skills-marketplace",
-   "openIssues": 0,
+   "day": "2026-11-19",
+   "repo": "model-as-a-service-crds",
+   "openIssues": 1,
    "openPRs": 0
   },
   {
-   "day": "2026-05-21",
-   "repo": "oda-agent-skills-marketplace",
-   "openIssues": 0,
+   "day": "2026-11-20",
+   "repo": "model-as-a-service-crds",
+   "openIssues": 1,
    "openPRs": 0
   },
   {
-   "day": "2026-05-22",
-   "repo": "oda-agent-skills-marketplace",
-   "openIssues": 0,
+   "day": "2026-11-21",
+   "repo": "model-as-a-service-crds",
+   "openIssues": 1,
    "openPRs": 0
   },
   {
-   "day": "2026-05-23",
-   "repo": "oda-agent-skills-marketplace",
-   "openIssues": 0,
+   "day": "2026-11-22",
+   "repo": "model-as-a-service-crds",
+   "openIssues": 1,
    "openPRs": 0
   },
   {
-   "day": "2026-05-24",
-   "repo": "oda-agent-skills-marketplace",
-   "openIssues": 0,
+   "day": "2026-11-23",
+   "repo": "model-as-a-service-crds",
+   "openIssues": 1,
    "openPRs": 0
   },
   {
@@ -6593,46 +6551,46 @@
    "openPRs": 1
   },
   {
-   "day": "2026-05-18",
-   "repo": "oda-ca-docs",
-   "openIssues": 5,
-   "openPRs": 0
+   "day": "2026-11-17",
+   "repo": "oda-agent-skills-marketplace",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-19",
-   "repo": "oda-ca-docs",
-   "openIssues": 5,
-   "openPRs": 0
+   "day": "2026-11-18",
+   "repo": "oda-agent-skills-marketplace",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-20",
-   "repo": "oda-ca-docs",
-   "openIssues": 5,
-   "openPRs": 0
+   "day": "2026-11-19",
+   "repo": "oda-agent-skills-marketplace",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-21",
-   "repo": "oda-ca-docs",
-   "openIssues": 5,
-   "openPRs": 0
+   "day": "2026-11-20",
+   "repo": "oda-agent-skills-marketplace",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-22",
-   "repo": "oda-ca-docs",
-   "openIssues": 5,
-   "openPRs": 0
+   "day": "2026-11-21",
+   "repo": "oda-agent-skills-marketplace",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-23",
-   "repo": "oda-ca-docs",
-   "openIssues": 5,
-   "openPRs": 0
+   "day": "2026-11-22",
+   "repo": "oda-agent-skills-marketplace",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-24",
-   "repo": "oda-ca-docs",
-   "openIssues": 5,
-   "openPRs": 0
+   "day": "2026-11-23",
+   "repo": "oda-agent-skills-marketplace",
+   "openIssues": 1,
+   "openPRs": 1
   },
   {
    "day": "2026-05-25",
@@ -7691,46 +7649,46 @@
    "openPRs": 0
   },
   {
-   "day": "2026-05-18",
-   "repo": "oda-canvas",
-   "openIssues": 63,
-   "openPRs": 7
+   "day": "2026-11-17",
+   "repo": "oda-ca-docs",
+   "openIssues": 6,
+   "openPRs": 0
   },
   {
-   "day": "2026-05-19",
-   "repo": "oda-canvas",
-   "openIssues": 63,
-   "openPRs": 7
+   "day": "2026-11-18",
+   "repo": "oda-ca-docs",
+   "openIssues": 6,
+   "openPRs": 1
   },
   {
-   "day": "2026-05-20",
-   "repo": "oda-canvas",
-   "openIssues": 63,
-   "openPRs": 7
+   "day": "2026-11-19",
+   "repo": "oda-ca-docs",
+   "openIssues": 6,
+   "openPRs": 0
   },
   {
-   "day": "2026-05-21",
-   "repo": "oda-canvas",
-   "openIssues": 63,
-   "openPRs": 7
+   "day": "2026-11-20",
+   "repo": "oda-ca-docs",
+   "openIssues": 6,
+   "openPRs": 2
   },
   {
-   "day": "2026-05-22",
-   "repo": "oda-canvas",
-   "openIssues": 63,
-   "openPRs": 7
+   "day": "2026-11-21",
+   "repo": "oda-ca-docs",
+   "openIssues": 6,
+   "openPRs": 3
   },
   {
-   "day": "2026-05-23",
-   "repo": "oda-canvas",
-   "openIssues": 63,
-   "openPRs": 7
+   "day": "2026-11-22",
+   "repo": "oda-ca-docs",
+   "openIssues": 6,
+   "openPRs": 3
   },
   {
-   "day": "2026-05-24",
-   "repo": "oda-canvas",
-   "openIssues": 63,
-   "openPRs": 7
+   "day": "2026-11-23",
+   "repo": "oda-ca-docs",
+   "openIssues": 6,
+   "openPRs": 3
   },
   {
    "day": "2026-05-25",
@@ -8785,50 +8743,50 @@
   {
    "day": "2026-11-16",
    "repo": "oda-canvas",
+   "openIssues": 40,
+   "openPRs": 6
+  },
+  {
+   "day": "2026-11-17",
+   "repo": "oda-canvas",
    "openIssues": 39,
    "openPRs": 6
   },
   {
-   "day": "2026-05-18",
-   "repo": "oda-component-ctk",
-   "openIssues": 12,
-   "openPRs": 3
+   "day": "2026-11-18",
+   "repo": "oda-canvas",
+   "openIssues": 39,
+   "openPRs": 5
   },
   {
-   "day": "2026-05-19",
-   "repo": "oda-component-ctk",
-   "openIssues": 12,
-   "openPRs": 3
+   "day": "2026-11-19",
+   "repo": "oda-canvas",
+   "openIssues": 41,
+   "openPRs": 10
   },
   {
-   "day": "2026-05-20",
-   "repo": "oda-component-ctk",
-   "openIssues": 12,
-   "openPRs": 3
+   "day": "2026-11-20",
+   "repo": "oda-canvas",
+   "openIssues": 41,
+   "openPRs": 13
   },
   {
-   "day": "2026-05-21",
-   "repo": "oda-component-ctk",
-   "openIssues": 12,
-   "openPRs": 3
+   "day": "2026-11-21",
+   "repo": "oda-canvas",
+   "openIssues": 41,
+   "openPRs": 13
   },
   {
-   "day": "2026-05-22",
-   "repo": "oda-component-ctk",
-   "openIssues": 12,
-   "openPRs": 3
+   "day": "2026-11-22",
+   "repo": "oda-canvas",
+   "openIssues": 41,
+   "openPRs": 13
   },
   {
-   "day": "2026-05-23",
-   "repo": "oda-component-ctk",
-   "openIssues": 12,
-   "openPRs": 3
-  },
-  {
-   "day": "2026-05-24",
-   "repo": "oda-component-ctk",
-   "openIssues": 12,
-   "openPRs": 3
+   "day": "2026-11-23",
+   "repo": "oda-canvas",
+   "openIssues": 41,
+   "openPRs": 13
   },
   {
    "day": "2026-05-25",
@@ -9887,46 +9845,46 @@
    "openPRs": 4
   },
   {
-   "day": "2026-05-18",
-   "repo": "reference-example-components",
-   "openIssues": 6,
-   "openPRs": 1
+   "day": "2026-11-17",
+   "repo": "oda-component-ctk",
+   "openIssues": 13,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-19",
-   "repo": "reference-example-components",
-   "openIssues": 6,
-   "openPRs": 1
+   "day": "2026-11-18",
+   "repo": "oda-component-ctk",
+   "openIssues": 13,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-20",
-   "repo": "reference-example-components",
-   "openIssues": 6,
-   "openPRs": 1
+   "day": "2026-11-19",
+   "repo": "oda-component-ctk",
+   "openIssues": 13,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-21",
-   "repo": "reference-example-components",
-   "openIssues": 6,
-   "openPRs": 1
+   "day": "2026-11-20",
+   "repo": "oda-component-ctk",
+   "openIssues": 13,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-22",
-   "repo": "reference-example-components",
-   "openIssues": 6,
-   "openPRs": 1
+   "day": "2026-11-21",
+   "repo": "oda-component-ctk",
+   "openIssues": 13,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-23",
-   "repo": "reference-example-components",
-   "openIssues": 6,
-   "openPRs": 1
+   "day": "2026-11-22",
+   "repo": "oda-component-ctk",
+   "openIssues": 13,
+   "openPRs": 4
   },
   {
-   "day": "2026-05-24",
-   "repo": "reference-example-components",
-   "openIssues": 6,
-   "openPRs": 1
+   "day": "2026-11-23",
+   "repo": "oda-component-ctk",
+   "openIssues": 13,
+   "openPRs": 4
   },
   {
    "day": "2026-05-25",
@@ -10981,7 +10939,49 @@
   {
    "day": "2026-11-16",
    "repo": "reference-example-components",
-   "openIssues": 5,
+   "openIssues": 6,
+   "openPRs": 1
+  },
+  {
+   "day": "2026-11-17",
+   "repo": "reference-example-components",
+   "openIssues": 6,
+   "openPRs": 1
+  },
+  {
+   "day": "2026-11-18",
+   "repo": "reference-example-components",
+   "openIssues": 6,
+   "openPRs": 1
+  },
+  {
+   "day": "2026-11-19",
+   "repo": "reference-example-components",
+   "openIssues": 6,
+   "openPRs": 1
+  },
+  {
+   "day": "2026-11-20",
+   "repo": "reference-example-components",
+   "openIssues": 6,
+   "openPRs": 1
+  },
+  {
+   "day": "2026-11-21",
+   "repo": "reference-example-components",
+   "openIssues": 6,
+   "openPRs": 1
+  },
+  {
+   "day": "2026-11-22",
+   "repo": "reference-example-components",
+   "openIssues": 7,
+   "openPRs": 1
+  },
+  {
+   "day": "2026-11-23",
+   "repo": "reference-example-components",
+   "openIssues": 7,
    "openPRs": 1
   }
  ]
