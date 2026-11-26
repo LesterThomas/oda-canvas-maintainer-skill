@@ -1,7 +1,7 @@
 ---
 name: pr-review
 description: Generic pull request review workflow and checklist, used for every PR in every repo, before the repo-specific checks.
-last_updated: 2026-09-28
+last_updated: 2026-11-26
 ---
 
 # PR review
@@ -30,6 +30,15 @@ last_updated: 2026-09-28
    
    Don't repeat points already made. Say which Copilot comments are worth acting on and which are noise.
 4. **Run the deterministic checks.** Run the repo's script if it has one (`canvas_pr_checks.py` for `oda-canvas`), then read the diff.
+   - **External authors, and first-time contributors above all: review for malicious code before anything runs it.** Do this before recommending that the maintainer approves workflow runs, checks the branch out or tests it locally. Read every changed line, and look for:
+     - code that runs on install, build or test: npm `preinstall`/`postinstall`/`prepare` scripts and changes to other `package.json` scripts, `setup.py`, Makefiles, Dockerfile `RUN` steps, Helm hooks, and test fixtures that execute;
+     - changes to dependencies or lockfiles (`package-lock.json`, `requirements*.txt`, `go.sum`): new packages, typo-squatted names, registries or tarball URLs that aren't the default, versions that don't match the manifest;
+     - outbound network calls, or data sent anywhere new (tokens, cookies, env vars, kube credentials);
+     - obfuscated, minified or encoded code, `eval`/`exec`/`Function()`, dynamic imports from URLs, and binaries or large generated files;
+     - CI changes: workflow files, actions, `pull_request_target`, scripts that CI calls;
+     - auth changes that widen access, and changes outside the stated scope.
+     
+     Report the result in the brief as **Security review: no concerns found** (saying what was checked) or as blocking findings, and treat anything suspicious as **Escalate**. *Why:* a first contribution is the easiest route for a supply-chain attack, and approving CI or running the branch locally executes the contributor's code with the maintainer's or the runner's credentials. (learned 2026-11-26 in conversation, oda-canvas#692)
 5. **Assess alignment, then quality** (see `approval-criteria.md`). Classify every finding as blocking or non-blocking.
 6. **Decide the verdict.** First check the **base branch**. A PR into a branch other than `main` (for example `feature/ai-canvas-experimental-changes`) needs **no approval**: recommend **Comment**, and review on substance. Rules enforced on `main`, such as prerelease suffixes and CI checks, don't apply to the feature branch itself. If the PR fixes something that is also broken on `main`, **close the PR and open a maintainer-owned issue against `main`** that lists the fixes to carry over, credits the author, and says what is left out and why (for example unexplained or incorrect changes). Don't ask the contributor to re-raise it against `main`. Draft both the issue and a short closing comment that points to it and invites the author to pick up any item. *Why:* the maintainer keeps control of what reaches `main`, the useful fixes don't wait on the contributor, and the contributor is still credited. (learned 2026-09-29 from oda-canvas#601) *Why:* feature branches belong to their owners, and approval gates `main`, but fixes shouldn't be stranded on a side branch. (learned 2026-09-29 from eval review, oda-canvas#601)
 
@@ -71,6 +80,8 @@ last_updated: 2026-09-28
 Every finding cites evidence: `path:line`, a CI job name, or a quoted line. If the diff was truncated, or files weren't read, say so under "Not verified". Never imply tests were run when they weren't.
 
 ## Change log
+
+- 2026-11-26 — added — security review for malicious code in PRs from external and first-time contributors, before CI approval or local testing — Lester, in conversation, #692
 
 - 2026-09-29 — changed — non-`main` PRs whose fixes belong on `main`: close, and open a maintainer-owned issue listing the fixes to carry over (replaces "ask the author to port to main") — Lester, #601
 - 2026-09-29 — added — PRs into non-`main` branches: Comment only, and suggest applying the fixes to `main` too — Lester's review of the #601 eval runs
