@@ -1,7 +1,7 @@
 ---
 name: queue-priorities
 description: How to rank the "what needs my attention" queue and backlog sweeps, and the thresholds used.
-last_updated: 2026-11-17
+last_updated: 2026-11-26
 ---
 
 # Queue priorities
@@ -20,6 +20,7 @@ The data supports these defaults: the median time to first response on PRs is 23
 ## Ranking (highest first)
 
 0. **Broken on the default branch:** workflows whose latest run on `main`/`master` failed. These go above the table, because they block releases for everyone. For example, reference-example-components' Release Charts failed from 26 Sep 2026, so TMFC007 was never published.
+   Before listing a failure as broken, check which step failed and what the trigger commit changed. If a release run failed only at "error if tag already exists" and the commit touched nothing the image is built from (docs or tests only), list it as "red but not broken (no version bump)", below real failures. *Why:* the published image is fine. The fix is to the workflow's trigger paths, not a release. (learned 2026-11-26 in conversation, oda-canvas Carbon-Management-Operator release run)
 1. **Possible vulnerability reports** from the last 90 days. Older mentions are noted in the row, not escalated, because a years-old public report needs a sweep decision, not an urgent private-channel reply.
 2. **Asks you directly:** your review is requested and you haven't reviewed, or you were @-mentioned after your last comment. *Why:* someone is explicitly waiting on you, and these are easy to miss in a large backlog (#545 waited 363 days).
    Before listing an "asks you directly" item, check that it's still open for you. The script can't see action you took *elsewhere*, for example approving the linked PR (#612 → #613) or answering in a related thread. Demote items you've effectively handled, and say why.
@@ -45,6 +46,7 @@ Show one table, in this order: item link, age, type, author (external or maintai
 
 ## Change log
 
+- 2026-11-26 — added — rank 0: a release run that failed only on an existing tag after a docs- or tests-only commit is "red but not broken", ranked below real failures — Lester, Carbon-Management-Operator release run
 - 2026-11-17 — changed — rank 6: maintainer PRs need another maintainer's approval in `oda-canvas`; own PRs → request a review, and a PR fixing a broken default branch goes with that section (replaces "maintainers routinely self-merge") — Lester, #667
 
 - 2026-09-29 — added — verify "asks you directly" items against action taken on linked PRs or threads; broken-workflow list limited to failures within the stale threshold — iteration 2 eval run
